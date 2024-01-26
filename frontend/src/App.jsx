@@ -9,7 +9,7 @@ function App() {
     <Fragment>
         <Navbar />
 
-        <Footer/>
+
     </Fragment>
   )
 }
