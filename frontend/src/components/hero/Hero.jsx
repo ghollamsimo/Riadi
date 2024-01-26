@@ -1,6 +1,17 @@
-import React , {Fragment} from "react";
-
+import React , {Fragment , useState} from "react";
+import Datepicker from "react-tailwindcss-datepicker";
+import './Hero.css'
 const Hero = () =>{
+    const [value, setValue] = useState({
+        startDate: new Date(),
+        endDate: new Date().setMonth(11)
+    });
+
+    const handleValueChange = newValue => {
+        console.log("newValue:", newValue);
+        setValue(newValue);
+    };
+
     return (
 
         <Fragment>
@@ -58,73 +69,39 @@ const Hero = () =>{
                         </div>
                     </div>
                 </div>
-                <div className="relative px-4 sm:px-0">
-                    <div className="absolute inset-0  h-1/2"/>
+                <div className=" px-4 sm:px-0">
+                    <div className=" inset-0  h-1/2"/>
                     <div
-                        className="relative grid mx-auto overflow-hidden divide-y rounded shadow sm:divide-y-0 sm:divide-x sm:max-w-screen-sm sm:grid-cols-3 lg:max-w-screen-md">
-                        <div className="inline-block p-8 text-center">
-                            <div
-                                className="flex items-center justify-center w-12 h-12 mx-auto mb-4 rounded-full ">
-                                <svg
-                                    className="w-10 h-10 text-deep-purple-accent-400"
-                                    stroke="currentColor"
-                                    viewBox="0 0 52 52"
-                                >
-                                    <polygon
-                                        strokeWidth="3"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        fill="none"
-                                        points="29 13 14 29 25 29 23 39 38 23 27 23"
-                                    />
-                                </svg>
+                        className="mx-auto overflow-hidden divide-y  shadow sm:divide-y-0 sm:divide-x sm:max-w-screen-sm sm:grid-cols-3 lg:max-w-screen-md">
+
+                        <section className="search-sec search w-full  bg-[#1F2937] py-4">
+                            <div className="container mx-auto">
+                                <form action="#" method="post" noValidate="novalidate">
+                                    <div className="grid grid-cols-1 lg:grid-cols-12">
+                                        <div className="lg:col-span-3 md:col-span-6 col-span-12 p-2">
+                                            <input type="text"
+                                                   className="w-full text-white bg-transparent p-2 border-r-2 border-white  focus:outline-none"
+                                                   placeholder="Enter Pickup City"/>
+                                        </div>
+                                        <div className="lg:col-span-3 md:col-span-6 col-span-12 p-2">
+                                            <input type="text"
+                                                   className="w-full bg-transparent p-2 border-r-2 border-white  focus:outline-none"
+                                                   placeholder="Enter Drop City"/>
+                                        </div>
+                                        <div className="lg:col-span-3 md:col-span-6 col-span-12 p-2">
+                                            <Datepicker value={value} onChange={handleValueChange} />
+
+                                        </div>
+                                        <div className="lg:col-span-3 md:col-span-6 col-span-12 p-2">
+                                            <button type="button"
+                                                    className="w-full bg-[#4f46e5] text-white px-4 py-2 rounded">Search
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                            <p className="font-bold tracking-wide text-gray-800">
-                                Make it better
-                            </p>
-                        </div>
-                        <div className="inline-block p-8 text-center">
-                            <div
-                                className="flex items-center justify-center w-12 h-12 mx-auto mb-4 rounded-full ">
-                                <svg
-                                    className="w-10 h-10 text-deep-purple-accent-400"
-                                    stroke="currentColor"
-                                    viewBox="0 0 52 52"
-                                >
-                                    <polygon
-                                        strokeWidth="3"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        fill="none"
-                                        points="29 13 14 29 25 29 23 39 38 23 27 23"
-                                    />
-                                </svg>
-                            </div>
-                            <p className="font-bold tracking-wide text-gray-800">
-                                Do it faster
-                            </p>
-                        </div>
-                        <div className="inline-block p-8 text-center">
-                            <div
-                                className="flex items-center justify-center w-12 h-12 mx-auto mb-4 rounded-full ">
-                                <svg
-                                    className="w-10 h-10 text-deep-purple-accent-400"
-                                    stroke="currentColor"
-                                    viewBox="0 0 52 52"
-                                >
-                                    <polygon
-                                        strokeWidth="3"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        fill="none"
-                                        points="29 13 14 29 25 29 23 39 38 23 27 23"
-                                    />
-                                </svg>
-                            </div>
-                            <p className="font-bold tracking-wide text-gray-800">
-                                Working harder
-                            </p>
-                        </div>
+                        </section>
+
                     </div>
                 </div>
             </div>

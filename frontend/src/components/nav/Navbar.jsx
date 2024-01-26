@@ -5,6 +5,7 @@ import Login from "../../pages/auth/Login.jsx";
 import { Link, useNavigate , Routes , Route } from "react-router-dom";
 import "./navbar.scss";
 import RiadCard from "../../pages/home/RiadCard.jsx";
+import { TbPoint } from "react-icons/tb";
 
 function Navbar() {
     const navigate = useNavigate();
@@ -36,10 +37,10 @@ function Navbar() {
     };
 
     return (
-        <header className="header backdrop-blur-2xl">
+        <header className="header static backdrop-blur-2xl">
             <div className="header__content">
-                <Link to="/" className="header__content__logo font-serif">
-                    Riadi.
+                <Link to="/" className="header__content__logo flex font-extrabold font-serif">
+                    Riadi <span><TbPoint /></span>
                 </Link>
                 <nav
                     className={`${"header__content__nav"} 
