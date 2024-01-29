@@ -23,3 +23,9 @@
     height: calc(3rem + 2px) !important;
     border-radius:0;
 }
+
+@media only screen and (max-width: 768px){
+    .search-sec{
+        display: none;
+    }
+}

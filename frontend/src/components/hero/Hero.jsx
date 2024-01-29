@@ -1,6 +1,7 @@
 import React , {Fragment , useState} from "react";
 import Datepicker from "react-tailwindcss-datepicker";
 import './Hero.css'
+
 const Hero = () =>{
     const [value, setValue] = useState({
         startDate: new Date(),
@@ -30,7 +31,7 @@ const Hero = () =>{
                 <svg
                     viewBox="0 0 52 24"
                     fill="currentColor"
-                    className="absolute top-0 left-0 z-0 hidden w-32 -mt-8 -ml-20 text-gray-400 lg:w-32 lg:-ml-28 lg:-mt-10 sm:block"
+                    className="absolute top-0 left-0 z-0 hidden w-32 -mt-8 -ml-20 text-white lg:w-32 lg:-ml-28 lg:-mt-10 sm:block"
                 >
                   <defs>
                     <pattern
@@ -60,7 +61,7 @@ const Hero = () =>{
                         </div>
                         <div className="flex items-center sm:justify-center">
                             <button
-                                type="submit"
+                                type="button"
                                 className="inline-flex items-center justify-center h-12 px-6 mr-6 font-medium tracking-wide transition duration-200 text-white rounded-3xl shadow-md bg-[#4f46e5] hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
                             >
                                 Start Your Search
@@ -71,22 +72,20 @@ const Hero = () =>{
                 </div>
                 <div className=" px-4 sm:px-0">
                     <div className=" inset-0  h-1/2"/>
-                    <div
-                        className="mx-auto overflow-hidden divide-y  shadow sm:divide-y-0 sm:divide-x sm:max-w-screen-sm sm:grid-cols-3 lg:max-w-screen-md">
 
-                        <section className="search-sec search w-full  bg-[#1F2937] py-4">
+                        <section className="search-sec search  bg-[#1F2937] py-4">
                             <div className="container mx-auto">
                                 <form action="#" method="post" noValidate="novalidate">
                                     <div className="grid grid-cols-1 lg:grid-cols-12">
                                         <div className="lg:col-span-3 md:col-span-6 col-span-12 p-2">
                                             <input type="text"
                                                    className="w-full text-white bg-transparent p-2 border-r-2 border-white  focus:outline-none"
-                                                   placeholder="Enter Pickup City"/>
+                                                   placeholder="Location"/>
                                         </div>
                                         <div className="lg:col-span-3 md:col-span-6 col-span-12 p-2">
                                             <input type="text"
-                                                   className="w-full bg-transparent p-2 border-r-2 border-white  focus:outline-none"
-                                                   placeholder="Enter Drop City"/>
+                                                   className="w-full bg-transparent p-2 border-r-2 border-white text-white focus:outline-none"
+                                                   placeholder="Enter Name Of Riad"/>
                                         </div>
                                         <div className="lg:col-span-3 md:col-span-6 col-span-12 p-2">
                                             <Datepicker value={value} onChange={handleValueChange} />
@@ -102,7 +101,7 @@ const Hero = () =>{
                             </div>
                         </section>
 
-                    </div>
+
                 </div>
             </div>
         </Fragment>

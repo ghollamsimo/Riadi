@@ -1,7 +1,9 @@
-import React , {Fragment} from 'react'
+import React, {Fragment, useState} from 'react'
 import {Link , Route, Routes} from "react-router-dom";
 
 const Login = () => {
+  const [email , setEmail] = useState("");
+  const [password , setPassword] = useState("");
   return (
       <Fragment>
         <div className="relative flex flex-col justify-center min-h-screen overflow-hidden" id='login_container' data-aos="fade-right">
@@ -9,7 +11,7 @@ const Login = () => {
             <h1 className="text-3xl font-semibold text-center uppercase font-Raleway">
               Sign in
             </h1>
-            <form className="mt-6">
+            <form className="mt-6" method='post'>
               <div className="mb-2">
                 <label
                     for="email"
@@ -19,6 +21,8 @@ const Login = () => {
                 </label>
                 <input
                     type="email"
+                    value={email}
+                    onChange={(e) =>setEmail(e.target.value)}
                     className="block w-full px-4 py-2 mt-2 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 />
               </div>
@@ -31,6 +35,8 @@ const Login = () => {
                 </label>
                 <input
                     type="password"
+                    value={password}
+                    onChange={(e) =>setPassword(e.target.value)}
                     className="block w-full px-4 py-2 mt-2 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 />
               </div>
