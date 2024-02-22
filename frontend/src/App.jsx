@@ -1,15 +1,16 @@
-import React ,{ Fragment} from 'react'
+import { Fragment} from 'react'
 import Navbar from './components/nav/Navbar'
-import Footer from "./components/footer/Footer.jsx";
 import './App.css'
+import MobileNavbar from "./components/MobileNavbar.jsx";
+
+
 
 function App() {
 
   return (
-    <Fragment>
+    <Fragment >
         <Navbar />
-
-
+        <MobileNavbar/>
     </Fragment>
   )
 }

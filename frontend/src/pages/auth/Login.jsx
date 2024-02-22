@@ -1,10 +1,13 @@
-import React, {Fragment, useState} from 'react'
-import {Link , Route, Routes} from "react-router-dom";
+import {Fragment, useState} from 'react'
+import {Routes} from "react-router-dom";
 import Api from '../../api/Api.jsx'
 
 const Login = () => {
-  const http = Api();
+
   const [email , setEmail] = useState("");
+  const test =  () =>{
+    const http = Api();
+  }
   const [password , setPassword] = useState("");
   return (
       <Fragment>
@@ -54,6 +57,7 @@ const Login = () => {
             </div>
             <div className="flex mt-4 gap-x-2">
               <button
+                  onChange={email => setEmail(e)}
                   type="button"
                   className="flex items-center justify-center w-full p-2 border border-gray-600 rounded-md focus:ring-2 focus:ring-offset-1 focus:ring-blue-700"
               >

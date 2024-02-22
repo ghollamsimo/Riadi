@@ -1,4 +1,4 @@
-import react, {Fragment} from "react";
+import {Fragment} from "react";
 
 const Footer = () =>{
     return(

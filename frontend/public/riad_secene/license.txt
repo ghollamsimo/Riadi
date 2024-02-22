@@ -1,0 +1,11 @@
+Model Information:
+* title:	New Rose Hotel
+* source:	https://sketchfab.com/3d-models/new-rose-hotel-0653d651ed5c408cbeb5f3e028dd28e1
+* author:	tl0615 (https://sketchfab.com/tl0615)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "New Rose Hotel" (https://sketchfab.com/3d-models/new-rose-hotel-0653d651ed5c408cbeb5f3e028dd28e1) by tl0615 (https://sketchfab.com/tl0615) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
