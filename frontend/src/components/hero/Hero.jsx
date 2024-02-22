@@ -26,8 +26,8 @@ const Hero = () =>{
                                 Best, Real Estate</h1>
                             <p className="mt-4 text-lg font-normal text-gray-400 sm:mt-8">Accompanying us, you have a trip full of experiences. With Riadi, booking accommodation, resort villas, hotels..</p>
 
-                            <div className="absolute h-full mt-3  rounded-full pr-16 sm:mt-12">
-                                <section className="search-sec relative z- search w-full bg-[#1F2937] py-4">
+                            <div className="absolute w-full h-full mt-3  rounded-full pr-16 sm:mt-12">
+                                <section className="search-sec relative z-50 search w-full bg-[#1F2937] py-4">
                                     <div className="container mx-auto">
                                         <form action="#" method="post" noValidate="novalidate">
                                             <div className="grid grid-cols-1 lg:grid-cols-12">
@@ -41,7 +41,7 @@ const Hero = () =>{
                                                            className="w-full bg-transparent p-2 border-r-2 border-white text-white focus:outline-none"
                                                            placeholder="Enter Name Of Riad"/>
                                                 </div>
-                                                <div className="lg:col-span-3 z-[100] relative h-full w-full md:col-span-6  col-span-12 p-2 bg-transparent" >
+                                                <div className="lg:col-span-3 z-50 relative h-full w-full md:col-span-6  col-span-12 p-2 bg-transparent" >
                                                     <Datepicker value={value} onChange={handleValueChange}/>
 
                                                 </div>
@@ -58,8 +58,9 @@ const Hero = () =>{
                             </div>
                         </div>
 
-                        <div className="relative px-24">
-                            <img src={HeroImage} alt="..."/>
+                        <div className="relative grid grid-cols-2  px-24">
+                            <img src={HeroImage} alt="..." className='col-span-2 w-full'/>
+
                         </div>
                     </div>
                 </div>

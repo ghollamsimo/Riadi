@@ -4,8 +4,11 @@ import {CiSearch} from "react-icons/ci";
 import {IoFilter} from "react-icons/io5";
 import Aos from 'aos'
 import "aos/dist/aos.css"
+import { CiLocationOn } from "react-icons/ci";
+import { FaChevronRight } from "react-icons/fa6";
 
 
+// eslint-disable-next-line react/prop-types
 function Modalsearch({ setOpenModal }) {
     useEffect(() =>{
         Aos.init({duration:500});
@@ -20,13 +23,12 @@ function Modalsearch({ setOpenModal }) {
                     className="fixed inset-0 w-full h-full bg-black opacity-40"
                     onClick={() => setOpenModal(false)}
                 ></div>
-                <div className="flex h-full items-center min-h-screen ">
-                    <div className="relative h-full w-full max-w-lg p-4 mx-auto bg-[#1F2937] rounded shadow-lg">
+                <div className="flex h-full  items-center min-h-screen ">
+                    <div className="relative h-full w-full max-w-lg p-4 mx-auto bg-[#1F2937]  shadow-lg">
                         <div className=" h-full sm:flex">
                             <button
-                                className=" mb-10 flex-1 text-white w-fit rounded-md outline-none text-4xl "
-                                onClick={() => setOpenModal(false)}
-                            >
+                                className=" mb-10 transition-all flex-1 text-white w-fit rounded-md outline-none text-4xl "
+                                onClick={() => setOpenModal(false)}>
                                 <IoIosClose/>
                             </button>
                             <div
@@ -34,7 +36,7 @@ function Modalsearch({ setOpenModal }) {
 
                                 <div className="lg:hidden flex w-full">
                                     <label
-                                        className="w-full bg-transparent min-w-sm max-w-4xl flex flex-col-2 md:flex-row items-center justify-center border border-gray-500 py-2 px-2 rounded-2xl  shadow-2xl focus-within:border-gray-300"
+                                        className="w-full mb-14 bg-transparent min-w-sm max-w-4xl flex flex-col-2 md:flex-row items-center justify-center border border-gray-500 py-2 px-2 rounded-2xl  shadow-2xl focus-within:border-gray-300"
                                         htmlFor="search-bar">
 
                                         <button
@@ -57,17 +59,20 @@ function Modalsearch({ setOpenModal }) {
                                                     </svg>
                                                 </div>
 
-                                                <div className="flex items-center transition-all opacity-1 valid:"><span
-                                                    className="text-sm font-semibold whitespace-nowrap truncate mx-auto">
-                                        <CiSearch/>
-                </span>
+                                                <div className="flex items-center transition-all opacity-1 valid:">
+                                                    <span
+                                                        className="text-sm font-semibold whitespace-nowrap truncate mx-auto">
+                                                  <CiSearch/>
+                                                     </span>
                                                 </div>
 
                                             </div>
 
                                         </button>
 
-                                        <input type='text' className="px-2 py-2 w-full rounded-md flex-1 outline-none bg-transparent text-gray-300" placeholder='your keyword here'/>
+                                        <input type='text'
+                                               className="px-2 py-2 w-full rounded-md flex-1 outline-none bg-transparent text-gray-300"
+                                               placeholder='your keyword here'/>
 
                                         <button
                                             className="w-fit  md:w-auto px-3 py-3 bg-transparent border-gray-500 text-white fill-white active:scale-95 duration-100 border will-change-transform overflow-hidden relative rounded-full transition-all disabled:opacity-70">
@@ -98,6 +103,36 @@ function Modalsearch({ setOpenModal }) {
 
                                         </button>
                                     </label>
+                                </div>
+
+                            </div>
+                            <div className=" gap-4 lg:p-4 p-2  rounde-lg m-2">
+                                <div className='text-white mb-5 text-xl'>All Results</div>
+                                <div
+                                    className="flex items-center justify-between w-full p-2 lg:rounded-full md:rounded-full cursor-pointer border-gray-500 border rounded-full">
+
+                                    <div className="flex items-center">
+                                        <div className="h-12 w-12 lg:mb-0 border md:mb-0 rounded-full mx-auto mr-3">
+                                            <CiLocationOn className='mx-auto mt-2.5 text-white text-2xl' />
+                                        </div>
+
+                                        <div className="flex flex-col">
+
+                                            <div className="text-sm leading-3 text-gray-200 font-bold w-full">
+                                                Marrakeche
+                                            </div>
+
+                                            <div className="text-xs text-gray-400 w-full">
+                                                Morroco
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <FaChevronRight className='text-gray-300 mr-4'/>
+
+
                                 </div>
 
                             </div>
