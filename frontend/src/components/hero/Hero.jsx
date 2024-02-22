@@ -18,8 +18,8 @@ const Hero = () =>{
     return (
 
         <Fragment>
-            <section className=" relative py-12 overflow-hidden  sm:pb-16 lg:pb-20 xl:pb-24">
-                <div className="  mx-auto relative  max-w-7xl">
+            <section className=" relative py-12 bg-transparent overflow-hidden sm:pb-16 lg:pb-20 xl:pb-24">
+                <div className=" mx-auto relative max-w-7xl">
                     <div className=" grid items-center grid-cols-1 gap-y-12 lg:grid-cols-2 gap-x-16">
                         <div className="">
                             <h1 className="text-4xl text-white font-bold font-serif sm:text-5xl lg:text-6xl xl:text-7xl">Riadi
@@ -41,7 +41,7 @@ const Hero = () =>{
                                                            className="w-full bg-transparent p-2 border-r-2 border-white text-white focus:outline-none"
                                                            placeholder="Enter Name Of Riad"/>
                                                 </div>
-                                                <div className="lg:col-span-3 z-50 relative h-full w-full md:col-span-6  col-span-12 p-2 bg-transparent" >
+                                                <div className="lg:col-span-3 z-50 relative h-full w-full md:col-span-6 col-span-12 p-2 bg-transparent" >
                                                     <Datepicker value={value} onChange={handleValueChange}/>
 
                                                 </div>

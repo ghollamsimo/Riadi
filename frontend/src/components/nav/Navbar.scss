@@ -12,7 +12,7 @@
 
 .header {
     background: transparent;
-    position: fixed;
+    position: sticky;
     top: 0;
     backdrop-filter: blur(8px);
     border-bottom:1px solid rgba(255, 255, 255, 0.22);
@@ -52,7 +52,7 @@
             position: fixed;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
             text-align: center;
             background: rgba(rgb(32, 32, 32), 0.9);
@@ -109,11 +109,10 @@
             .btn {
                 cursor: pointer;
                 outline: none;
-                padding: 0.75rem 1.25rem;
+                padding: 0.3rem 1.25rem;
                 border-radius: 12px;
                 font-size: 1rem;
                 font-family: inherit;
-                background: rgb(162, 162, 246);
                 color: rgb(32, 32, 32);
                 border: 1px solid transparent;
                 transition: 0.3s ease all;
@@ -127,12 +126,12 @@
                 }
                 &:active {
                     border-color: rgb(162, 162, 246);
-                    background: linear-gradient(rgba(rgb(162, 162, 246), 0.2), rgba(rgb(162, 162, 246), 0.3));
+                    background: transparent;
                     color: rgb(162, 162, 246);
                 }
                 &__login{
 
-                    background-color: rgb(32, 32, 32);
+                    background: #4F46E5;
                     color:#fff;
 
                 }

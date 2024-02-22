@@ -14,7 +14,7 @@ const Footer = () =>{
                 <div className="px-4 pt-12 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
                     <div className="grid gap-16 row-gap-10 mb-8 lg:grid-cols-6">
                         <div className="md:max-w-md lg:col-span-2">
-                            <a href="/" aria-label="Go home" title="Company" className="inline-flex items-center">
+                            <a href="/frontend/public" aria-label="Go home" title="Company" className="inline-flex items-center">
                                 <svg className="w-8 text-teal-accent-400" viewBox="0 0 24 24" stroke-linejoin="round"
                                      stroke-width="2" stroke-linecap="round" stroke-miterlimit="10"
                                      stroke="currentColor"
@@ -51,7 +51,7 @@ const Footer = () =>{
                                            className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400">Home</a>
                                     </li>
                                     <li>
-                                        <a href="./"
+                                        <a href="footer"
                                            className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400">About
                                         </a>
                                     </li>
@@ -69,23 +69,23 @@ const Footer = () =>{
                                 <p className="font-semibold tracking-wide text-teal-accent-400">Cherry</p>
                                 <ul className="mt-2 space-y-2">
                                     <li>
-                                        <a href="/"
+                                        <a href="/frontend/public"
                                            className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400">Web</a>
                                     </li>
                                     <li>
-                                        <a href="/"
+                                        <a href="/frontend/public"
                                            className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400">eCommerce</a>
                                     </li>
                                     <li>
-                                        <a href="/"
+                                        <a href="/frontend/public"
                                            className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400">Business</a>
                                     </li>
                                     <li>
-                                        <a href="/"
+                                        <a href="/frontend/public"
                                            className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400">Entertainment</a>
                                     </li>
                                     <li>
-                                        <a href="/"
+                                        <a href="/frontend/public"
                                            className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400">Portfolio</a>
                                     </li>
                                 </ul>
@@ -94,23 +94,23 @@ const Footer = () =>{
                                 <p className="font-semibold tracking-wide text-teal-accent-400">Apples</p>
                                 <ul className="mt-2 space-y-2">
                                     <li>
-                                        <a href="/"
+                                        <a href="/frontend/public"
                                            className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400">Media</a>
                                     </li>
                                     <li>
-                                        <a href="/"
+                                        <a href="/frontend/public"
                                            className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400">Brochure</a>
                                     </li>
                                     <li>
-                                        <a href="/"
+                                        <a href="/frontend/public"
                                            className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400">Nonprofit</a>
                                     </li>
                                     <li>
-                                        <a href="/"
+                                        <a href="/frontend/public"
                                            className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400">Educational</a>
                                     </li>
                                     <li>
-                                        <a href="/"
+                                        <a href="/frontend/public"
                                            className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400">Projects</a>
                                     </li>
                                 </ul>
@@ -121,19 +121,19 @@ const Footer = () =>{
                                 </p>
                                 <ul className="mt-2 space-y-2">
                                     <li>
-                                        <a href="/"
+                                        <a href="/frontend/public"
                                            className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400">Infopreneur</a>
                                     </li>
                                     <li>
-                                        <a href="/"
+                                        <a href="/frontend/public"
                                            className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400">Personal</a>
                                     </li>
                                     <li>
-                                        <a href="/"
+                                        <a href="/frontend/public"
                                            className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400">Wiki</a>
                                     </li>
                                     <li>
-                                        <a href="/"
+                                        <a href="/frontend/public"
                                            className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400">Forum</a>
                                     </li>
                                 </ul>
@@ -146,7 +146,7 @@ const Footer = () =>{
                             © Copyright 2020 Lorem Inc. All rights reserved.
                         </p>
                         <div className="flex items-center mt-4 space-x-4 sm:mt-0">
-                            <a href="/"
+                            <a href="/frontend/public"
                                className="transition-colors duration-300 text-deep-purple-100 hover:text-teal-accent-400">
                                 <svg viewBox="0 0 24 24" fill="currentColor" className="h-5">
                                     <path
@@ -154,7 +154,7 @@ const Footer = () =>{
                                     </path>
                                 </svg>
                             </a>
-                            <a href="/"
+                            <a href="/frontend/public"
                                className="transition-colors duration-300 text-deep-purple-100 hover:text-teal-accent-400">
                                 <svg viewBox="0 0 30 30" fill="currentColor" className="h-6">
                                     <circle cx="15" cy="15" r="4"></circle>
@@ -163,7 +163,7 @@ const Footer = () =>{
                                     </path>
                                 </svg>
                             </a>
-                            <a href="/"
+                            <a href="/frontend/public"
                                className="transition-colors duration-300 text-deep-purple-100 hover:text-teal-accent-400">
                                 <svg viewBox="0 0 24 24" fill="currentColor" className="h-5">
                                     <path

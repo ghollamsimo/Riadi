@@ -8,7 +8,6 @@ import { CiLocationOn } from "react-icons/ci";
 import { FaChevronRight } from "react-icons/fa6";
 
 
-// eslint-disable-next-line react/prop-types
 function Modalsearch({ setOpenModal }) {
     useEffect(() =>{
         Aos.init({duration:500});
