@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { CiSearch } from "react-icons/ci";
 import { CiHeart } from "react-icons/ci";
 import { PiUserCircleThin } from "react-icons/pi";
+import {Link } from 'react-router-dom'
 
 
 const Div  = styled.div`
@@ -32,16 +33,22 @@ const MobileNavbar = () =>{
             <Div className='text-white mx-auto'>
                 <ul className='flex gap-20 lg:gap-48 mx-5 items-center text-center justify-between'>
                     <li className='font-medium text-sm'>
+                        <Link to='/'>
                         <CiSearch className='mx-auto font-extrabold text-2xl'/>
                         Explore
+                    </Link>
                     </li>
                     <li className=' font-medium text-sm'>
+                        <Link to='/login'>
                         <CiHeart className='mx-auto font-extrabold text-2xl'/>
                         Wishlists
+                        </Link>
                     </li>
                     <li className='font-medium text-sm'>
+                        <Link to='/login'>
                         <PiUserCircleThin   className='mx-auto font-extrabold text-2xl'/>
                         Login
+                            </Link>
                     </li>
                 </ul>
             </Div>

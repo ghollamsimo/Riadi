@@ -4,6 +4,7 @@ import HeadingPlace from "./HeadingPlace.jsx";
 import Riadimage from '../../assets/img/image-header.jpg'
 import { CiLocationOn } from "react-icons/ci";
 import Filterdistination from "../../components/Filterdistination.jsx";
+import HowitworksSection from "../../components/HowitworksSection.jsx";
 
 
 const RiadCard = () =>{
@@ -13,13 +14,13 @@ const RiadCard = () =>{
             <Hero/>
             <HeadingPlace/>
             <section className="py-3 bg-[#0E131F] rounded-t-3xl text-white sm:py-16 lg:py-2">
-                <div className='px-12 sm:pt-14 sm:pb-0 '>
-                    <h1 className={`${`text-3xl  sm:px-24 text-white md:text-4xl font-semibold`}`}>Featured places
+                <div className='px-4 sm:pt-14 pt-5 '>
+                    <h1 className={`${`text-3xl sm:px-24 text-white md:text-4xl font-semibold`}`}>Featured places
                         to stay
                     </h1>
-                    <p className={`${`text-gray-300  sm:px-24 pt-3 pb-7 text-xl`}`}>Popular places to stay that Chisfis recommends for you
+                    <p className={`${`text-gray-300 lg:text-xl text-lg sm:px-24 sm:text-2xl pt-3 pb-7`}`}>Popular places to stay that Chisfis recommends for you
                     </p>
-                    <div className={`${`px-20 sm:pb-2`}`}>
+                    <div className={`${`px-0 sm:px-24 sm:pb-2`}`}>
                         <Filterdistination/>
 
                     </div>
@@ -57,7 +58,7 @@ const RiadCard = () =>{
                     </div>
                 </div>
             </section>
-
+            <HowitworksSection/>
 
         </Fragment>
 
