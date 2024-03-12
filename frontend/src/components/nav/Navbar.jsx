@@ -1,6 +1,4 @@
 import { useEffect, useState , Fragment } from "react";
-import { BiMenuAltRight } from "react-icons/bi";
-import { AiOutlineClose } from "react-icons/ai";
 import Login from "../../pages/auth/Login.jsx";
 import { Link, useNavigate , Routes , Route } from "react-router-dom";
 import "./navbar.scss";
@@ -8,13 +6,15 @@ import RiadCard from "../../pages/home/RiadCard.jsx";
 import { TbPoint } from "react-icons/tb";
 import { IoFilter } from "react-icons/io5";
 import { CiSearch } from "react-icons/ci";
-import { Button, Modal } from 'flowbite-react';
 import Modalsearch from "../Modalsearch.jsx";
 
 
 function Navbar() {
     const [showModal, setShowModal] = useState(false);
+    const [isSearchBarOpen, setIsSearchBarOpen] = useState(false);
 
+    const toggleSearchBar = () => {
+        setIsSearchBarOpen(!isSearchBarOpen);}
     return (
         <Fragment>
         <header className="header static ">
@@ -23,10 +23,10 @@ function Navbar() {
                     Riadi <span><TbPoint /></span>
                 </Link>
                 <nav
-                    className={`${" header__content__nav flex justify-between"} 
+                    className={`${"z-10 header__content__nav flex justify-between"} 
          `}
                 >
-                    <ul>
+                    <ul className={`${`z-50`}`}>
                         <li>
                             <Link to="/" className={`${`bg-gray-800`}`}>Home</Link>
                         </li>
@@ -43,29 +43,28 @@ function Navbar() {
                         <Link to="/login">
                             <button className="btn btn__login">Login</button>
                         </Link>
-                    </ul>
-                    <div className="relative group z-10">
-                        <button className="text-zinc-400  pl-2 group py-2 hover:text-indigo-700 max-sm:hidden">
-                            <svg width="26" height="26" viewBox="0 0 26 26" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M10.2917 3.25C12.1592 3.25 13.9503 3.99189 15.2709 5.31246C16.5914 6.63303 17.3333 8.4241 17.3333 10.2917C17.3333 12.0358 16.6942 13.6392 15.6433 14.8742L15.9358 15.1667H16.7917L22.2083 20.5833L20.5833 22.2083L15.1667 16.7917V15.9358L14.8742 15.6433C13.6392 16.6942 12.0358 17.3333 10.2917 17.3333C8.4241 17.3333 6.63303 16.5914 5.31246 15.2709C3.99189 13.9503 3.25 12.1592 3.25 10.2917C3.25 8.4241 3.99189 6.63303 5.31246 5.31246C6.63303 3.99189 8.4241 3.25 10.2917 3.25ZM10.2917 5.41667C7.58333 5.41667 5.41667 7.58333 5.41667 10.2917C5.41667 13 7.58333 15.1667 10.2917 15.1667C13 15.1667 15.1667 13 15.1667 10.2917C15.1667 7.58333 13 5.41667 10.2917 5.41667Z"
-                                    fill="currentColor"></path>
-                            </svg>
-                        </button>
-                        <div
-                            className="bg-slate-900 p-4 flex mt-6 opacity-0 transition-all pointer-events-none group-hover:pointer-events-auto group-hover:opacity-100 group-hover:mt-1 items-center gap-2 rounded absolute top-9 -right-2">
-                            <input className="bg-transparent border-none outline-none text-white" type="text"
-                                   name="search"
-                                   placeholder="Search here..." autoComplete="off"/>
-                            <svg width="26" height="26" viewBox="0 0 26 26" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M10.2917 3.25C12.1592 3.25 13.9503 3.99189 15.2709 5.31246C16.5914 6.63303 17.3333 8.4241 17.3333 10.2917C17.3333 12.0358 16.6942 13.6392 15.6433 14.8742L15.9358 15.1667H16.7917L22.2083 20.5833L20.5833 22.2083L15.1667 16.7917V15.9358L14.8742 15.6433C13.6392 16.6942 12.0358 17.3333 10.2917 17.3333C8.4241 17.3333 6.63303 16.5914 5.31246 15.2709C3.99189 13.9503 3.25 12.1592 3.25 10.2917C3.25 8.4241 3.99189 6.63303 5.31246 5.31246C6.63303 3.99189 8.4241 3.25 10.2917 3.25ZM10.2917 5.41667C7.58333 5.41667 5.41667 7.58333 5.41667 10.2917C5.41667 13 7.58333 15.1667 10.2917 15.1667C13 15.1667 15.1667 13 15.1667 10.2917C15.1667 7.58333 13 5.41667 10.2917 5.41667Z"
-                                    fill="#fff"></path>
-                            </svg>
+
+                        <div className="relative z-20">
+                            <button onClick={toggleSearchBar}
+                                    className="text-2xl md:text-[28px] w-12 h-12 rounded-full text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-gray-700 transition-all focus:outline-none flex items-center justify-center"
+                                    type="button" aria-expanded={isSearchBarOpen} id="searchButton">
+                                <CiSearch/>
+                            </button>
+                            {isSearchBarOpen && (
+                                <div
+                                    className="right-0 z-50 absolute w-screen max-w-sm mt-3 opacity-100 translate-y-0"
+                                    tabIndex="-1">
+                                    <form action="" method="POST" className={`${`z-10`}`}>
+                                        <input type="search"
+                                               className="block w-full border-neutral-200 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 bg-white dark:border-neutral-700 dark:focus:ring-primary-6000 dark:focus:ring-opacity-25 dark:bg-neutral-900 rounded-2xl text-sm font-normal h-11 px-4 py-3 "
+                                               placeholder="Type and press enter"/>
+                                        <input type="submit" hidden="" value=""/>
+                                    </form>
+                                </div>
+                            )}
                         </div>
-                    </div>
+
+                    </ul>
 
                 </nav>
                 <div className="lg:hidden sm:sticky flex w-full">
@@ -106,7 +105,7 @@ function Navbar() {
                         </button>
 
                         <div
-                            className="px-2 py-2 w-full rounded-md flex-1 outline-none bg-transparent text-gray-300">your
+                            className="px-2 z-10 py-2 w-full rounded-md flex-1 outline-none bg-transparent text-gray-300">your
                             keyword here
                         </div>
 

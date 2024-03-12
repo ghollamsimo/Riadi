@@ -8,6 +8,7 @@ import HowitworksSection from "../../components/HowitworksSection.jsx";
 
 
 const RiadCard = () =>{
+
     return (
 
         <Fragment>

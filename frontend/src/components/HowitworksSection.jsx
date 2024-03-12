@@ -65,6 +65,7 @@ const HowitworksSection = () =>{
                     </div>
                 </div>
             </section>
+
         </>
     )
 }

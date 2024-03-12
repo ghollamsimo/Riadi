@@ -17,12 +17,12 @@ function Modalsearch({ setOpenModal }) {
 
     return (
         <>
-            <div className="fixed  h-full inset-0 z-10 overflow-y-auto"  data-aos="fade-up">
+            <div className="fixed  h-full inset-0 z-50 lg:hidden overflow-y-auto"  data-aos="fade-up">
                 <div
-                    className="fixed inset-0 w-full h-full bg-black opacity-40"
+                    className="fixed inset-0 lg:hidden w-full h-full bg-black opacity-40"
                     onClick={() => setOpenModal(false)}
                 ></div>
-                <div className="flex h-full  items-center min-h-screen ">
+                <div className="flex h-full lg:hidden items-center min-h-screen ">
                     <div className="relative h-full w-full max-w-lg p-4 mx-auto bg-[#1F2937]  shadow-lg">
                         <div className=" h-full sm:flex">
                             <button
