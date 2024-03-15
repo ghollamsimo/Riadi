@@ -1,15 +1,12 @@
 import {Fragment, useState} from 'react'
-import {Link, Routes} from "react-router-dom";
+import {Link, Routes , Route} from "react-router-dom";
 import Api from '../../api/Api.jsx'
 import Google from '../../assets/img/google.png'
+import Register from "./Register.jsx";
 
 const Login = () => {
 
-  const [email , setEmail] = useState("");
-  const test =  () =>{
-    const http = Api();
-  }
-  const [password , setPassword] = useState("");
+
   return (
       <Fragment>
           <div className="container mb-24 lg:mb-32"><h2
@@ -58,9 +55,12 @@ const Login = () => {
                           type="submit">Continue
                       </button>
                   </form>
-                  <span className="block text-center text-neutral-700 dark:text-neutral-300">New user?  <a
-                      href="/signup">Create an account</a></span></div>
+                  <span className="block text-center text-neutral-700 dark:text-neutral-300">New user?  <Link to='/register' >Create an account</Link></span></div>
           </div>
+
+          <Routes>
+              <Route path='register' element={<Register/>}/>
+          </Routes>
       </Fragment>
   )
 }

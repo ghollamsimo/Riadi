@@ -22,7 +22,7 @@ const Hero = () =>{
                 <div className=" mx-auto relative max-w-7xl">
                     <div className=" grid items-center grid-cols-1 gap-y-12 lg:grid-cols-2 gap-x-16">
                         <div className="">
-                            <h1 className="text-4xl text-white font-bold font-serif sm:text-5xl lg:text-6xl xl:text-7xl">Riadi
+                            <h1 className="text-4xl text-white font-normal font-serif sm:text-5xl lg:text-6xl xl:text-7xl">Riadi
                                 Best, Real Estate</h1>
                             <p className="mt-4 text-lg font-normal text-gray-400 sm:mt-8">Accompanying us, you have a trip full of experiences. With Riadi, booking accommodation, resort villas, hotels..</p>
 
