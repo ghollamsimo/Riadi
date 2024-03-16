@@ -1,5 +1,5 @@
 import {Fragment, useState} from 'react'
-import {Link, Routes , Route} from "react-router-dom";
+import { Link, useNavigate , Routes , Route } from "react-router-dom";
 import Api from '../../api/Api.jsx'
 import Google from '../../assets/img/google.png'
 import Register from "./Register.jsx";
@@ -59,7 +59,7 @@ const Login = () => {
           </div>
 
           <Routes>
-              <Route path='register' element={<Register/>}/>
+              <Route path='register' element={ <Register /> }/>
           </Routes>
       </Fragment>
   )

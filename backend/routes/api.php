@@ -19,5 +19,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/register' , [\App\Http\Controllers\AuthController::class , 'register']);
+Route::post('/logout' , [\App\Http\Controllers\AuthController::class , 'logout']);
+Route::delete('/remove/{id}' , [\App\Http\Controllers\AuthController::class , 'destroy']);
+
 
 Route::get('/riads' , [\App\Http\Controllers\RiadController::class , 'index']);

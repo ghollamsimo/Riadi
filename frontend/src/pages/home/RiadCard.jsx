@@ -14,6 +14,7 @@ const RiadCard = () =>{
 
     useEffect(() =>{
         axios.get(`http://127.0.0.1:8000/api/riads`).then(response => {
+            //console.log(response.data);
             setRiads(response.data)
             setLoading(false)
         })
@@ -26,7 +27,7 @@ const RiadCard = () =>{
         )
     }
     let riadsDetials = "";
-    riadsDetials = riads && riads.map( (item, index) => {
+    riadsDetials = riads.map( (item, index) => {
 
         return (
             <div  className="px-4 mx-auto sm:px-6  max-w-7xl" key={index}>

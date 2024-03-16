@@ -11,38 +11,40 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function register(Request $request){
+    public function register(Request $request) {
 
-        $validatedate = $request->validate([
+        $validatedData = $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'password' =>  'required|string|confirmed',
+            'email' => 'required',
+            'password' =>  'required',
             'role' => 'required',
         ]);
 
-        $image = explode('/', $validatedate['image']->store('public/usersImages'));
         $user = User::create([
-            'name' => $validatedate['name'],
-            'email' => $validatedate['email'],
-            'password' => bcrypt($validatedate['password']),
-            'role' => $validatedate['role']
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'password' => bcrypt($validatedData['password']),
+            'role' => $validatedData['role'],
         ]);
 
-        if ($validatedate['role' == 'Client']){
-            return $client = Client::create(['user_id' => $user->id]);
-        }elseif ($validatedate['role' == 'DrRaid']){
-            return $drriad = DrRiad::create(['user_id' => $user->id]);
-        }elseif ($validatedate['role' == 'Admin']){
-            return $admin = Admin::create(['user_id' => $user->id]);
+        if ($validatedData['role'] == 'Client') {
+                Client::create(['user_id' => $user->id]);
+            return response()->json(['Success' => 'Client Created SuccessFully .']);
+        } elseif ($validatedData['role'] == 'DrRaid') {
+                DrRiad::create(['user_id' => $user->id]);
+            return response()->json(['Success' => 'DrRaid Created SuccessFully .'], 200);
+        } elseif ($validatedData['role'] == 'Admin') {
+            $admin = Admin::create(['user_id' => $user->id]);
+            return response()->json($admin, 200);
         }
 
-        return response()->json($user);
+        return response()->json(['message' => 'User Created SuccessFully .'] , 200);
+    }
+    public function logout() {
+        auth()->logout();
+        return response()->json(['message' => 'Vous avez été déconnecté avec succès.']);
     }
 
-    public function logout(){
-         auth()->logout();
-        return response()->json();
-    }
 
     public function login(Request $request){
         $validate = $request->validate([
@@ -54,7 +56,13 @@ class AuthController extends Controller
             $userid = Auth::id();
         }
 
-        return response()->json(['userid' => $userid]);
+        return response()->json(['userid' => $userid] , 200);
     }
 
+    public function destroy(Auth $id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+        return response()->json(['massage' => 'Account Deleted With Success']);
+    }
 }
