@@ -10,6 +10,7 @@ import Modalsearch from "../Modalsearch.jsx";
 
 
 function Navbar() {
+
     const [showModal, setShowModal] = useState(false);
     const [isSearchBarOpen, setIsSearchBarOpen] = useState(false);
 

@@ -6,7 +6,6 @@ import Register from "./pages/auth/Register.jsx";
 import {Route, Routes} from "react-router-dom";
 
 
-
 function App() {
 
   return (
@@ -16,8 +15,8 @@ function App() {
 
         <Routes>
             <Route path='register' element={<Register/>} />
-        </Routes>
 
+        </Routes>
     </Fragment>
   )
 }

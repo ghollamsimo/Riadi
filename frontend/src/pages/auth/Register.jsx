@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from "react-router-dom";
+import {Link, Route, Routes, useNavigate} from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Dashboard from "../drriad/Dashboard.jsx";
 
 const Register = () => {
     const navigate = useNavigate();
@@ -10,13 +11,13 @@ const Register = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [role, setRole] = useState('');
-    const [message, setMessage] = useState('');
 
     const validateForm = () => {
         if (!name || !email || !password || !role) {
             toast.error("Please fill in all fields");
             return false;
         }
+        toast.success('Account Created Success Fully');
         return true;
     };
 
@@ -33,14 +34,18 @@ const Register = () => {
                     'Content-Type': 'multipart/form-data'
                 }
             });
-
             setTimeout(() => {
-                navigate(response.data.Success);
+                if (role === 'Client'){
+                    navigate('/')
+                }else if (role === 'DrRaid'){
+                    navigate('dashboard')
+                }
             }, 3000);
         } catch (error) {
             console.error('Error creating user:', error);
         }
     };
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -81,7 +86,7 @@ const Register = () => {
                             <select id="roles"
                                     onChange={(e) => setRole(e.target.value)}
                                     className="block w-full border border-gray-600 outline-0 text-white  bg-white rounded-2xl text-sm font-normal h-11 px-4 py-3 mt-1 dark:bg-[#1F2937] dark:text-white">
-                                <option value="client">Client</option>
+                                <option value="Client">Client</option>
                                 <option value="DrRaid">DrRaid</option>
                             </select>
                         </label>
@@ -92,6 +97,9 @@ const Register = () => {
                     <span className="block text-center text-neutral-700 dark:text-neutral-300">Already have an account? <Link to='/login'>Login</Link></span>
                 </div>
             </div>
+            <Routes>
+                <Route path='/dashboard' element={< Dashboard />} />
+            </Routes>
             <ToastContainer />
         </>
     );
