@@ -15,7 +15,8 @@ class Riad extends Model
         'description',
         'prix',
         'date',
-        'drriad_id'
+        'drriad_id',
+        'categorie_id'
     ];
 
     public function drriad()
@@ -25,5 +26,9 @@ class Riad extends Model
 
     public function rules(){
         return $this->hasMany(Ruls::class);
+    }
+
+    public function categorie(){
+        return $this->belongsTo(Categorie::class);
     }
 }

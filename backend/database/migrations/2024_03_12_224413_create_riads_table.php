@@ -11,7 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::disableForeignKeyConstraints();
         Schema::create('riads', function (Blueprint $table) {
+            $table->foreignId('categorie_id')->nullable()->constrained('categories');
             $table->id();
             $table->string('name');
             $table->string('localisation');
