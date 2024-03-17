@@ -38,7 +38,7 @@ const Register = () => {
                 if (role === 'Client'){
                     navigate('/')
                 }else if (role === 'DrRaid'){
-                    navigate('dashboard')
+                    navigate('../drriad/dashboard')
                 }
             }, 3000);
         } catch (error) {
