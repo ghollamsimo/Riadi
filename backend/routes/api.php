@@ -24,6 +24,7 @@ Route::post('/login' , [\App\Http\Controllers\AuthController::class , 'login']);
 Route::delete('/remove/{id}' , [\App\Http\Controllers\AuthController::class , 'destroy']);
 
 //--------Admin--------
+Route::get('/categories' , [CategorieController::class , 'index']);
 Route::post('/categorie' , [CategorieController::class , 'store']);
 Route::post('/updatecategorie/{id}' , [CategorieController::class , 'update']);
 Route::delete('/deletecategorie/{id}' , [CategorieController::class , 'destroy']);

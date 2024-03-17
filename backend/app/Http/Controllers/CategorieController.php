@@ -17,17 +17,7 @@ class CategorieController extends Controller
         return response()->json($categories);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validate = $request->validate([
@@ -41,9 +31,7 @@ class CategorieController extends Controller
         return response()->json(['message' => 'Categorie Created SuccessFully']);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, Categorie $id)
     {
         $validate = $request->validate([
@@ -57,9 +45,7 @@ class CategorieController extends Controller
         return response()->json(['message' => 'Categorie Updated SuccessFully'] , 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy($id)
     {
         $categorie = Categorie::findOrFail($id);
