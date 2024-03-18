@@ -115,6 +115,7 @@ const Login = () => {
                     <span className="block text-center text-neutral-700 dark:text-neutral-300">
                         New user? <Link to="/register">Create an account</Link>
                     </span>
+                    
                 </div>
             </div>
             <ToastContainer />

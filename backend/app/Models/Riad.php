@@ -29,7 +29,9 @@ class Riad extends Model
     public function rules(){
         return $this->hasMany(Ruls::class);
     }
-
+    public function repa(){
+        return $this->hasMany(Repa::class);
+    }
     public function categorie(){
         return $this->belongsTo(Categorie::class);
     }

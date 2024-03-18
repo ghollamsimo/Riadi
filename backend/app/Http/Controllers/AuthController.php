@@ -60,7 +60,7 @@ class AuthController extends Controller
         return response()->json(['userid' => $userid] , 200);
     }
 
-    public function destroy(Auth $id)
+    public function destroy($id)
     {
         $user = User::findOrFail($id);
         $user->delete();

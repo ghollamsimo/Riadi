@@ -22,6 +22,24 @@ class RiadSeeder extends Seeder
                 'date' => now(),
                 'drriad_id' => null,
                 'image' => 'hhhhhhh',
+            ],
+            [
+                'name' => 'Riad Bab Dokala',
+                'localisation' => 'Marrakech',
+                'description' => 'Makayn maydar',
+                'prix' => 69,
+                'date' => now(),
+                'drriad_id' => null,
+                'image' => 'test',
+            ],
+            [
+                'name' => 'Riad cha9a',
+                'localisation' => 'Lmhamid',
+                'description' => 'waaaa3',
+                'prix' => 99,
+                'date' => now(),
+                'drriad_id' => null,
+                'image' => 'hhh',
             ]
         ];
 

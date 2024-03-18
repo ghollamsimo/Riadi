@@ -37,7 +37,7 @@ class RiadController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Riad $id)
+    public function show($id)
     {
         $riad = Riad::findOrFail($id);
         return response()->json($riad , 200);

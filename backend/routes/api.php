@@ -37,5 +37,13 @@ Route::delete('/deleteuser/{user}' , [UserController::class , 'destroy']);
 
 Route::get('/dashboard' , [\App\Http\Controllers\AdminController::class , 'index']);
 Route::post('/approvedriad/{riadid}' , [\App\Http\Controllers\AdminController::class , 'approved']);
+Route::get('/user/{id}' , [UserController::class , 'show']);
 
+Route::get('/repas' , [\App\Http\Controllers\RepaController::class , 'index']);
+Route::post('/createrepa' , [\App\Http\Controllers\RepaController::class , 'store']);
+Route::get('/repa/{id}' , [\App\Http\Controllers\RepaController::class , 'show']);
+Route::post('/updaterepa/{id}' , [\App\Http\Controllers\RepaController::class , 'update']);
+Route::delete('/deleterepa/{id}' , [\App\Http\Controllers\RepaController::class , 'destroy']);
+//---------End Admin---------
 Route::get('/riads' , [\App\Http\Controllers\RiadController::class , 'index']);
+Route::get('/riad/{id}' , [\App\Http\Controllers\RiadController::class , 'show']);

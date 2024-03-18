@@ -42,7 +42,11 @@ class UserController extends Controller
 
         return response()->json(['message' => 'User Created SuccessFully .'] , 200);
     }
-
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+        return response()->json($user , 200);
+    }
     public function update(Request $request , User $id)
     {
         $validate = $request->validate([
