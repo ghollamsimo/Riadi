@@ -16,10 +16,12 @@ return new class extends Migration
             $table->foreignId('categorie_id')->nullable()->constrained('categories');
             $table->id();
             $table->string('name');
+            $table->string('image');
             $table->string('localisation');
             $table->text('description');
             $table->integer('prix');
             $table->date('date');
+            $table->enum('status' , ['Waiting' ,'Rejected' , 'Approved'])->nullable()->default('Waiting');
             $table->foreignId('drriad_id')->nullable()->constrained('dr_riads');
             $table->timestamps();
         });

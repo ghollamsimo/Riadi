@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\Categorie;
+use App\Models\Riad;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -12,31 +15,36 @@ class AdminController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::where('role' , 'DrRaid')->orWhere('role', 'Client')->get();
+        $riads = Riad::all();
+
+        return response()->json([
+            'users' => $users,
+            'riads' => $riads
+        ] , 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+   public function approved(Request $request , $riadid){
+        $riad = Riad::findOrFail($riadid);
+        $riad->update([
+            'status' => $request->status
+        ]);
+        if ($request->status === 'Approved'){
+            return response()->json(['message' => 'Riad Approved SuccessFully']);
+        }elseif ($request->status === 'Rejected'){
+            return response()->json(['message' => 'Riad Rejected SuccessFully']);
+        }else{
+            return response()->json(['message' => 'This Status In Not Available']);
+        }
+   }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
     /**
      * Display the specified resource.
      */
     public function show(Admin $admin)
     {
-        //
+
     }
 
     /**

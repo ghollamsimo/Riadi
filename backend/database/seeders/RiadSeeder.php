@@ -20,7 +20,8 @@ class RiadSeeder extends Seeder
                 'description' => 'hada riad',
                 'prix' => 29,
                 'date' => now(),
-                'drriad_id' => null
+                'drriad_id' => null,
+                'image' => 'hhhhhhh',
             ]
         ];
 

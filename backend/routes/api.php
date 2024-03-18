@@ -35,6 +35,7 @@ Route::post('/createuser' , [UserController::class , 'store']);
 Route::post('/edituser/{id}' , [UserController::class , 'update']);
 Route::delete('/deleteuser/{user}' , [UserController::class , 'destroy']);
 
-
+Route::get('/dashboard' , [\App\Http\Controllers\AdminController::class , 'index']);
+Route::post('/approvedriad/{riadid}' , [\App\Http\Controllers\AdminController::class , 'approved']);
 
 Route::get('/riads' , [\App\Http\Controllers\RiadController::class , 'index']);

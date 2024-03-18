@@ -16,7 +16,9 @@ class Riad extends Model
         'prix',
         'date',
         'drriad_id',
-        'categorie_id'
+        'categorie_id',
+        'status',
+        'image'
     ];
 
     public function drriad()

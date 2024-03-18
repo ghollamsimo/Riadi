@@ -2,21 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Riad;
+use App\Models\Image;
 use Illuminate\Http\Request;
 
-class RiadController extends Controller
+class ImageController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $riads = Riad::all();
-
-        return response()->json($riads);
+        //
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -37,16 +34,15 @@ class RiadController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Riad $id)
+    public function show(Image $image)
     {
-        $riad = Riad::findOrFail($id);
-        return response()->json($riad , 200);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Riad $riad)
+    public function edit(Image $image)
     {
         //
     }
@@ -54,7 +50,7 @@ class RiadController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Riad $riad)
+    public function update(Request $request, Image $image)
     {
         //
     }
@@ -62,7 +58,7 @@ class RiadController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Riad $riad)
+    public function destroy(Image $image)
     {
         //
     }
