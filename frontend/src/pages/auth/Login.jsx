@@ -1,10 +1,12 @@
-import React, { Fragment, useState } from 'react';
-import { Link, Routes, Route } from 'react-router-dom';
-import axios from 'axios';
+import { Fragment, useState } from 'react';
+import {Link, Routes, Route, useNavigate} from 'react-router-dom';
+import Api from '../../api/Api.jsx';
 import {toast, ToastContainer} from 'react-toastify';
 import Register from './Register';
 
 const Login = () => {
+    const {http} = Api()
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -14,15 +16,13 @@ const Login = () => {
         formData.append('password', password);
 
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/login', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
-            console.log(response);
+            const response = await http.post('/login', formData);
+            setTimeout(() =>{
+                navigate('/')
+            }, 6000)
             return response.data;
         } catch (error) {
-            console.error('Login error:', error);
+            console.error('Login error');
             throw error;
         }
     };
@@ -34,7 +34,6 @@ const Login = () => {
         }
         return true;
     };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (validateForm()) {

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import {Link, Route, Routes, useNavigate} from "react-router-dom";
-import axios from "axios";
+import Api from "../../api/Api.jsx";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Dashboard from "../drriad/Dashboard.jsx";
 
 const Register = () => {
+    const {http} = Api()
     const navigate = useNavigate();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -29,11 +30,8 @@ const Register = () => {
             formData.append('password', password);
             formData.append('role', role);
 
-            const response = await axios.post('http://127.0.0.1:8000/api/register', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
+            const response = await http.post('/register', formData);
+            console.log(response)
             setTimeout(() => {
                 if (role === 'Client'){
                     navigate('/')

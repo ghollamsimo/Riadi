@@ -14,6 +14,7 @@ function Navbar() {
     const [showModal, setShowModal] = useState(false);
     const [isSearchBarOpen, setIsSearchBarOpen] = useState(false);
 
+
     const toggleSearchBar = () => {
         setIsSearchBarOpen(!isSearchBarOpen);}
     return (

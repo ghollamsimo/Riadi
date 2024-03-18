@@ -26,9 +26,11 @@ class AuthController extends Controller
             'role' => $validatedData['role'],
         ]);
 
+//        $token = $this->createToken($user);
+
         if ($validatedData['role'] == 'Client') {
             Client::create(['user_id' => $user->id]);
-            return response()->json(['Success' => 'Client Created SuccessFully .']);
+            return response()->json(['Success' => 'Client Created SuccessFully .'] , 200);
         } elseif ($validatedData['role'] == 'DrRaid') {
             DrRiad::create(['user_id' => $user->id]);
             return response()->json(['Success' => 'DrRaid Created SuccessFully .'], 200);
