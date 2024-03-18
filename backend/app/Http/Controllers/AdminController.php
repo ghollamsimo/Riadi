@@ -34,7 +34,7 @@ class AdminController extends Controller
         }elseif ($request->status === 'Rejected'){
             return response()->json(['message' => 'Riad Rejected SuccessFully']);
         }else{
-            return response()->json(['message' => 'This Status In Not Available']);
+            return response()->json(['message' => 'This Status In Not Available!']);
         }
    }
 
