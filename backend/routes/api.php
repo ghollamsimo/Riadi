@@ -18,11 +18,12 @@ use \App\Http\Controllers\UserController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+//-------Route Of Developper-------
 Route::post('/register' , [\App\Http\Controllers\AuthController::class , 'register']);
 Route::post('/logout' , [\App\Http\Controllers\AuthController::class , 'logout']);
 Route::post('/login' , [\App\Http\Controllers\AuthController::class , 'login']);
 Route::delete('/remove/{id}' , [\App\Http\Controllers\AuthController::class , 'destroy']);
+//-------End Route Of Developper--------
 
 //--------Admin--------
 Route::get('/categories' , [CategorieController::class , 'index']);
@@ -45,5 +46,6 @@ Route::get('/repa/{id}' , [\App\Http\Controllers\RepaController::class , 'show']
 Route::post('/updaterepa/{id}' , [\App\Http\Controllers\RepaController::class , 'update']);
 Route::delete('/deleterepa/{id}' , [\App\Http\Controllers\RepaController::class , 'destroy']);
 //---------End Admin---------
+
 Route::get('/riads' , [\App\Http\Controllers\RiadController::class , 'index']);
 Route::get('/riad/{id}' , [\App\Http\Controllers\RiadController::class , 'show']);
