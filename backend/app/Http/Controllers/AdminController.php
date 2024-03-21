@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use App\Models\Categorie;
+use App\Models\Client;
+use App\Models\DrRiad;
+use App\Models\Repa;
 use App\Models\Riad;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -13,6 +16,25 @@ class AdminController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    public function stats(){
+        $clientcount = Client::count();
+        $drriadcount = DrRiad::count();
+        $riadcount = Riad::count();
+        $categoriecount = Categorie::count();
+        $repacount = Repa::count();
+        $userscount = User::count();
+
+        return response()->json([
+            'clientcount' => $clientcount,
+            'drriadcount' => $drriadcount,
+            'riadcount' => $riadcount,
+            'categoriecount' => $categoriecount,
+            'repacount' => $repacount,
+            'userscount' => $userscount
+        ] , 200);
+    }
+
     public function index()
     {
         $users = User::where('role' , 'DrRaid')->orWhere('role', 'Client')->get();

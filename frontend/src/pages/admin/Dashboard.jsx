@@ -1,19 +1,24 @@
 import SideBar from "../../components/SideBar.jsx";
 import Adminavbar from "../../components/Adminavbar.jsx";
-import TableUsers from "../../components/TableUsers.jsx";
-import AdminStats from "../../components/statistique/AdminStats.jsx";
-
+import TableUsers from "../../data/TableUsers.jsx";
+import AdminStats from "../../data/AdminStats.jsx";
+import Google from '../../assets/img/google.png'
+import TableRiads from "../../data/TableRiads.jsx";
 const Dashboard = () => {
     return (
+        <>
+            <Adminavbar/>
         <div className="flex h-full w-full">
             <SideBar/>
-            <div className="flex-grow ml-14 ">
+            <div className="flex-grow  ">
                 <AdminStats/>
-                <div className="p-8">
+                <div className="lg:ml-9">
                     <TableUsers/>
+                    <TableRiads/>
                 </div>
             </div>
         </div>
+        </>
     )
 }
 

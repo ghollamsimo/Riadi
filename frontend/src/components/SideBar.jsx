@@ -39,9 +39,6 @@ const SideBar = () => {
 
             {/* Sidebar content */}
             <div className="pt-5 pb-4">
-                <div className="flex items-center px-4">
-                    <span className="ml-2 text-sm font-medium text-white">John Doe</span>
-                </div>
                 <nav className="mt-5 px-2 space-y-1">
                     <a href="#" className="group flex items-center px-2 py-2 text-sm font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700">
                         <svg className="mr-3 h-6 w-6 text-gray-400 group-hover:text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">

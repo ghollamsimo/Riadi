@@ -31,7 +31,6 @@ const Register = () => {
             formData.append('role', role);
 
             const response = await http.post('/register', formData);
-            console.log(response)
             setTimeout(() => {
                 if (role === 'Client'){
                     navigate('/')
