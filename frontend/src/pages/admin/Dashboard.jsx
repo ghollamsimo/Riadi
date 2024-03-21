@@ -4,17 +4,22 @@ import TableUsers from "../../data/TableUsers.jsx";
 import AdminStats from "../../data/AdminStats.jsx";
 import Google from '../../assets/img/google.png'
 import TableRiads from "../../data/TableRiads.jsx";
+import TableCategorie from "../../data/TableCategorie.jsx";
 const Dashboard = () => {
     return (
         <>
+
             <Adminavbar/>
         <div className="flex h-full w-full">
             <SideBar/>
             <div className="flex-grow  ">
                 <AdminStats/>
-                <div className="lg:ml-9">
-                    <TableUsers/>
+                <div className="gap-14 ml-9 grid grid-cols-2">
                     <TableRiads/>
+                    <TableUsers/>
+                </div>
+                <div className={`ml-9`}>
+                    <TableCategorie/>
                 </div>
             </div>
         </div>

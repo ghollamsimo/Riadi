@@ -54,7 +54,7 @@ const TableUsers = () => {
     });
 
     return (
-        <div className="grid lg:ml-36 w-[40rem] grid-cols-1 p-4">
+        <div className="grid lg:ml-36 w-[35rem] grid-cols-1 p-4">
             <div className="sm:-mx-6 lg:-mx-8">
                 <div className="relative overflow-x-auto block w-full sm:px-6 lg:px-8">
                     <div className=" ">

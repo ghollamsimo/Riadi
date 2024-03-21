@@ -60,7 +60,7 @@ const TableRiads = () => {
             </td>
             <td className="p-3 text-sm whitespace-nowrap">
                 <span
-                    className={`text-${item.status === 'Rejected' ? 'red' : 'green'}-300 text-[11px] font-medium px-2.5 py-0.5 rounded h-5`}>
+                    className={`text-${item.status === 'Rejected' ? 'red' : 'green'}-500 text-[11px] font-medium px-2.5 py-0.5 rounded h-5`}>
                     {item.status}
                 </span>
             </td>

@@ -3,16 +3,15 @@ import { Router, Route, Routes, useLocation } from 'react-router-dom';
 import Navbar from './components/nav/Navbar.jsx';
 import MobileNavbar from './components/MobileNavbar.jsx';
 import Register from './pages/auth/Register.jsx';
-import Dashboard from "./pages/admin/Dashboard.jsx"; // Assuming you have a Register component
+import Dashboard from "./pages/admin/Dashboard.jsx";
 import './App.css'
+import UpdateCategorie from "./update/UpdateCategorie.jsx";
 
 function App() {
     const location = useLocation();
 
-    // Array of routes where you don't want to display Navbar and MobileNavbar
-    const excludedRoutes = ['/dashboard']; // Add more routes if needed
+    const excludedRoutes = ['/dashboard' , '/editecategory'];
 
-    // Function to check if current location matches any route in excludedRoutes
     const shouldDisplayNavbar = !excludedRoutes.some(route => location.pathname.includes(route));
 
     return (
@@ -26,7 +25,7 @@ function App() {
             <Routes>
                 <Route path="/register" element={<Register />} />
                 <Route path='/dashboard' element={<Dashboard/>} />
-                {/* Define more routes here */}
+                <Route path='/editecategory/:id' element={<UpdateCategorie/>}/>
             </Routes>
         </>
     );
