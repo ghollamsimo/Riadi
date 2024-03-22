@@ -10,6 +10,7 @@ use App\Models\Repa;
 use App\Models\Riad;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -38,7 +39,7 @@ class AdminController extends Controller
     public function index()
     {
         $users = User::where('role' , 'DrRaid')->orWhere('role', 'Client')->get();
-        $riads = Riad::all();
+        $riads = Riad::with('drriad.user')->get();
 
         return response()->json([
             'users' => $users,

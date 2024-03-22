@@ -23,6 +23,7 @@ Route::post('/register' , [\App\Http\Controllers\AuthController::class , 'regist
 Route::post('/logout' , [\App\Http\Controllers\AuthController::class , 'logout']);
 Route::post('/login' , [\App\Http\Controllers\AuthController::class , 'login']);
 Route::delete('/remove/{id}' , [\App\Http\Controllers\AuthController::class , 'destroy']);
+Route::post('/profile/{id}' , [\App\Http\Controllers\AuthController::class , 'updateprofile']);
 //-------End Route Of Developper--------
 
 //--------Admin--------
