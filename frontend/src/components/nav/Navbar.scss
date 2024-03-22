@@ -16,7 +16,6 @@
     backdrop-filter: blur(8px);
     border-bottom:1px solid rgba(255, 255, 255, 0.22);
     width: 100%;
-    height: 100px;
     padding: 0 1.5rem;
     @include breakpoint(md) {
         padding: 0 3rem;
@@ -47,6 +46,7 @@
             right: 100%;
             bottom: 0;
             width: 100%;
+            z-index: 100;
             height: 100vh;
             position: absolute;
             display: flex;
@@ -55,7 +55,6 @@
             align-items: center;
             text-align: center;
             background: rgba(rgb(32, 32, 32), 0.9);
-            backdrop-filter: blur(2px);
             transform: translate(0);
             transition: 0.3s ease transform;
 
@@ -113,7 +112,6 @@
                 transition: 0.3s ease all;
                 margin:0.50em 0.50em;
 
-
                 &:hover {
                     border-color: rgb(162, 162, 246);
                     background: rgba(rgb(162, 162, 246), 0.1);
@@ -133,27 +131,8 @@
 
             }
 
-
-            &.isMenu {
-                transform: translate(100%);
-            }
         }
 
-        &__toggle {
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            font-size: 2rem;
-            transition: 0.3s ease all;
-            position: relative;
 
-            &:hover {
-                color: rgb(162, 162, 246);
-            }
-
-            @include breakpoint(md) {
-                display: none;
-            }
-        }
     }
 }

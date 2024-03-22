@@ -6,6 +6,7 @@ import Register from './pages/auth/Register.jsx';
 import Dashboard from "./pages/admin/Dashboard.jsx";
 import './App.css'
 import UpdateCategorie from "./update/UpdateCategorie.jsx";
+import Profile from "./pages/auth/Profile.jsx";
 
 function App() {
     const location = useLocation();
@@ -26,6 +27,7 @@ function App() {
                 <Route path="/register" element={<Register />} />
                 <Route path='/dashboard' element={<Dashboard/>} />
                 <Route path='/editecategory/:id' element={<UpdateCategorie/>}/>
+                <Route path='/profile/:id'  element={<Profile/>}/>
             </Routes>
         </>
     );

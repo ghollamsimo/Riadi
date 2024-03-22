@@ -19,57 +19,57 @@ function Navbar() {
         setIsSearchBarOpen(!isSearchBarOpen);}
     return (
         <Fragment>
-        <header className="header static ">
-            <div className="header__content">
-                <Link to="/" className="header__content__logo md:flex hidden font-extrabold font-serif">
-                    Riadi <span><TbPoint /></span>
-                </Link>
-                <nav
-                    className={`${"z-10 header__content__nav flex justify-between"} 
-         `}
-                >
-                    <ul className={`${`z-50`}`}>
-                        <li>
-                            <Link to="/" className={`${`bg-gray-800`}`}>Home</Link>
-                        </li>
-                        <li>
-                            <Link to="/profile">Riads</Link>
-                        </li>
-                        <li>
-                            <Link to="/Works">Distination</Link>
-                        </li>
-                        <li>
-                            <Link to="/help">Help</Link>
-                        </li>
+            <header className="header static ">
+                <nav className="  header__content__nav text-white  py-3 px-4 flex items-center justify-between">
+                    <Link to="/" className="header__content__logo md:flex hidden font-extrabold font-serif">
+                        Riadi <span><TbPoint/></span>
+                    </Link>
+                    <div className="flex items-center">
+                        <ul className={`${`z-50 flex items-center`}`}>
+                            <li>
+                                <Link to="/" className={`${`bg-gray-800`}`}>Home</Link>
+                            </li>
+                            <li>
+                                <Link to="/profile">Riads</Link>
+                            </li>
+                            <li>
+                                <Link to="/Works">Distination</Link>
+                            </li>
+                            <li>
+                                <Link to="/help">Help</Link>
+                            </li>
 
-                        <Link to="/login">
-                            <button className="btn btn__login">Login</button>
-                        </Link>
+                            <div className="relative z-20">
+                                <button onClick={toggleSearchBar}
+                                        className="text-2xl md:text-[28px] w-12 h-12 rounded-full text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-gray-700 transition-all focus:outline-none flex items-center justify-center"
+                                        type="button" aria-expanded={isSearchBarOpen} id="searchButton">
+                                    <CiSearch/>
+                                </button>
+                                {isSearchBarOpen && (
+                                    <div
+                                        className="right-0 z-50 absolute w-screen max-w-sm mt-2 opacity-100 translate-y-0"
+                                        tabIndex="-1">
+                                        <form action="" method="POST" className={`${`z-10`}`}>
+                                            <input type="search"
+                                                   className="block w-full border-neutral-200 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 bg-white dark:border-neutral-700 dark:focus:ring-primary-6000 dark:focus:ring-opacity-25 dark:bg-neutral-900 rounded-2xl text-sm font-normal h-11 px-4 py-3 "
+                                                   placeholder="Type and press enter"/>
+                                            <input type="submit" hidden="" value=""/>
+                                        </form>
+                                    </div>
+                                )}
+                            </div>
 
-                        <div className="relative z-20">
-                            <button onClick={toggleSearchBar}
-                                    className="text-2xl md:text-[28px] w-12 h-12 rounded-full text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-gray-700 transition-all focus:outline-none flex items-center justify-center"
-                                    type="button" aria-expanded={isSearchBarOpen} id="searchButton">
-                                <CiSearch/>
-                            </button>
-                            {isSearchBarOpen && (
-                                <div
-                                    className="right-0 z-50 absolute w-screen max-w-sm mt-3 opacity-100 translate-y-0"
-                                    tabIndex="-1">
-                                    <form action="" method="POST" className={`${`z-10`}`}>
-                                        <input type="search"
-                                               className="block w-full border-neutral-200 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 bg-white dark:border-neutral-700 dark:focus:ring-primary-6000 dark:focus:ring-opacity-25 dark:bg-neutral-900 rounded-2xl text-sm font-normal h-11 px-4 py-3 "
-                                               placeholder="Type and press enter"/>
-                                        <input type="submit" hidden="" value=""/>
-                                    </form>
-                                </div>
-                            )}
-                        </div>
+                            <Link to="/login">
+                                <button className="btn btn__login">Login</button>
+                            </Link>
 
-                    </ul>
 
+                        </ul>
+
+                    </div>
                 </nav>
-                <div className="lg:hidden sm:sticky flex w-full">
+
+                <div className="lg:hidden p-4 sm:sticky flex w-full">
                     <label
                         onClick={() => {
                             setShowModal(true);
@@ -140,9 +140,11 @@ function Navbar() {
                         </button>
                     </label>
                 </div>
-            </div>
-        </header>
-            {showModal && <Modalsearch setOpenModal={setShowModal} />}
+
+            </header>
+
+
+            {showModal && <Modalsearch setOpenModal={setShowModal}/>}
 
             <Routes>
                 <Route path='login' element={<Login/>}/>
