@@ -4,6 +4,7 @@ import Navbar from './components/nav/Navbar.jsx';
 import MobileNavbar from './components/MobileNavbar.jsx';
 import Register from './pages/auth/Register.jsx';
 import Dashboard from "./pages/admin/Dashboard.jsx";
+import Drriad from "./pages/drriad/Dashboard.jsx";
 import './App.css'
 import UpdateCategorie from "./update/UpdateCategorie.jsx";
 import Profile from "./pages/auth/Profile.jsx";
@@ -28,6 +29,7 @@ function App() {
                 <Route path='/dashboard' element={<Dashboard/>} />
                 <Route path='/editecategory/:id' element={<UpdateCategorie/>}/>
                 <Route path='/profile/:id'  element={<Profile/>}/>
+                <Route path='/driadprofile' element={<Drriad/>}/>
             </Routes>
         </>
     );
