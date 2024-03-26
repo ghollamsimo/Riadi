@@ -75,27 +75,32 @@ const TableRiads = () => {
     ));
 
     return (
-        <div className="grid lg:ml-36 w-[50rem] grid-cols-1 p-4">
-            <div className="sm:-mx-6 lg:-mx-8">
-                <div className="relative overflow-x-auto block w-full sm:px-6 lg:px-8">
-                    <div className=" ">
-                        <table className="w-full">
-                            <thead className="bg-gray-50 dark:bg-[#4F46E5]">
-                            <tr className="text-white">
-                                <th scope="col" className="p-3 text-xs font-medium tracking-wider text-left text-white uppercase">
-                                    Name
-                                </th>
-                                <th scope="col" className="p-3 text-xs font-medium tracking-wider text-left text-white uppercase">
-                                    Description
-                                </th>
-                                <th scope="col" className="p-3 text-xs font-medium tracking-wider text-left text-white uppercase">
-                                    Prix
-                                </th>
-                                <th scope="col" className="p-3 text-xs font-medium tracking-wider text-left uppercase">
-                                    Dr Riad
-                                </th>
-                                <th scope="col" className="p-3 text-xs font-medium tracking-wider text-left uppercase">
-                                    Status
+        <>
+
+    <div className="grid lg:ml-36 w-[50rem] grid-cols-1 p-4">
+        <div className="sm:-mx-6 lg:-mx-8">
+            <div className="relative overflow-x-auto block w-full sm:px-6 lg:px-8">
+                <div className=" ">
+                    <table className="w-full">
+                        <thead className="bg-gray-50 dark:bg-[#4F46E5]">
+                        <tr className="text-white">
+                            <th scope="col"
+                                className="p-3 text-xs font-medium tracking-wider text-left text-white uppercase">
+                                Name
+                            </th>
+                            <th scope="col"
+                                className="p-3 text-xs font-medium tracking-wider text-left text-white uppercase">
+                                Description
+                            </th>
+                            <th scope="col"
+                                className="p-3 text-xs font-medium tracking-wider text-left text-white uppercase">
+                                Prix
+                            </th>
+                            <th scope="col" className="p-3 text-xs font-medium tracking-wider text-left uppercase">
+                                Dr Riad
+                            </th>
+                            <th scope="col" className="p-3 text-xs font-medium tracking-wider text-left uppercase">
+                            Status
                                 </th>
                                 <th scope="col" className="p-3 text-xs font-medium tracking-wider text-left uppercase">
                                     Action
@@ -110,6 +115,8 @@ const TableRiads = () => {
                 </div>
             </div>
         </div>
+
+        </>
     );
 };
 

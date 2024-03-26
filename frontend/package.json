@@ -28,9 +28,11 @@
     "axios": "^1.6.7",
     "boxicons": "^2.1.4",
     "chart.js": "^4.4.2",
+    "faker": "^5.5.3",
     "flowbite-react": "^0.7.2",
     "framer-motion": "^11.0.18",
     "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
     "react-feather": "^2.0.10",
     "react-icons": "^5.0.1",
@@ -47,6 +49,7 @@
     "three": "^0.161.0"
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.4.1",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
     "@vitejs/plugin-react-swc": "^3.5.0",

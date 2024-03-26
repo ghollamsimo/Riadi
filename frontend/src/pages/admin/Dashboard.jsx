@@ -18,8 +18,9 @@ const Dashboard = () => {
                     <TableRiads/>
                     <TableUsers/>
                 </div>
-                <div className={`ml-9`}>
+                <div className={`ml-9 gap-14 grid grid-cols-2`}>
                     <TableCategorie/>
+
                 </div>
             </div>
         </div>

@@ -16,32 +16,24 @@ class CategorieController extends Controller
 
         return response()->json($categories);
     }
-
-
     public function store(Request $request)
     {
         $validate = $request->validate([
             'name' => 'required'
         ]);
-
         Categorie::create([
             'name' => $validate['name']
         ]);
-
         return response()->json(['message' => 'Categorie Created SuccessFully']);
     }
-
-
     public function update(Request $request, Categorie $id)
     {
         $validate = $request->validate([
             'name' => 'required'
         ]);
-
         $id->update([
             'name' => $validate['name'],
         ]);
-
         return response()->json(['message' => 'Categorie Updated SuccessFully'] , 200);
     }
 

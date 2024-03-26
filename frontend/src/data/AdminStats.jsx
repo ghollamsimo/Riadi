@@ -7,16 +7,19 @@ const AdminStats = () =>{
         http.get('/stats').then(response => {
             setStats(response.data)
         });
-    } , [])
+    } , [http])
 
 
     return(
         <>
+            <div className="bg-indigo-600 px-8 pt-10 lg:pt-14 pb-16 flex justify-between items-center mb-3">
+                <h1 className="text-xl px-36 text-white">Welcome </h1>
+            </div>
 
-            <div className="grid lg:ml-44 px-7 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-4">
+            <div className="grid -mt-12 mx-6 mb-6 lg:ml-44 px-7 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-4">
                 <div className="bg-white dark:bg-slate-800 shadow  rounded-md w-full relative ">
                     <div className="flex-auto p-4 text-center">
-                        <h4 className="my-1 font-semibold text-2xl dark:text-slate-200">6</h4>
+                        <h4 className="my-1 font-semibold text-2xl dark:text-slate-200">{stats['clientcount']}</h4>
                         <h6 className="text-gray-400 mb-0 font-medium uppercase">Total Clients</h6>
                     </div>
                 </div>

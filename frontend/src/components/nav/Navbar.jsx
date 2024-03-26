@@ -1,7 +1,7 @@
 import { useEffect, useState , Fragment } from "react";
 import Login from "../../pages/auth/Login.jsx";
 import { Link, useNavigate , Routes , Route } from "react-router-dom";
-import "./navbar.scss";
+import "./Navbar.scss";
 import RiadCard from "../../pages/home/RiadCard.jsx";
 import { TbPoint } from "react-icons/tb";
 import { IoFilter } from "react-icons/io5";

@@ -13,13 +13,11 @@ const TableCategorie = () => {
             setLoading(false)
         })
     }, [http]);
-
     if (loading){
         return (
             <div className='text-white ml-14'>Loading</div>
         )
     }
-
     const deleteCategorie = async (id) => {
         await http.delete(`/deletecategorie/${id}`)
     }
@@ -48,7 +46,6 @@ const TableCategorie = () => {
 
         )
     })
-
     return (
         <>
             <div className="grid lg:ml-36 w-[35rem] grid-cols-1 p-4">
@@ -84,7 +81,6 @@ const TableCategorie = () => {
                     </div>
                 </div>
             </div>
-
         </>
     )
 }
