@@ -31,13 +31,13 @@ class AuthController extends Controller
             //'image' => $imageName,
             'role' => $validatedData['role'],
         ]);
-//        $token = $this->createToken($user);
+       // $token = $this->createToken($user);
         if ($validatedData['role'] == 'Client') {
             Client::create(['user_id' => $user->id]);
             return response()->json(['Success' => 'Client Created SuccessFully .'] , 200);
         } elseif ($validatedData['role'] == 'DrRaid') {
             DrRiad::create(['user_id' => $user->id]);
-            return response()->json(['Success' => 'DrRaid Created SuccessFully .'], 200);
+            return response()->json(['Success' => 'DrRaid Created SuccessFully .','role' => 'DrRiad'], 200);
         } elseif ($validatedData['role'] == 'Admin') {
             $admin = Admin::create(['user_id' => $user->id]);
             return response()->json($admin, 200);

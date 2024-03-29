@@ -5,6 +5,7 @@ import AdminStats from "../../data/AdminStats.jsx";
 import Google from '../../assets/img/google.png'
 import TableRiads from "../../data/TableRiads.jsx";
 import TableCategorie from "../../data/TableCategorie.jsx";
+import ChartUser from "../../data/ChartUser.jsx";
 const Dashboard = () => {
     return (
         <>
@@ -15,11 +16,10 @@ const Dashboard = () => {
             <div className="flex-grow  ">
                 <AdminStats/>
                 <div className="gap-14 ml-9 grid grid-cols-2">
-                    <TableRiads/>
-                    <TableUsers/>
+                    <ChartUser/>
                 </div>
                 <div className={`ml-9 gap-14 grid grid-cols-2`}>
-                    <TableCategorie/>
+
 
                 </div>
             </div>

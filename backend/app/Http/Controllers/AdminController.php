@@ -61,13 +61,9 @@ class AdminController extends Controller
         }
    }
 
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Admin $admin)
+    public function search(Request $request)
     {
-
+        // Implements The Search Here
     }
 
     /**
