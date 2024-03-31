@@ -7,69 +7,19 @@ import Filterdistination from "../../components/Filterdistination.jsx";
 import HowitworksSection from "../../components/HowitworksSection.jsx";
 import axios from "axios";
 import Loadingdata from "../../components/Loadingdata.jsx";
+import {fetchRaids} from "../../redux/Action.js";
+import {connect} from "react-redux";
 
-const RiadCard = () =>{
-    const [loading , setLoading] = useState(true)
-    const [riads  ,setRiads] = useState([]);
+const RiadCard = (props) =>{
+
 
     useEffect(() =>{
-        axios.get(`http://127.0.0.1:8000/api/riads`).then(response => {
-            //console.log(response.data);
-            setRiads(response.data)
-            setLoading(false)
-        })
+      props.loader()
     }, [])
-
-
-    if (loading){
-        return (
-            <Loadingdata/>
-        )
-    }
-    let riadsDetials = "";
-    riadsDetials = riads.map( (item, index) => {
-
-        return (
-            <div  className="px-4 mx-auto sm:px-6  max-w-7xl" key={index}>
-                <div className="grid grid-cols-2 gap-6 mt-10 lg:gap-14 lg:grid-cols-3">
-                    <div className="relative group">
-                        <div className="overflow-hidden rounded aspect-w-1 aspect-h-1">
-                            <img
-                                className="object-cover w-full h-full transition-all duration-300 group-hover:scale-125"
-                                src={Riadimage}
-                                alt=""/>
-                        </div>
-                        <div className="absolute left-3 top-3">
-                            <p className="sm:px-3 sm:py-1 px-1.5 py-1 text-[8px] sm:text-xs font-bold flex tracking-wide text-white  bg-[#111827] rounded-full gap-2">
-                                <span><CiLocationOn className='mt-0.5'/></span> {item.localisation}</p>
-                        </div>
-                        <div className="flex items-start justify-between mt-4 space-x-4">
-                            <div>
-                                <h3 className="text-xs font-bold text-white sm:text-sm md:text-base">
-                                    <a href="#" title="">
-                                        {item.name}
-                                        <span className="absolute inset-0" aria-hidden="true"></span>
-                                    </a>
-                                </h3>
-                                <div className="text-xs text-white sm:text-sm md:text-base">
-                                    <p>{item.description}</p>
-                                </div>
-                            </div>
-
-                            <div className="text-right">
-                                <p className="text-xs text-white sm:text-sm md:text-base">${item.prix}<span
-                                    className='text-gray-400'>/night</span></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        )
-    })
-    //console.log(riadsDetials)
     return (
+
         <Fragment>
+
             <Hero/>
             <HeadingPlace/>
             <section className="py-3 bg-[#0E131F] rounded-t-3xl text-white sm:py-16 lg:py-2">
@@ -85,13 +35,60 @@ const RiadCard = () =>{
 
                     </div>
                 </div>
-                {riadsDetials}
+                {props.data.datalist && props.data.datalist.map(item =>
+                    <div className="px-4 mx-auto sm:px-6  max-w-7xl" key={item.id}>
+                        <div className="grid grid-cols-2 gap-6 mt-10 lg:gap-14 lg:grid-cols-3">
+                            <div className="relative group">
+                                <div className="overflow-hidden rounded aspect-w-1 aspect-h-1">
+                                    <img
+                                        className="object-cover w-full h-full transition-all duration-300 group-hover:scale-125"
+                                        src={Riadimage}
+                                        alt=""/>
+                                </div>
+                                <div className="absolute left-3 top-3">
+                                    <p className="sm:px-3 sm:py-1 px-1.5 py-1 text-[8px] sm:text-xs font-bold flex tracking-wide text-white  bg-[#111827] rounded-full gap-2">
+                                        <span><CiLocationOn className='mt-0.5'/></span> {item.localisation}</p>
+                                </div>
+                                <div className="flex items-start justify-between mt-4 space-x-4">
+                                    <div>
+                                        <h3 className="text-xs font-bold text-white sm:text-sm md:text-base">
+                                            <a href="#" title="">
+                                                {item.name}
+                                                <span className="absolute inset-0" aria-hidden="true"></span>
+                                            </a>
+                                        </h3>
+                                        <div className="text-xs text-white sm:text-sm md:text-base">
+                                            <p>{item.description}</p>
+                                        </div>
+                                    </div>
+
+                                    <div className="text-right">
+                                        <p className="text-xs text-white sm:text-sm md:text-base">${item.prix}<span
+                                            className='text-gray-400'>/night</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
             </section>
             <HowitworksSection/>
 
         </Fragment>
 
     )
+
 }
 
-export default RiadCard;
+const mapStateToProps = (state) => {
+    return {
+        data: state.data
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        loader: () => dispatch(fetchRaids())
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(RiadCard);

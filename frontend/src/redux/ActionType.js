@@ -1,4 +1,7 @@
 export const MAKE_REQUEST = 'MAKE_REQUEST'
 export const FAIL_REQUEST = 'FAIL_REQUEST'
 export const GET_DATA_LIST = 'GET_DATA_LIST'
-
+export const DELETE_DATA_LIST = 'DELETE_DATA_LIST'
+export const ADD_DATA_LIST = 'ADD_DATA_LIST'
+export const UPDATE_DATA_LIST = 'UPDATE_DATA_LIST'
+export const GET_DATA_OBJ = 'GET_DATA_OBJ'

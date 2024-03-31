@@ -7,6 +7,7 @@ use App\Models\Client;
 use App\Models\DrRiad;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -14,42 +15,40 @@ use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
-    public function register(Request $request) {
-        //$imageName = Str::random(32).".".$request->image->getClientOriginalExtension();
-        //Storage::disk('public')->put($imageName, file_get_contents($request->image));
+    public function register(Request $request): \Illuminate\Http\JsonResponse
+    {
         $validatedData = $request->validate([
             'name' => 'required',
-            'email' => 'required',
-            'password' =>  'required',
-            //'image' => '',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required',
             'role' => 'required',
         ]);
+
         $user = User::create([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
             'password' => bcrypt($validatedData['password']),
-            //'image' => $imageName,
             'role' => $validatedData['role'],
         ]);
-       // $token = $this->createToken($user);
+
+        $token = $this->createToken($user);
+
         if ($validatedData['role'] == 'Client') {
-            Client::create(['user_id' => $user->id]);
-            return response()->json(['Success' => 'Client Created SuccessFully .'] , 200);
+            Client::create(['user_id' => $user->id, 'token' => $token]);
+            return response()->json(['Success' => 'Client Created Successfully.'], 200);
         } elseif ($validatedData['role'] == 'DrRaid') {
-            DrRiad::create(['user_id' => $user->id]);
-            return response()->json(['Success' => 'DrRaid Created SuccessFully .','role' => 'DrRiad'], 200);
-        } elseif ($validatedData['role'] == 'Admin') {
-            $admin = Admin::create(['user_id' => $user->id]);
-            return response()->json($admin, 200);
+            DrRiad::create(['user_id' => $user->id, 'token' => $token]);
+            return response()->json(['Success' => 'DrRaid Created Successfully.', 'role' => 'DrRiad'], 200);
         }
 
-        return response()->json(['message' => 'User Created SuccessFully .'] , 200);
+        return response()->json(['user' => $user, 'token' => $token], 201);
     }
+
     public function logout() {
         auth()->logout();
         return response()->json(['message' => 'You are deconected SuccessFully.']);
     }
-    public function login(Request $request){
+    public function login(Request $request): Response{
         $validate = $request->validate([
             'email' => 'required',
             'password' => 'required'
@@ -57,7 +56,11 @@ class AuthController extends Controller
         if(auth()->attempt(['email' => $validate['email'] , 'password' => $validate['password']])){
             $userid = Auth::user();
         }
-        return response()->json(['userid' => $userid] , 200);
+        if(!$token = auth()->attempt($validate)) {
+            return response(['error' => 'Unauthorized'], 401);
+        }
+        $jwt = $this->createToken($token);
+        return response([$userid, $jwt], 200);
     }
     public function destroy($id)
     {
@@ -85,6 +88,14 @@ class AuthController extends Controller
         return response()->json(['message' => 'Profile Updated Successfully'], 200);
     }
 
-
+    protected function createToken($token)
+    {
+        return response([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => auth()->factory()->getTTL() * 2880,
+            'user' => auth()->user()
+        ], 200);
+    }
 
 }

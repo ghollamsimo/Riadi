@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {Link, Route, Routes, useNavigate} from "react-router-dom";
 import Api from "../../api/Api.jsx";
 import { ToastContainer, toast } from 'react-toastify';
@@ -35,11 +35,10 @@ const Register = () => {
 
             const response = await http.post('/register', formData);
 
-            console.log(response.data.role);
             setTimeout(() => {
-                if (role === 'Client'){
+                if (response.data.role === 'Client'){
                     navigate('/')
-                }else if (role === 'DrRaid'){
+                }else if (response.data.role === 'DrRaid'){
                     navigate('../drriad/dashboard')
                 }
             }, 3000);

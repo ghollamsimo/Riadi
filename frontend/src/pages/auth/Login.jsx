@@ -3,10 +3,12 @@ import {Link, Routes, Route, useNavigate} from 'react-router-dom';
 import Api from '../../api/Api.jsx';
 import {toast, ToastContainer} from 'react-toastify';
 import Register from './Register';
+import getCookie from "../../helpers/cookie.js";
 
 const Login = () => {
-    const {http} = Api()
     const navigate = useNavigate();
+    const token = getCookie('ACCESS_TOKEN')
+    const {http} = Api()
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
@@ -17,11 +19,13 @@ const Login = () => {
         formData.append('password', password);
 
         try {
-            const response = await http.post('/login', formData);
-            setTimeout(() =>{
-                navigate('/')
-            }, 6000)
-            return response.data;
+            const response = await http.post('/login', formData).then(({data}) => {
+                const [user, token] = data
+                const {original} = token
+                document.cookie = `ACCESS_TOKEN=${original.access_token};`
+                return user
+            });
+            console.log (response.data);
         } catch (error) {
             console.error('Login error');
             throw error;
@@ -41,7 +45,11 @@ const Login = () => {
             try {
                 setLoading(true);
                 const userData = await login();
-                toast.success(`Welcome ${userData.userid.name}`);
+                if (token){
+                    toast.success(`Welcome ${userData.userid.name}`);
+                }else {
+                    toast.error('Failed to login')
+                }
                 setLoading(false);
             } catch (error) {
                 toast.error('Invalid email or password');

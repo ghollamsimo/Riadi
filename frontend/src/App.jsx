@@ -30,7 +30,6 @@ function App() {
             <Routes>
                 <Route path="/register" element={<Register />} />
                 <Route path='/dashboard' element={<Dashboard/>} />
-                <Route path='/editecategory/:id' element={<UpdateCategorie/>}/>
                 <Route path='/profile/:id'  element={<Profile/>}/>
                 <Route path='/driadprofile' element={<Drriad/>}/>
                 <Route path='/gestionriads' element={<Griads/>}/>
