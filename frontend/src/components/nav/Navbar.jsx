@@ -8,7 +8,6 @@ import { IoFilter } from "react-icons/io5";
 import { CiSearch } from "react-icons/ci";
 import Modalsearch from "../Modalsearch.jsx";
 
-
 function Navbar() {
 
     const [showModal, setShowModal] = useState(false);

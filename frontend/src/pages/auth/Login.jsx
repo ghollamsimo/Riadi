@@ -1,5 +1,5 @@
-import { Fragment, useState } from 'react';
-import {Link, Routes, Route, useNavigate} from 'react-router-dom';
+import {Fragment, useState} from 'react';
+import {Link, Route, Routes, useNavigate} from 'react-router-dom';
 import Api from '../../api/Api.jsx';
 import {toast, ToastContainer} from 'react-toastify';
 import Register from './Register';
@@ -19,19 +19,17 @@ const Login = () => {
         formData.append('password', password);
 
         try {
-            const response = await http.post('/login', formData).then(({data}) => {
-                const [user, token] = data
-                const {original} = token
+                return await http.post('/login', formData).then(({data}) => {
+                const [user, token] = data;
+                const {original} = token;
                 document.cookie = `ACCESS_TOKEN=${original.access_token};`
-                return user
+                return user;
             });
-            console.log (response.data);
         } catch (error) {
             console.error('Login error');
             throw error;
         }
     };
-
     const validateForm = () => {
         if (!email || !password) {
             toast.error('Please fill in all fields');
@@ -45,8 +43,10 @@ const Login = () => {
             try {
                 setLoading(true);
                 const userData = await login();
+                console.log(userData)
+                console.log(token)
                 if (token){
-                    toast.success(`Welcome ${userData.userid.name}`);
+                    toast.success(`Welcome ${userData.name}`);
                 }else {
                     toast.error('Failed to login')
                 }

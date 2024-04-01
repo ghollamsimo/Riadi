@@ -13,7 +13,6 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [role, setRole] = useState('');
     const [loading, setLoading] = useState(false);
-
     const validateForm = () => {
         if (!name || !email || !password || !role) {
             toast.error("Please fill in all fields");
@@ -53,6 +52,7 @@ const Register = () => {
         if (validateForm()) {
             setLoading(true);
             await createUser();
+            navigate('/login')
         }
     };
 

@@ -6,6 +6,8 @@ import Google from '../../assets/img/google.png'
 import TableRiads from "../../data/TableRiads.jsx";
 import TableCategorie from "../../data/TableCategorie.jsx";
 import ChartUser from "../../data/ChartUser.jsx";
+import TableRepas from'../../data/TableRepas.jsx'
+
 const Dashboard = () => {
     return (
         <>
@@ -15,12 +17,8 @@ const Dashboard = () => {
             <SideBar/>
             <div className="flex-grow  ">
                 <AdminStats/>
-                <div className="gap-14 ml-9 grid grid-cols-2">
-                    <ChartUser/>
-                </div>
-                <div className={`ml-9 gap-14 grid grid-cols-2`}>
-
-
+                <div className="w-full">
+                    <TableRiads/>
                 </div>
             </div>
         </div>

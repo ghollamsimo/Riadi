@@ -2,19 +2,18 @@ import React, {useState, Fragment, useEffect} from "react";
 import Hero from "../../components/hero/Hero.jsx";
 import HeadingPlace from "./HeadingPlace.jsx";
 import Riadimage from '../../assets/img/image-header.jpg'
-import { CiLocationOn } from "react-icons/ci";
+import {CiLocationOn} from "react-icons/ci";
 import Filterdistination from "../../components/Filterdistination.jsx";
 import HowitworksSection from "../../components/HowitworksSection.jsx";
-import axios from "axios";
 import Loadingdata from "../../components/Loadingdata.jsx";
 import {fetchRaids} from "../../redux/Action.js";
 import {connect} from "react-redux";
 
-const RiadCard = (props) =>{
+const RiadCard = (props) => {
 
 
-    useEffect(() =>{
-      props.loader()
+    useEffect(() => {
+        props.loader()
     }, [])
     return (
 

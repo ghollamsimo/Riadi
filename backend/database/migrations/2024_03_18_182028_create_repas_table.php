@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('repas', function (Blueprint $table) {
             $table->id();
             $table->text('name');
-            $table->foreignId('riad_id')->nullable()->constrained('riads');
             $table->timestamps();
         });
     }

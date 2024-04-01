@@ -39,7 +39,11 @@ class AdminController extends Controller
     public function index()
     {
         $users = User::where('role' , 'DrRaid')->orWhere('role', 'Client')->get();
-        $riads = Riad::with('drriad.user')->get();
+        $riads = Riad::join('categories', 'categories.id', '=', 'riads.categorie_id')
+            ->select('riads.*', 'categories.name as categorie_name')
+            ->with('drriad.user as drname')
+            ->get();
+
 
         return response()->json([
             'users' => $users,

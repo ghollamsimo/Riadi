@@ -1,9 +1,13 @@
 <?php
 
+use App\Http\Middleware\CheckRole;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\CategorieController;
 use \App\Http\Controllers\UserController;
+use App\Http\Controllers\Controller;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -15,8 +19,9 @@ use \App\Http\Controllers\UserController;
 |
 */
 
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+    return Auth::user()->id;
 });
 //-------Route Of Developper-------
 Route::post('/register' , [\App\Http\Controllers\AuthController::class , 'register']);
@@ -49,5 +54,10 @@ Route::post('/updaterepa/{id}' , [\App\Http\Controllers\RepaController::class , 
 Route::delete('/deleterepa/{id}' , [\App\Http\Controllers\RepaController::class , 'destroy']);
 //---------End Admin---------
 
-Route::get('/riads' , [\App\Http\Controllers\RiadController::class , 'index']);
 Route::get('/riad/{id}' , [\App\Http\Controllers\RiadController::class , 'show']);
+Route::get('/riads' , [\App\Http\Controllers\RiadController::class , 'index']);
+
+
+Route::middleware(['auth:api', CheckRole::class . ':Client'])->group(function () {
+
+});

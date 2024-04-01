@@ -45,7 +45,9 @@ class AuthController extends Controller
     }
 
     public function logout() {
-        auth()->logout();
+        if (Auth::check()) {
+            Auth::user()->currentAccessToken()->delete();
+        }
         return response()->json(['message' => 'You are deconected SuccessFully.']);
     }
     public function login(Request $request): Response{

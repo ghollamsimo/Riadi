@@ -1,6 +1,6 @@
 import  { useState } from 'react';
 import { Link } from 'react-router-dom';
-
+import Image from '../assets/img/google.png'
 const AdminNavbar = () => {
     const [isNotificationOpen, setIsNotificationOpen] = useState(false);
     const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -57,7 +57,7 @@ const AdminNavbar = () => {
                         onClick={toggleProfile}
                     >
                         {/* Profile icon */}
-                        <img className="h-10 w-10 rounded-full" src="/profile.jpg" alt="Profile" />
+                        <img className="h-10 w-10 rounded-full" src={Image} alt="Profile" />
                     </div>
                     {/* Dropdown content */}
                     {isProfileOpen && (

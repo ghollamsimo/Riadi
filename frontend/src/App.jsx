@@ -10,11 +10,12 @@ import UpdateCategorie from "./update/UpdateCategorie.jsx";
 import Profile from "./pages/auth/Profile.jsx";
 import Griads from "./pages/admin/Griads.jsx";
 import GCategorie from "./pages/admin/GCategorie.jsx";
+import GRepas from "./pages/admin/GRepas.jsx";
 
 function App() {
     const location = useLocation();
 
-    const excludedRoutes = ['/dashboard' , '/editecategory' , '/gestionriads' , '/categories'];
+    const excludedRoutes = ['/dashboard' , '/editecategory' , '/gestionriads' , '/categories' , '/repas'];
 
     const shouldDisplayNavbar = !excludedRoutes.some(route => location.pathname.includes(route));
 
@@ -34,6 +35,7 @@ function App() {
                 <Route path='/driadprofile' element={<Drriad/>}/>
                 <Route path='/gestionriads' element={<Griads/>}/>
                 <Route path='/categories' element={<GCategorie/>}/>
+                <Route path='/repas' element={<GRepas/>}/>
             </Routes>
 
         </>

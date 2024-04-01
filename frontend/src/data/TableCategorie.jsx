@@ -1,7 +1,4 @@
-import Api from '../api/Api.jsx'
 import {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
-import Loadingdata from "../components/Loadingdata.jsx";
 import { GrUpdate } from "react-icons/gr";
 import { AiOutlineDelete } from "react-icons/ai";
 import DeleteCategorie from "../modal/DeleteCategorie.jsx";

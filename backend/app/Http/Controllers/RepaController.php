@@ -12,9 +12,7 @@ class RepaController extends Controller
      */
     public function index()
     {
-        $repas = Repa::join('riads', 'riads.id', '=', 'repas.riad_id')
-            ->select('riads.name as riad_name', 'repas.name as repa_name')
-            ->get();
+        $repas = Repa::all();
 
 
         return response()->json($repas , 200);
@@ -28,12 +26,10 @@ class RepaController extends Controller
     {
         $validate = $request->validate([
             'name' => 'required',
-            'riad_id' => 'required'
         ]);
 
         $repa = Repa::create([
             'name' => $validate['name'],
-            'riad_id' => $validate['riad_id']
         ]);
 
         return response()->json(['massage' => 'Repa Created SuccessFully']);
@@ -53,12 +49,10 @@ class RepaController extends Controller
     {
         $validate = $request->validate([
             'name' => 'required',
-            'riad_id' => 'required'
         ]);
 
         $id->update([
             'name' => $validate['name'],
-            'riad_id' => $validate['riad_id']
         ]);
 
         return response()->json(['message' => 'Repa Updated SuccessFully']);

@@ -44,6 +44,87 @@ export const getDataObj = (data) => ({
     payload: data
 });
 
+//--------ADMIN DASHBOARD------------
+export const fetchStats = () => {
+    return (dispatch) => {
+        dispatch(makeRequest());
+        http.get('/stats')
+            .then(response => {
+                const stats = response.data;
+                dispatch(getDataList(stats));
+            })
+            .catch(error => {
+                dispatch(failRequest(error.message));
+            });
+    };
+};
+
+export const UpdateStatusOfRiad = (id , data) => {
+    return (dispatch) => {
+        dispatch(makeRequest());
+        http.post('/approvedriad/' + id , data)
+            .then(response => {
+                dispatch(updateDataList(response.data));
+            })
+            .catch(error => {
+                dispatch(failRequest(error.message));
+            });
+    };
+}
+
+export const fetchRepas = () => {
+    return (dispatch) => {
+        dispatch(makeRequest());
+        http.get('/repas')
+            .then(response => {
+                const repas = response.data;
+                dispatch(getDataList(repas));
+            })
+            .catch(error => {
+                dispatch(failRequest(error.message));
+            });
+    };
+};
+
+export const DeleteRepa = (id) => {
+    return (dispatch) => {
+        dispatch(makeRequest());
+        http.delete('/deleterepa/' + id)
+            .then(response => {
+                dispatch(deleteDataList(response.data));
+            })
+            .catch(error => {
+                dispatch(failRequest(error.message));
+            });
+    };
+}
+export const AddRepa = (data) => {
+    return (dispatch) => {
+        dispatch(makeRequest());
+        http.post('/createrepa' , data)
+            .then(response => {
+                dispatch(addDataList(response.data));
+                toast.success('Categorie added successfully')
+
+            })
+            .catch(error => {
+                dispatch(failRequest(error.message));
+            });
+    };
+}
+export const UpdateRepas = (id , data) => {
+    return (dispatch) => {
+        dispatch(makeRequest());
+        http.post('/updaterepa/' + id , data)
+            .then(response => {
+                dispatch(updateDataList(response.data));
+            })
+            .catch(error => {
+                dispatch(failRequest(error.message));
+            });
+    };
+}
+//-------------END ADMIN------------
 export const fetchRaids = () => {
     return (dispatch) => {
         dispatch(makeRequest());
