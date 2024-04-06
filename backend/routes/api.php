@@ -56,7 +56,16 @@ Route::delete('/deleterepa/{id}' , [\App\Http\Controllers\RepaController::class 
 
 Route::get('/riad/{id}' , [\App\Http\Controllers\RiadController::class , 'show']);
 Route::get('/riads' , [\App\Http\Controllers\RiadController::class , 'index']);
-
+Route::post('/createcomment/{riad_id}' , [\App\Http\Controllers\CommentsController::class , 'store']);
+Route::patch('/updatecomment/{id}' , [\App\Http\Controllers\CommentsController::class ,'update']);
+Route::delete('/deletecomments/{id}' , [\App\Http\Controllers\CommentsController::class , 'destroy']);
+Route::get('/services' , [\App\Http\Controllers\ServicesController::class , 'index']);
+Route::post('/updateservice/{id}' , [\App\Http\Controllers\ServicesController::class , 'update']);
+Route::post('/createservice' , [\App\Http\Controllers\ServicesController::class ,'store']);
+Route::delete('/deleteservice/{id}' , [\App\Http\Controllers\ServicesController::class , 'destroy']);
+Route::post('/createriad' , [\App\Http\Controllers\RiadController::class , 'store']);
+Route::put('/updateraid/{id}' , [\App\Http\Controllers\RiadController::class , 'update']);
+Route::delete('/deleteriad/{id}' , [\App\Http\Controllers\RiadController::class , 'destroy']);
 
 Route::middleware(['auth:api', CheckRole::class . ':Client'])->group(function () {
 

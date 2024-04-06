@@ -13,15 +13,18 @@ return new class extends Migration
     {
         Schema::disableForeignKeyConstraints();
         Schema::create('riads', function (Blueprint $table) {
-            $table->foreignId('categorie_id')->nullable()->constrained('categories');
             $table->id();
+            $table->foreignId('categorie_id')->nullable()->constrained('categories');
             $table->string('name');
-            $table->string('image');
             $table->string('localisation');
             $table->text('description');
             $table->integer('prix');
             $table->date('date');
             $table->enum('status' , ['Waiting' ,'Rejected' , 'Approved'])->nullable()->default('Waiting');
+            $table->integer('acreage');
+            $table->date('checkout');
+            $table->integer('guests');
+            $table->string('rule');
             $table->foreignId('drriad_id')->nullable()->constrained('dr_riads');
             $table->timestamps();
         });

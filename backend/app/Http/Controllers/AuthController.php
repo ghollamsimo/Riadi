@@ -31,7 +31,8 @@ class AuthController extends Controller
             'role' => $validatedData['role'],
         ]);
 
-        $token = $this->createToken($user);
+        $userToken = auth()->attempt($validatedData);
+        $token = $this->createToken($userToken);
 
         if ($validatedData['role'] == 'Client') {
             Client::create(['user_id' => $user->id, 'token' => $token]);

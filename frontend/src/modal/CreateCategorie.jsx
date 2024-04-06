@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {toast, ToastContainer} from 'react-toastify';
 import {useDispatch} from "react-redux";
-import {AddCategorie} from "../redux/Action.js";
+import {AddCategorie, fetchCategories} from "../redux/Action.js";
 import {useNavigate} from "react-router-dom";
 import Aos from "aos";
 import { IoClose } from "react-icons/io5";
@@ -27,7 +27,7 @@ const CreateCategorie = ({ setOpenModal }) => {
             const user = {name}
           await dispatch(AddCategorie(user));
             setOpenModal(false);
-            navigate('/categories')
+            dispatch(fetchCategories())
         }
     };
 

@@ -10,7 +10,7 @@ class Riad extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name' ,
+        'name',
         'localisation',
         'description',
         'prix',
@@ -18,21 +18,28 @@ class Riad extends Model
         'drriad_id',
         'categorie_id',
         'status',
-        'image'
+        'image',
+        'acreage',
+        'checkout',
+        'guests',
+        'rule'
     ];
 
     public function drriad()
     {
         return $this->belongsTo(DrRiad::class);
     }
-
-    public function rules(){
-        return $this->hasMany(Ruls::class);
+    public function images()
+    {
+        return $this->belongsTo(Image::class);
     }
     public function repa(){
         return $this->hasMany(Repa::class);
     }
     public function categorie(){
         return $this->belongsTo(Categorie::class);
+    }
+    public function service(){
+        return $this->hasMany(Services::class);
     }
 }

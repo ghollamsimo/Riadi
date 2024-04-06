@@ -1,40 +1,42 @@
-import { useEffect, useState } from "react";
-import { IoClose } from "react-icons/io5";
+import {useEffect} from "react";
 import Aos from "aos";
-import { fetchRepas, DeleteRepa } from "../redux/Action.js";
-import { connect } from "react-redux";
+import { DeleteServices, fetchRepas, fetchService} from "../redux/Action.js";
+import {connect} from "react-redux";
+import {IoClose} from "react-icons/io5";
 
-const DeleteRepaModal = ({ setOpenModal, item, deleteRepa , repas}) => {
-    const [showModal, setShowModal] = useState(false);
-
+const DeleteService = ({setOpenModal , item, deleteService , service}) => {
     useEffect(() => {
         Aos.init({ duration: 500 });
     }, []);
 
     const handleDelete = () => {
-        deleteRepa(item.id);
+        deleteService(item);
         setOpenModal(false);
-        repas()
+        service()
     };
-
-    return (
+    return(
         <>
             <div className="fixed ml-32 z-10 inset-0 overflow-y-auto" id="my-modal" data-aos="fade-up">
                 <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
                     <div className="fixed inset-0 transition-opacity" aria-hidden={true}>
                         <div className="absolute inset-0"></div>
                     </div>
-                    <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden={true}>&#8203;</span>
-                    <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+                    <span className="hidden sm:inline-block sm:align-middle sm:h-screen"
+                          aria-hidden={true}>&#8203;</span>
+                    <div
+                        className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+                        role="dialog" aria-modal="true" aria-labelledby="modal-headline">
                         <div>
                             <div className='flex justify-end'>
                                 <button onClick={() => setOpenModal(false)} className="text-xl">
-                                    <IoClose />
+                                    <IoClose/>
                                 </button>
                             </div>
                             <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100">
-                                <svg className="h-6 w-6 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden={true}>
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                <svg className="h-6 w-6 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                     viewBox="0 0 24 24" stroke="currentColor" aria-hidden={true}>
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                                          d="M6 18L18 6M6 6l12 12"/>
                                 </svg>
                             </div>
                             <div className="mt-3 text-center sm:mt-5">
@@ -59,16 +61,16 @@ const DeleteRepaModal = ({ setOpenModal, item, deleteRepa , repas}) => {
                     </div>
                 </div>
             </div>
-        </>
-    );
-};
 
+        </>
+    )
+}
 const mapDispatchToProps = (dispatch) => {
     return {
         loader: () => dispatch(fetchRepas()),
-        deleteRepa: (id) => dispatch(DeleteRepa(id)),
-        repas : () => dispatch(fetchRepas())
+        deleteService: (id) => dispatch(DeleteServices(id)),
+        service: () => dispatch(fetchService())
     };
 };
 
-export default connect(null, mapDispatchToProps)(DeleteRepaModal);
+export default connect(null, mapDispatchToProps)(DeleteService)

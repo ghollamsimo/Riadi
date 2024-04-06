@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Image extends Model
 {
     use HasFactory;
+    protected $fillable=["image" , 'riad_id'];
+
+    public function riad(){
+        return $this->hasMany(Riad::class);
+    }
 }

@@ -1,12 +1,27 @@
-import React from "react";
+import React, {useEffect, useMemo} from "react";
 import Riadimage from "../../assets/img/image-header.jpg";
 import {CiLocationOn} from "react-icons/ci";
 import { GrUpdate } from "react-icons/gr";
 import { FiTrash2 } from "react-icons/fi";
+import { fetchRaids} from "../../redux/actions/RiadAction.jsx";
+import {connect, useSelector} from "react-redux";
+import TableServices from "../../data/TableServices.jsx";
 
-const Dashboard = () =>{
+const Dashboard = (props) => {
+    useEffect(() =>{
+        props.loader()
+    }, [])
+
+   /* const riads = useMemo(() => props.data.datalist || [], [props.data.datalist]);
+    console.log("===riads", riads);*/
+    const riads = useSelector(state => state.riadsData);
+
+    // Now you can access the state managed by riadsData reducer
+    // For example:
+    console.log("useSelector",riads.datalist);
     return(
         <>
+
             <main className='container px-12 mt-12 mb-24 lg:mb-32 flex flex-col lg:flex-row'>
                 <div className="block flex-grow mb-24 lg:mb-0">
                     <div className='lg:sticky lg:top-24'>
@@ -40,61 +55,60 @@ const Dashboard = () =>{
                         </div>
                     </div>
                 </div>
-                <div className='w-full lg:w-3/5 xl:w-2/3 space-y-8 lg:space-y-10 lg:pl-10 flex-shrink-0'>
-                    <div>
-                        <div><h2 className="text-2xl font-semibold">Kevin Francis's listings</h2><span
+                <div className='w-full  lg:w-3/5 xl:w-2/3 space-y-8 lg:space-y-10 lg:pl-10 flex-shrink-0'>
+                    <div className='border border-gray-700 p-4 rounded-xl'>
+                        <div><h2 className="text-2xl text-white font-semibold">Kevin Francis's listings</h2><span
                             className="block mt-2 text-neutral-500 dark:text-neutral-400">Kevin Francis's listings is very rich, 5 star reviews help him to be more branded.</span>
                         </div>
                         <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
-
+                        <TableServices/>
                         <div className='mt-8 grid grid-cols-1 md:gap-7 sm:grid-cols-2'>
 
-
-                            <div className="border border-gray-700 p-4 rounded-xl">
-                                <div className="relative group">
-                                    <div className="overflow-hidden rounded aspect-w-1 aspect-h-1">
-                                        <img
-                                            className="object-cover w-full h-full transition-all duration-300 group-hover:scale-125"
-                                            src={Riadimage}
-                                            alt=""/>
-                                    </div>
-                                    <div className="absolute left-3 top-3">
-                                        <p className="sm:px-3 sm:py-1 px-1.5 py-1 text-[8px] sm:text-xs font-bold flex tracking-wide text-white  bg-[#111827] rounded-full gap-2">
-                                            <span><CiLocationOn className='mt-0.5'/></span> marakech
-                                        </p>
-                                    </div>
-
-                                    <div className="absolute gap-2 flex justify-between right-3 top-3">
-                                        <p className=" sm:py-1 px-1 py-1 text-[8px] sm:text-sm font-bold flex tracking-wide text-white  bg-[#111827] rounded-full gap-2">
-                                            <span><GrUpdate/></span>
-                                        </p>
-
-                                        <p className=" sm:py-1 px-1 py-1 text-[8px] sm:text-sm font-bold flex tracking-wide text-white  bg-[#111827] rounded-full gap-2">
-                                            <span><FiTrash2 /></span>
-                                        </p>
-                                    </div>
-                                    <div className="flex items-start justify-between mt-4 space-x-4">
-                                        <div>
-                                            <h3 className="text-xs font-bold text-white sm:text-sm md:text-base">
-                                                <a href="#" title="">
-                                                    chihaja
-                                                    <span className=" inset-0"
-                                                          aria-hidden="true"></span>
-                                                </a>
-                                            </h3>
-                                            <div className="text-xs text-white sm:text-sm md:text-base">
-                                                <p>test</p>
-                                            </div>
+                            {riads?.datalist?.map(riad => (
+                                <div key={riad.id} className="border border-gray-700 p-4 rounded-xl">
+                                    <div className="relative group">
+                                        <div className="overflow-hidden rounded aspect-w-1 aspect-h-1">
+                                            <img
+                                                className="object-cover w-full h-full transition-all duration-300 group-hover:scale-125"
+                                                src={Riadimage}
+                                                alt=""
+                                            />
+                                        </div>
+                                        <div className="absolute left-3 top-3">
+                                            <p className="sm:px-3 sm:py-1 px-1.5 py-1 text-[8px] sm:text-xs font-bold flex tracking-wide text-white bg-[#111827] rounded-full gap-2">
+                                                <span><CiLocationOn className="mt-0.5" /></span> {riad.localisation}
+                                            </p>
                                         </div>
 
-                                        <div className="text-right">
-                                            <p className="text-xs text-white sm:text-sm md:text-base">Mad 65<span
-                                                className='text-gray-400'>/night</span></p>
+                                        <div className="absolute gap-2 flex justify-between right-3 top-3">
+                                            <p className="sm:py-1 px-1 py-1 text-[8px] sm:text-sm font-bold flex tracking-wide text-white bg-[#111827] rounded-full gap-2">
+                                                <span><GrUpdate /></span>
+                                            </p>
+
+                                            <p className="sm:py-1 px-1 py-1 text-[8px] sm:text-sm font-bold flex tracking-wide text-white bg-[#111827] rounded-full gap-2">
+                                                <span><FiTrash2 /></span>
+                                            </p>
+                                        </div>
+                                        <div className="flex items-start justify-between mt-4 space-x-4">
+                                            <div>
+                                                <h3 className="text-xs font-bold text-white sm:text-sm md:text-base">
+                                                    <a href="#" title="">
+                                                        {riad.name}
+                                                        <span className="inset-0" aria-hidden="true"></span>
+                                                    </a>
+                                                </h3>
+                                                <div className="text-xs text-white sm:text-sm md:text-base truncate">
+                                                    <p>{riad.description}</p>
+                                                </div>
+                                            </div>
+
+                                            <div className="text-right">
+                                                <p className="text-xs text-white sm:text-sm md:text-base">Mad {riad.prix}<span className="text-gray-400">/night</span></p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
+                            ))}
 
 
                         </div>
@@ -105,4 +119,18 @@ const Dashboard = () =>{
     )
 }
 
-export default Dashboard
+const riadStateProps = (state) => {
+    return {
+        data: state.data,
+    };
+};
+
+const mapDispatchToRiad = (dispatch) => {
+    return {
+        loader: () => dispatch(fetchRaids())
+    };
+};
+
+const ConnectedDashboard = connect(riadStateProps, mapDispatchToRiad)(Dashboard);
+
+export default ConnectedDashboard;

@@ -1,26 +1,28 @@
-import { fetchRepas } from "../redux/Action.js";
+import { fetchService} from "../redux/Action.js";
 import { connect } from "react-redux";
-import {useEffect, useState} from "react";
 import { GrUpdate } from "react-icons/gr";
-import {AiOutlineDelete} from "react-icons/ai";
-import DeleteRepa from "../modal/DeleteRepa.jsx";
-import {FiPlus} from "react-icons/fi";
-import CreateRepa from "../modal/CreateRepa.jsx";
-import UpdateRepa from "../update/UpdateRepa.jsx";
+import { AiOutlineDelete } from "react-icons/ai";
+import { FiPlus } from "react-icons/fi";
+import { useState, useEffect } from "react";
+import CreateService from "../modal/CreateService.jsx";
+import UpdateService from "../update/UpdateService.jsx";
+import DeleteService from "../modal/DeleteService.jsx";
 
-const TableRepas = (props) => {
+const TableServices = (props) => {
     const [showModal, setShowModal] = useState(false);
-    const [id , setId] = useState(null)
-    const [Modal, setCreateModal] = useState(false);
     const [Edit, setUpdateModal] = useState(false);
+    const [id , setId] = useState(null)
+    const [Delete , setDeleteModal] = useState(false)
+
 
     useEffect(() => {
         props.loader();
     }, []);
 
-    let repas = props.data.datalist || [];
+    let service = props.data.datalist || [];
+    console.log("====services",props.data.datalist)
 
-    const repasList = repas.map(item => (
+    const serviceList = service.map(item => (
         <tr key={item.id}
             className="bg-white text-white border-b border-dashed dark:bg-gray-800 dark:border-gray-700">
             <td className="p-3 text-sm font-medium whitespace-nowrap dark:text-white">
@@ -30,17 +32,17 @@ const TableRepas = (props) => {
                 {item.name}
             </td>
             <td className="p-3 text-sm whitespace-nowrap truncate">
- <span
-     className="bg-green-600/10 text-green-300 text-[11px] font-medium px-2.5 py-0.5 rounded h-5">{item.created_at}</span>
+                <span
+                    className="bg-green-600/10 text-green-300 text-[11px] font-medium px-2.5 py-0.5 rounded h-5">{item.created_at}</span>
             </td>
             <td className="p-3 gap-10 text-sm whitespace-nowrap">
                 <div className='space-x-5'>
                     <button onClick={() => {
                         setUpdateModal(true);
                         setId(item.id);
-                    }} className='text-white'><GrUpdate /></button>
+                    }} className='text-white'><GrUpdate/></button>
                     <button onClick={() => {
-                        setShowModal(true);
+                        setDeleteModal(true)
                         setId(item.id);
                     }} className='text-white'><AiOutlineDelete/></button>
                 </div>
@@ -50,20 +52,18 @@ const TableRepas = (props) => {
 
     return (
         <>
-            <div className='flex  justify-between'>
+            <div className='flex mt-10 justify-between'>
                 <div className='text-white'>
-                    Add New Repas
+                    Add New Service
                 </div>
 
                 <div>
                     <button className='text-white text-xl px-7' onClick={() => {
-                        setCreateModal(true);
+                        setShowModal(true);
                     }}><FiPlus/>
                     </button>
                 </div>
             </div>
-
-
             <div className="grid  w-full mx-auto overflow-x-hidden  grid-cols-1 p-4">
                 <div className="sm:-mx-6 lg:-mx-8">
                     <div className="relative overflow-x-auto block w-full sm:px-6 lg:px-8">
@@ -90,31 +90,31 @@ const TableRepas = (props) => {
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {repasList}
+                                {serviceList}
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
-            {showModal && <DeleteRepa setOpenModal={setShowModal} item={{id}}/>}
-            {Modal && <CreateRepa setOpenModal={setCreateModal}/>}
-            {Edit && <UpdateRepa setOpenModal={setUpdateModal} item={id}/>}
+            {showModal && <CreateService setOpenModal={setShowModal}/>}
+            {Edit && <UpdateService setOpenModal={setUpdateModal} item={id}/>}
+            {Delete && <DeleteService setOpenModal={setDeleteModal} item={id}/>}
 
         </>
-    );
+    )
 }
 
-const mapStateToProps = (state) => {
+const ServiceStateToProps = (state) => {
     return {
         data: state.data,
     };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToService = (dispatch) => {
     return {
-        loader: () => dispatch(fetchRepas())
+        loader: () => dispatch(fetchService())
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TableRepas);
+export default connect(ServiceStateToProps, mapDispatchToService)(TableServices);

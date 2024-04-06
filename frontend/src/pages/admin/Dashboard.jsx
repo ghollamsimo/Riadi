@@ -11,9 +11,9 @@ import TableRepas from'../../data/TableRepas.jsx'
 const Dashboard = () => {
     return (
         <>
-
+<div>
             <Adminavbar/>
-        <div className="flex h-full w-full">
+        <div className="flex max-h-full w-full">
             <SideBar/>
             <div className="flex-grow  ">
                 <AdminStats/>
@@ -22,6 +22,7 @@ const Dashboard = () => {
                 </div>
             </div>
         </div>
+</div>
         </>
     )
 }

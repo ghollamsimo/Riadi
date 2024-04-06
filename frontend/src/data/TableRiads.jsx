@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import {fetchRaids, UpdateStatusOfRiad} from "../redux/Action.js";
+import {fetchRaids, UpdateStatusOfRiad} from "../redux/actions/RiadAction.jsx";
 import {connect, useDispatch} from "react-redux";
 import Loadingdata from "../components/Loadingdata.jsx";
 
 const TableRiads = (props) => {
     const riads = props.data.datalist || [];
-    console.log(riads);
+  //  console.log(riads.categorie_name);
     const dispatch = useDispatch()
     useEffect(() => {
         props.loader();
@@ -13,7 +13,7 @@ const TableRiads = (props) => {
     const handleSubmit = async (id, data) => {
         try {
             await dispatch(UpdateStatusOfRiad(id, data));
-            props.loader();
+            dispatch(fetchRaids())
         } catch (error) {
             console.error("Error updating status:", error);
         }
@@ -37,7 +37,7 @@ const TableRiads = (props) => {
                 MAD {item.prix}
             </td>
             <td className="p-3 text-sm whitespace-nowrap">
-                {item.categorie_name}
+                {item.categorie_id}
             </td>
             <td className="p-3 text-sm whitespace-nowrap">
                 {item.drriad_id}
@@ -56,8 +56,6 @@ const TableRiads = (props) => {
             </td>
         </tr>
     ));
-    console.log(riads);
-
     return (
         <>
 

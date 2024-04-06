@@ -6,11 +6,12 @@ import {CiLocationOn} from "react-icons/ci";
 import Filterdistination from "../../components/Filterdistination.jsx";
 import HowitworksSection from "../../components/HowitworksSection.jsx";
 import Loadingdata from "../../components/Loadingdata.jsx";
-import {fetchRaids} from "../../redux/Action.js";
+import {fetchRaids} from "../../redux/actions/RiadAction.jsx";
 import {connect} from "react-redux";
+import {useParams} from "react-router";
 
-const RiadCard = (props) => {
-
+const Home = (props) => {
+    const {id} = useParams()
 
     useEffect(() => {
         props.loader()
@@ -34,6 +35,7 @@ const RiadCard = (props) => {
 
                     </div>
                 </div>
+
                 {props.data.datalist && props.data.datalist.map(item =>
                     <div className="px-4 mx-auto sm:px-6  max-w-7xl" key={item.id}>
                         <div className="grid grid-cols-2 gap-6 mt-10 lg:gap-14 lg:grid-cols-3">
@@ -90,4 +92,4 @@ const mapDispatchToProps = (dispatch) => {
         loader: () => dispatch(fetchRaids())
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(RiadCard);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

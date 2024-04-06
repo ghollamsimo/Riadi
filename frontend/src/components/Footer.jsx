@@ -3,175 +3,140 @@ import {Fragment} from "react";
 const Footer = () =>{
     return(
         <Fragment>
-            <div className="relative text-white mt-16 bg-[#557C55]">
-                <svg className="absolute top-0 w-full h-6 -mt-5 sm:-mt-10 sm:h-16 text-[#557C55]"
-                     preserveAspectRatio="none"
-                     viewBox="0 0 1440 54">
-                    <path fill="currentColor"
-                          d="M0 22L120 16.7C240 11 480 1.00001 720 0.700012C960 1.00001 1200 11 1320 16.7L1440 22V54H1320C1200 54 960 54 720 54C480 54 240 54 120 54H0V22Z">
-                    </path>
-                </svg>
-                <div className="px-4 pt-12 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
-                    <div className="grid gap-16 row-gap-10 mb-8 lg:grid-cols-6">
-                        <div className="md:max-w-md lg:col-span-2">
-                            <a href="/frontend/public" aria-label="Go home" title="Company" className="inline-flex items-center">
-                                <svg className="w-8 text-teal-accent-400" viewBox="0 0 24 24" stroke-linejoin="round"
-                                     stroke-width="2" stroke-linecap="round" stroke-miterlimit="10"
-                                     stroke="currentColor"
-                                     fill="none">
-                                    <rect x="3" y="1" width="7" height="12"></rect>
-                                    <rect x="3" y="17" width="7" height="6"></rect>
-                                    <rect x="14" y="1" width="7" height="6"></rect>
-                                    <rect x="14" y="11" width="7" height="12"></rect>
-                                </svg>
-                                <span
-                                    className="ml-2 text-xl font-bold tracking-wide text-gray-100 uppercase">Opep</span>
-                            </a>
-                            <div className="mt-4 lg:max-w-sm">
-                                <p className="text-sm text-deep-purple-50">
-                                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-                                    doloremque
-                                    laudantium, totam rem aperiam.
-                                </p>
-                                <p className="mt-4 text-sm text-deep-purple-50">
-                                    Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta
-                                    sunt
-                                    explicabo.
-                                </p>
-                            </div>
-                        </div>
-                        <div className="grid grid-cols-2 gap-5 row-gap-8 lg:col-span-4 md:grid-cols-4">
-                            <div>
-                                <p className="font-semibold tracking-wide text-teal-accent-400">
-                                    Pages
-                                </p>
-                                <ul className="mt-2 space-y-2">
-                                    <li>
-                                        <a href="./home.php"
-                                           className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400">Home</a>
-                                    </li>
-                                    <li>
-                                        <a href="footer"
-                                           className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400">About
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="./plants.php"
-                                           className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400">Plants</a>
-                                    </li>
-                                    <li>
-                                        <a href="./category"
-                                           className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400">Category</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div>
-                                <p className="font-semibold tracking-wide text-teal-accent-400">Cherry</p>
-                                <ul className="mt-2 space-y-2">
-                                    <li>
-                                        <a href="/frontend/public"
-                                           className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400">Web</a>
-                                    </li>
-                                    <li>
-                                        <a href="/frontend/public"
-                                           className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400">eCommerce</a>
-                                    </li>
-                                    <li>
-                                        <a href="/frontend/public"
-                                           className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400">Business</a>
-                                    </li>
-                                    <li>
-                                        <a href="/frontend/public"
-                                           className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400">Entertainment</a>
-                                    </li>
-                                    <li>
-                                        <a href="/frontend/public"
-                                           className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400">Portfolio</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div>
-                                <p className="font-semibold tracking-wide text-teal-accent-400">Apples</p>
-                                <ul className="mt-2 space-y-2">
-                                    <li>
-                                        <a href="/frontend/public"
-                                           className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400">Media</a>
-                                    </li>
-                                    <li>
-                                        <a href="/frontend/public"
-                                           className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400">Brochure</a>
-                                    </li>
-                                    <li>
-                                        <a href="/frontend/public"
-                                           className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400">Nonprofit</a>
-                                    </li>
-                                    <li>
-                                        <a href="/frontend/public"
-                                           className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400">Educational</a>
-                                    </li>
-                                    <li>
-                                        <a href="/frontend/public"
-                                           className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400">Projects</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div>
-                                <p className="font-semibold tracking-wide text-teal-accent-400">
-                                    Business
-                                </p>
-                                <ul className="mt-2 space-y-2">
-                                    <li>
-                                        <a href="/frontend/public"
-                                           className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400">Infopreneur</a>
-                                    </li>
-                                    <li>
-                                        <a href="/frontend/public"
-                                           className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400">Personal</a>
-                                    </li>
-                                    <li>
-                                        <a href="/frontend/public"
-                                           className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400">Wiki</a>
-                                    </li>
-                                    <li>
-                                        <a href="/frontend/public"
-                                           className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400">Forum</a>
-                                    </li>
-                                </ul>
-                            </div>
+            <div className="nc-Footer relative px-16 mx-auto py-24 lg:py-28 border-t border-neutral-200 dark:border-neutral-700">
+                <div
+                    className="container grid grid-cols-2 gap-y-10 gap-x-5 sm:gap-x-8 md:grid-cols-4 lg:grid-cols-5 lg:gap-x-10 ">
+                    <div
+                        className="grid grid-cols-4 gap-5 col-span-2 md:col-span-4 lg:md:col-span-1 lg:flex lg:flex-col">
+                        <div className="col-span-2 md:col-span-1"><a
+                            className="ttnc-logo inline-block text-primary-6000 focus:outline-none focus:ring-0 w-24"
+                            href="/">
+                            <svg className="w-full hidden dark:block" viewBox="0 0 65 32" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M24.4444 14.0325C24.4444 21.4807 12.9444 29.3945 12.9444 29.3945C12.9444 29.3945 1.44444 21.4807 1.44444 14.0325C1.44444 7.51522 6.84722 2.39453 12.9444 2.39453C19.0417 2.39453 24.4444 7.51522 24.4444 14.0325Z"
+                                    fill="currentColor"></path>
+                                <path
+                                    d="M12.9444 29.3945C12.9444 29.3945 24.4444 21.4807 24.4444 14.0325C24.4444 7.51522 19.0417 2.39453 12.9444 2.39453C6.84722 2.39453 1.44444 7.51522 1.44444 14.0325C1.44444 21.4807 12.9444 29.3945 12.9444 29.3945ZM12.9444 29.3945V2.6807"
+                                    stroke="white" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                                <circle cx="13" cy="15" r="4" fill="white"></circle>
+                                <path
+                                    d="M31.8601 25.2216C32.951 25.2216 33.897 24.3097 33.9055 23.1761C33.897 22.0597 32.951 21.1477 31.8601 21.1477C30.7351 21.1477 29.8061 22.0597 29.8146 23.1761C29.8061 24.3097 30.7351 25.2216 31.8601 25.2216ZM43.9261 11.9091H41.3267V11.0312C41.3267 10.1449 41.6847 9.625 42.75 9.625C43.1847 9.625 43.6278 9.71875 43.9176 9.8125L44.5568 7.08523C44.1051 6.94886 43.108 6.72727 41.9915 6.72727C39.5284 6.72727 37.696 8.11648 37.696 10.9631V11.9091H35.8466V14.6364H37.696V25H41.3267V14.6364H43.9261V11.9091ZM46.1442 25H49.7749V11.9091H46.1442V25ZM47.968 10.2216C49.0504 10.2216 49.9368 9.39489 49.9368 8.38068C49.9368 7.375 49.0504 6.54829 47.968 6.54829C46.8942 6.54829 46.0078 7.375 46.0078 8.38068C46.0078 9.39489 46.8942 10.2216 47.968 10.2216ZM63.5753 15.642C63.2514 13.2301 61.3082 11.7386 58.0014 11.7386C54.652 11.7386 52.4446 13.2898 52.4531 15.8125C52.4446 17.7727 53.6804 19.0426 56.2372 19.554L58.5043 20.0057C59.6463 20.2358 60.1662 20.6534 60.1832 21.3097C60.1662 22.0852 59.3224 22.6392 58.0526 22.6392C56.7571 22.6392 55.8963 22.0852 55.6747 21.0199L52.1037 21.2074C52.4446 23.7131 54.5753 25.2557 58.044 25.2557C61.4361 25.2557 63.8651 23.5256 63.8736 20.9432C63.8651 19.0511 62.6293 17.9176 60.0895 17.3977L57.7202 16.9205C56.5014 16.6562 56.0497 16.2386 56.0582 15.608C56.0497 14.8239 56.9361 14.3125 58.0611 14.3125C59.3224 14.3125 60.0724 15.0028 60.2514 15.8466L63.5753 15.642Z"
+                                    fill="white"></path>
+                            </svg>
+                            <svg className="w-full block dark:hidden" viewBox="0 0 65 32" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M24.4444 14.0325C24.4444 21.4807 12.9444 29.3945 12.9444 29.3945C12.9444 29.3945 1.44444 21.4807 1.44444 14.0325C1.44444 7.51522 6.84722 2.39453 12.9444 2.39453C19.0417 2.39453 24.4444 7.51522 24.4444 14.0325Z"
+                                    fill="currentColor"></path>
+                                <path
+                                    d="M12.9444 29.3945C12.9444 29.3945 24.4444 21.4807 24.4444 14.0325C24.4444 7.51522 19.0417 2.39453 12.9444 2.39453C6.84722 2.39453 1.44444 7.51522 1.44444 14.0325C1.44444 21.4807 12.9444 29.3945 12.9444 29.3945ZM12.9444 29.3945V2.6807"
+                                    stroke="white" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                                <circle cx="13" cy="15" r="4" fill="white"></circle>
+                                <path
+                                    d="M31.8601 25.2216C32.951 25.2216 33.897 24.3097 33.9055 23.1761C33.897 22.0597 32.951 21.1477 31.8601 21.1477C30.7351 21.1477 29.8061 22.0597 29.8146 23.1761C29.8061 24.3097 30.7351 25.2216 31.8601 25.2216ZM43.9261 11.9091H41.3267V11.0312C41.3267 10.1449 41.6847 9.625 42.75 9.625C43.1847 9.625 43.6278 9.71875 43.9176 9.8125L44.5568 7.08523C44.1051 6.94886 43.108 6.72727 41.9915 6.72727C39.5284 6.72727 37.696 8.11648 37.696 10.9631V11.9091H35.8466V14.6364H37.696V25H41.3267V14.6364H43.9261V11.9091ZM46.1442 25H49.7749V11.9091H46.1442V25ZM47.968 10.2216C49.0504 10.2216 49.9368 9.39489 49.9368 8.38068C49.9368 7.375 49.0504 6.54829 47.968 6.54829C46.8942 6.54829 46.0078 7.375 46.0078 8.38068C46.0078 9.39489 46.8942 10.2216 47.968 10.2216ZM63.5753 15.642C63.2514 13.2301 61.3082 11.7386 58.0014 11.7386C54.652 11.7386 52.4446 13.2898 52.4531 15.8125C52.4446 17.7727 53.6804 19.0426 56.2372 19.554L58.5043 20.0057C59.6463 20.2358 60.1662 20.6534 60.1832 21.3097C60.1662 22.0852 59.3224 22.6392 58.0526 22.6392C56.7571 22.6392 55.8963 22.0852 55.6747 21.0199L52.1037 21.2074C52.4446 23.7131 54.5753 25.2557 58.044 25.2557C61.4361 25.2557 63.8651 23.5256 63.8736 20.9432C63.8651 19.0511 62.6293 17.9176 60.0895 17.3977L57.7202 16.9205C56.5014 16.6562 56.0497 16.2386 56.0582 15.608C56.0497 14.8239 56.9361 14.3125 58.0611 14.3125C59.3224 14.3125 60.0724 15.0028 60.2514 15.8466L63.5753 15.642Z"
+                                    fill="#1F2937"></path>
+                            </svg>
+                        </a></div>
+                        <div className="col-span-2 flex items-center md:col-span-3">
+                            <div
+                                className="nc-SocialsList1 flex items-center space-x-3 lg:space-x-0 lg:flex-col lg:space-y-2.5 lg:items-start"
+                                data-nc-id="SocialsList1"><a href="#"
+                                                             className="flex items-center text-2xl text-neutral-700 hover:text-black dark:text-neutral-300 dark:hover:text-white leading-none space-x-2 group"><i
+                                className="lab la-facebook-square"></i><span
+                                className="hidden lg:block text-sm">Facebook</span></a><a href="#"
+                                                                                          className="flex items-center text-2xl text-neutral-700 hover:text-black dark:text-neutral-300 dark:hover:text-white leading-none space-x-2 group"><i
+                                className="lab la-twitter"></i><span className="hidden lg:block text-sm">Twitter</span></a><a
+                                href="#"
+                                className="flex items-center text-2xl text-neutral-700 hover:text-black dark:text-neutral-300 dark:hover:text-white leading-none space-x-2 group"><i
+                                className="lab la-youtube"></i><span className="hidden lg:block text-sm">Youtube</span></a><a
+                                href="#"
+                                className="flex items-center text-2xl text-neutral-700 hover:text-black dark:text-neutral-300 dark:hover:text-white leading-none space-x-2 group"><i
+                                className="lab la-instagram"></i><span
+                                className="hidden lg:block text-sm">Instagram</span></a></div>
                         </div>
                     </div>
-                    <div
-                        className="flex flex-col justify-between pt-5 pb-10 border-t border-deep-purple-accent-200 sm:flex-row">
-                        <p className="text-sm text-gray-100">
-                            © Copyright 2020 Lorem Inc. All rights reserved.
-                        </p>
-                        <div className="flex items-center mt-4 space-x-4 sm:mt-0">
-                            <a href="/frontend/public"
-                               className="transition-colors duration-300 text-deep-purple-100 hover:text-teal-accent-400">
-                                <svg viewBox="0 0 24 24" fill="currentColor" className="h-5">
-                                    <path
-                                        d="M24,4.6c-0.9,0.4-1.8,0.7-2.8,0.8c1-0.6,1.8-1.6,2.2-2.7c-1,0.6-2,1-3.1,1.2c-0.9-1-2.2-1.6-3.6-1.6 c-2.7,0-4.9,2.2-4.9,4.9c0,0.4,0,0.8,0.1,1.1C7.7,8.1,4.1,6.1,1.7,3.1C1.2,3.9,1,4.7,1,5.6c0,1.7,0.9,3.2,2.2,4.1 C2.4,9.7,1.6,9.5,1,9.1c0,0,0,0,0,0.1c0,2.4,1.7,4.4,3.9,4.8c-0.4,0.1-0.8,0.2-1.3,0.2c-0.3,0-0.6,0-0.9-0.1c0.6,2,2.4,3.4,4.6,3.4 c-1.7,1.3-3.8,2.1-6.1,2.1c-0.4,0-0.8,0-1.2-0.1c2.2,1.4,4.8,2.2,7.5,2.2c9.1,0,14-7.5,14-14c0-0.2,0-0.4,0-0.6 C22.5,6.4,23.3,5.5,24,4.6z">
-                                    </path>
-                                </svg>
-                            </a>
-                            <a href="/frontend/public"
-                               className="transition-colors duration-300 text-deep-purple-100 hover:text-teal-accent-400">
-                                <svg viewBox="0 0 30 30" fill="currentColor" className="h-6">
-                                    <circle cx="15" cy="15" r="4"></circle>
-                                    <path
-                                        d="M19.999,3h-10C6.14,3,3,6.141,3,10.001v10C3,23.86,6.141,27,10.001,27h10C23.86,27,27,23.859,27,19.999v-10   C27,6.14,23.859,3,19.999,3z M15,21c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S18.309,21,15,21z M22,9c-0.552,0-1-0.448-1-1   c0-0.552,0.448-1,1-1s1,0.448,1,1C23,8.552,22.552,9,22,9z">
-                                    </path>
-                                </svg>
-                            </a>
-                            <a href="/frontend/public"
-                               className="transition-colors duration-300 text-deep-purple-100 hover:text-teal-accent-400">
-                                <svg viewBox="0 0 24 24" fill="currentColor" className="h-5">
-                                    <path
-                                        d="M22,0H2C0.895,0,0,0.895,0,2v20c0,1.105,0.895,2,2,2h11v-9h-3v-4h3V8.413c0-3.1,1.893-4.788,4.659-4.788 c1.325,0,2.463,0.099,2.795,0.143v3.24l-1.918,0.001c-1.504,0-1.795,0.715-1.795,1.763V11h4.44l-1,4h-3.44v9H22c1.105,0,2-0.895,2-2 V2C24,0.895,23.105,0,22,0z">
-                                    </path>
-                                </svg>
-                            </a>
-                        </div>
+                    <div className="text-sm"><h2
+                        className="font-semibold text-neutral-700 dark:text-neutral-200">Getting started</h2>
+                        <ul className="mt-5 space-y-4">
+                            <li><a
+                                className="text-neutral-6000 dark:text-neutral-300 hover:text-black dark:hover:text-white"
+                                href="#">Installation</a></li>
+                            <li><a
+                                className="text-neutral-6000 dark:text-neutral-300 hover:text-black dark:hover:text-white"
+                                href="#">Release Notes</a></li>
+                            <li><a
+                                className="text-neutral-6000 dark:text-neutral-300 hover:text-black dark:hover:text-white"
+                                href="#">Upgrade Guide</a></li>
+                            <li><a
+                                className="text-neutral-6000 dark:text-neutral-300 hover:text-black dark:hover:text-white"
+                                href="#">Browser Support</a></li>
+                            <li><a
+                                className="text-neutral-6000 dark:text-neutral-300 hover:text-black dark:hover:text-white"
+                                href="#">Editor Support</a></li>
+                        </ul>
+                    </div>
+                    <div className="text-sm"><h2
+                        className="font-semibold text-neutral-700 dark:text-neutral-200">Explore</h2>
+                        <ul className="mt-5 space-y-4">
+                            <li><a
+                                className="text-neutral-6000 dark:text-neutral-300 hover:text-black dark:hover:text-white"
+                                href="#">Design features</a></li>
+                            <li><a
+                                className="text-neutral-6000 dark:text-neutral-300 hover:text-black dark:hover:text-white"
+                                href="#">Prototyping</a></li>
+                            <li><a
+                                className="text-neutral-6000 dark:text-neutral-300 hover:text-black dark:hover:text-white"
+                                href="#">Design systems</a></li>
+                            <li><a
+                                className="text-neutral-6000 dark:text-neutral-300 hover:text-black dark:hover:text-white"
+                                href="#">Pricing</a></li>
+                            <li><a
+                                className="text-neutral-6000 dark:text-neutral-300 hover:text-black dark:hover:text-white"
+                                href="#">Security</a></li>
+                        </ul>
+                    </div>
+                    <div className="text-sm"><h2
+                        className="font-semibold text-neutral-700 dark:text-neutral-200">Resources</h2>
+                        <ul className="mt-5 space-y-4">
+                            <li><a
+                                className="text-neutral-6000 dark:text-neutral-300 hover:text-black dark:hover:text-white"
+                                href="#">Best practices</a></li>
+                            <li><a
+                                className="text-neutral-6000 dark:text-neutral-300 hover:text-black dark:hover:text-white"
+                                href="#">Support</a></li>
+                            <li><a
+                                className="text-neutral-6000 dark:text-neutral-300 hover:text-black dark:hover:text-white"
+                                href="#">Developers</a></li>
+                            <li><a
+                                className="text-neutral-6000 dark:text-neutral-300 hover:text-black dark:hover:text-white"
+                                href="#">Learn design</a></li>
+                            <li><a
+                                className="text-neutral-6000 dark:text-neutral-300 hover:text-black dark:hover:text-white"
+                                href="#">Releases</a></li>
+                        </ul>
+                    </div>
+                    <div className="text-sm"><h2
+                        className="font-semibold text-neutral-700 dark:text-neutral-200">Community</h2>
+                        <ul className="mt-5 space-y-4">
+                            <li><a
+                                className="text-neutral-6000 dark:text-neutral-300 hover:text-black dark:hover:text-white"
+                                href="#">Discussion Forums</a></li>
+                            <li><a
+                                className="text-neutral-6000 dark:text-neutral-300 hover:text-black dark:hover:text-white"
+                                href="#">Code of Conduct</a></li>
+                            <li><a
+                                className="text-neutral-6000 dark:text-neutral-300 hover:text-black dark:hover:text-white"
+                                href="#">Community Resources</a></li>
+                            <li><a
+                                className="text-neutral-6000 dark:text-neutral-300 hover:text-black dark:hover:text-white"
+                                href="#">Contributing</a></li>
+                            <li><a
+                                className="text-neutral-6000 dark:text-neutral-300 hover:text-black dark:hover:text-white"
+                                href="#">Concurrent Mode</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>

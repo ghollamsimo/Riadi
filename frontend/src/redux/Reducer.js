@@ -6,14 +6,7 @@ import {
     MAKE_REQUEST,
     UPDATE_DATA_LIST
 } from "./ActionType.js";
-
-const initial = {
-    loading : true,
-    datalist: [],
-    dataobject: {},
-    errormessage: ''
-}
-
+import initial from './initiation.js'
 export const Reducer = (state = initial , action) => {
     switch (action.type){
         case MAKE_REQUEST: return {...state,loading: true}
@@ -26,3 +19,4 @@ export const Reducer = (state = initial , action) => {
         default: return state
     }
 }
+

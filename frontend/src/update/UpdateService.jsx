@@ -1,15 +1,16 @@
-import { useState } from "react";
+import { fetchService, UpdateServices } from "../redux/Action.js"; // Corrected import statement
+import { connect } from "react-redux";
+import { useEffect, useState } from "react";
+import Aos from "aos";
 import { toast, ToastContainer } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 import { IoClose } from "react-icons/io5";
-import { useDispatch } from "react-redux";
-import {fetchCategories, UpdateCategorie} from "../redux/Action.js";
 
-const UpdateCategory = ({ setOpenModal, category }) => {
-    const [name, setName] = useState(category.name);
-    const [loading, setLoading] = useState(false);
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+const UpdateService = ({ setOpenModal, item, updateService, services }) => {
+    useEffect(() => {
+        Aos.init({ duration: 500 });
+    }, []);
+
+    const [name, setName] = useState(item.name);
 
     const validate = () => {
         if (!name) {
@@ -22,24 +23,20 @@ const UpdateCategory = ({ setOpenModal, category }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (validate()) {
-            setLoading(true);
             try {
-                await dispatch(UpdateCategorie(category, { name }));
-                toast.success("Category updated successfully");
+                await updateService(item, { name });
+                toast.success("Service updated successfully");
                 setOpenModal(false);
-                dispatch(fetchCategories())
+                services();
             } catch (error) {
-                toast.error("Failed to update category");
-                console.error("Error updating category:", error);
-            } finally {
-                setLoading(false);
+                toast.error("Failed to update Service");
             }
         }
     };
 
     return (
         <>
-            <div className="fixed inset-0 overflow-y-auto flex justify-center items-center" >
+            <div className="fixed z-50 inset-0 overflow-y-auto flex justify-center items-center" >
                 <div className="bg-white w-full max-w-md p-8 rounded-lg shadow-lg">
                     <div className="flex justify-end">
                         <button onClick={() => setOpenModal(false)} className="text-xl">
@@ -60,16 +57,23 @@ const UpdateCategory = ({ setOpenModal, category }) => {
                         <button
                             type="submit"
                             className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 focus:outline-none"
-                            disabled={loading}
                         >
-                            {loading ? "Updating..." : "Update"}
+                            Update
                         </button>
                     </form>
                 </div>
             </div>
             <ToastContainer />
         </>
-    );
+    )
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        updateService: (id, data) => dispatch(UpdateServices(id, data)),
+        services: () => dispatch(fetchService()),
+        loader: () => dispatch(fetchService())
+    };
 };
 
-export default UpdateCategory;
+export default connect(null, mapDispatchToProps)(UpdateService);

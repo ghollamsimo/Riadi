@@ -7,56 +7,52 @@ import getCookie from "../../helpers/cookie.js";
 
 const Login = () => {
     const navigate = useNavigate();
-    const token = getCookie('ACCESS_TOKEN')
-    const {http} = Api()
+    const token = getCookie('ACCESS_TOKEN');
+    const { http } = Api();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
+    const [userData, setUserData] = useState(null);
 
-    const login = async () => {
-        const formData = new FormData();
-        formData.append('email', email);
-        formData.append('password', password);
+    const login = async (e) => {
+        e.preventDefault();
+        setLoading(true)
+        if (validateForm()) {
+            const formData = new FormData();
+            formData.append('email', email);
+            formData.append('password', password);
 
-        try {
+            try {
                 return await http.post('/login', formData).then(({data}) => {
-                const [user, token] = data;
-                const {original} = token;
-                document.cookie = `ACCESS_TOKEN=${original.access_token};`
-                return user;
-            });
-        } catch (error) {
-            console.error('Login error');
-            throw error;
+                    setLoading(false)
+                    const [user, token] = data;
+                    const {original} = token;
+                    document.cookie = `ACCESS_TOKEN=${original.access_token};`
+                    console.log(token)
+                    setUserData(user);
+                    toast.success(`Welcome ${token.original.user.name}`);
+                    if (token.original.user.role === 'Client'){
+                        navigate('/')
+                    }else if (token.original.user.role === 'DrRiad'){
+                        navigate('/directeur')
+                    }
+                });
+            } catch (error) {
+                setLoading(false)
+                toast.error('Failed to login');
+                console.error('Login error');
+                throw error;
+            }
         }
     };
+
     const validateForm = () => {
         if (!email || !password) {
             toast.error('Please fill in all fields');
             return false;
         }
+        setLoading(false)
         return true;
-    };
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        if (validateForm()) {
-            try {
-                setLoading(true);
-                const userData = await login();
-                console.log(userData)
-                console.log(token)
-                if (token){
-                    toast.success(`Welcome ${userData.name}`);
-                }else {
-                    toast.error('Failed to login')
-                }
-                setLoading(false);
-            } catch (error) {
-                toast.error('Invalid email or password');
-                setLoading(false);
-
-            }
-        }
     };
 
 
@@ -67,35 +63,7 @@ const Login = () => {
                     Login
                 </h2>
                 <div className="max-w-md mx-auto space-y-6">
-                    <div className="grid gap-3">
-                        <a href="#" className="nc-will-change-transform flex w-full rounded-lg dark:bg-[#1F2937] px-4 py-3 transform transition-transform sm:px-6 hover:translate-y-[-2px]">
-                            <img className="flex-shrink-0"  alt="Continue with Facebook" />
-                            <h3 className="flex-grow text-center text-sm font-medium text-neutral-700 dark:text-neutral-300 sm:text-sm">
-                                Continue with Facebook
-                            </h3>
-                        </a>
-
-                        <a href="#" className="nc-will-change-transform flex w-full rounded-lg bg-primary-50 dark:bg-gray-800 px-4 py-3 transform transition-transform sm:px-6 hover:translate-y-[-2px]">
-                            <img className="flex-shrink-0"  alt="Continue with Twitter" />
-                            <h3 className="flex-grow text-center text-sm font-medium text-neutral-700 dark:text-neutral-300 sm:text-sm">
-                                Continue with Twitter
-                            </h3>
-                        </a>
-
-                        <Link to="#" className="nc-will-change-transform flex w-full rounded-lg bg-primary-50 dark:bg-gray-800 px-4 py-3 transform transition-transform sm:px-6 hover:translate-y-[-2px]">
-                            <img className="flex-shrink-0"  alt="Continue with Google" />
-                            <h3 className="flex-grow text-center text-sm font-medium text-neutral-700 dark:text-neutral-300 sm:text-sm">
-                                Continue with Google
-                            </h3>
-                        </Link>
-                    </div>
-                    <div className="relative text-center">
-                        <span className="relative inline-block px-4 font-medium text-sm bg-white dark:text-neutral-400 dark:bg-[#111827] lg:z-50 sm:z-0 sm:bg-[#111827]">
-                            OR
-                        </span>
-                        <div className="absolute left-0 w-full top-1/2 transform -translate-y-1/2 border border-neutral-100 dark:border-gray-700"></div>
-                    </div>
-                    <form className="grid grid-cols-1 gap-6" onSubmit={handleSubmit}>
+                    <form className="grid grid-cols-1 gap-6" onSubmit={login}>
                         <label className="block">
                             <span className="text-neutral-800 dark:text-neutral-200">Email address</span>
                             <input

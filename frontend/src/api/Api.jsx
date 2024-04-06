@@ -1,11 +1,8 @@
 import axios from 'axios';
+import config from "../helpers/config.js";
 
 const Api = () => {
-    const http = axios.create({
-        baseURL: 'http://127.0.0.1:8000/api',
-        headers: { 'content-type': 'application/json'}
-    });
-
+    const http = axios.create(config());
     return {
         http
     }

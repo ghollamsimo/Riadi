@@ -21,8 +21,10 @@ class RiadSeeder extends Seeder
                 'prix' => 29,
                 'date' => now(),
                 'drriad_id' => null,
-                'image' => 'hhhhhhh',
-            ],
+                'acreage' => 3,
+                'checkout' => now(),
+                'guests' => 4,
+                'rule' => 'matjibch lklab'            ],
             [
                 'name' => 'Riad Bab Dokala',
                 'localisation' => 'Marrakech',
@@ -30,7 +32,10 @@ class RiadSeeder extends Seeder
                 'prix' => 69,
                 'date' => now(),
                 'drriad_id' => null,
-                'image' => 'test',
+                'acreage' => 3,
+                'checkout' => now(),
+                'guests' => 4,
+                'rule' => 'matjibch lklab'
             ],
             [
                 'name' => 'Riad cha9a',
@@ -39,7 +44,10 @@ class RiadSeeder extends Seeder
                 'prix' => 99,
                 'date' => now(),
                 'drriad_id' => null,
-                'image' => 'hhh',
+                'acreage' => 3,
+                'checkout' => now(),
+                'guests' => 4,
+                'rule' => 'matjibch lklab'
             ]
         ];
 

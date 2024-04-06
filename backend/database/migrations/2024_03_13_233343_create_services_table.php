@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('riad_id')->nullable()->constrained('riads');
             $table->text('name');
+            $table->foreignId('drriad_id')->nullable()->constrained('dr_riads');
             $table->timestamps();
         });
     }

@@ -1,11 +1,16 @@
 import { IoClose } from "react-icons/io5";
 import { toast, ToastContainer } from "react-toastify";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import { UpdateRepas, fetchRepas } from "../redux/Action.js"; // Assuming you have an updateRepa action
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Aos from "aos";
 
-const UpdateRepa = ({ setOpenModal, item, updateRepa }) => {
+const UpdateRepa = ({ setOpenModal, item, updateRepa  , repas}) => {
+    useEffect(() => {
+        Aos.init({ duration: 500 });
+    }, []);
+
     const [name, setName] = useState(item.name);
     const navigate = useNavigate();
 
@@ -24,7 +29,7 @@ const UpdateRepa = ({ setOpenModal, item, updateRepa }) => {
                 await updateRepa(item, { name });
                 toast.success("Repa updated successfully");
                 setOpenModal(false);
-                navigate("/repas");
+                repas()
             } catch (error) {
                 toast.error("Failed to update repa");
                 console.error("Error updating repa:", error);
@@ -34,7 +39,7 @@ const UpdateRepa = ({ setOpenModal, item, updateRepa }) => {
 
     return (
         <>
-            <div className="fixed inset-0 overflow-y-auto flex justify-center items-center">
+            <div className="fixed inset-0 overflow-y-auto flex justify-center items-center" data-aos="fade-up">
                 <div className="bg-white w-full max-w-md p-8 rounded-lg shadow-lg">
                     <div className='flex justify-end'>
                         <button onClick={() => setOpenModal(false)} className="text-xl">
@@ -68,6 +73,7 @@ const UpdateRepa = ({ setOpenModal, item, updateRepa }) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         updateRepa: (id, data) => dispatch(UpdateRepas(id, data)),
+        repas: () => dispatch(fetchRepas()),
         loader: () => dispatch(fetchRepas())
     };
 };

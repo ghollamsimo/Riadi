@@ -4,10 +4,11 @@ import {
     GET_DATA_LIST,
     DELETE_DATA_LIST,
     ADD_DATA_LIST,
-    UPDATE_DATA_LIST, GET_DATA_OBJ
+    UPDATE_DATA_LIST, GET_DATA_OBJ, GET_RIAD_LIST, GET_CATEGORIE_LIST
 } from "./ActionType.js";
 import Api from '../api/Api.jsx';
 import {toast} from "react-toastify";
+import getCookie from "../helpers/cookie.js";
 
 const { http } = Api();
 
@@ -24,6 +25,15 @@ export const getDataList = (data) => ({
     type: GET_DATA_LIST,
     payload: data
 });
+
+export const getListsOfRiads = (data) => ({
+    type: GET_RIAD_LIST,
+    payload: data
+});
+export const getListOfCategories= (data) => ({
+    type: GET_CATEGORIE_LIST,
+    payload : data
+})
 export const deleteDataList = () => {
     return {
         type: DELETE_DATA_LIST
@@ -58,20 +68,6 @@ export const fetchStats = () => {
             });
     };
 };
-
-export const UpdateStatusOfRiad = (id , data) => {
-    return (dispatch) => {
-        dispatch(makeRequest());
-        http.post('/approvedriad/' + id , data)
-            .then(response => {
-                dispatch(updateDataList(response.data));
-            })
-            .catch(error => {
-                dispatch(failRequest(error.message));
-            });
-    };
-}
-
 export const fetchRepas = () => {
     return (dispatch) => {
         dispatch(makeRequest());
@@ -99,19 +95,17 @@ export const DeleteRepa = (id) => {
     };
 }
 export const AddRepa = (data) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(makeRequest());
-        http.post('/createrepa' , data)
-            .then(response => {
-                dispatch(addDataList(response.data));
-                toast.success('Categorie added successfully')
-
-            })
-            .catch(error => {
-                dispatch(failRequest(error.message));
-            });
+        try {
+            const response = await http.post('/createrepa', data);
+            dispatch(addDataList(response.data));
+            toast.success('Categorie added successfully');
+        } catch (error) {
+            dispatch(failRequest(error.message));
+        }
     };
-}
+};
 export const UpdateRepas = (id , data) => {
     return (dispatch) => {
         dispatch(makeRequest());
@@ -124,14 +118,68 @@ export const UpdateRepas = (id , data) => {
             });
     };
 }
-//-------------END ADMIN------------
-export const fetchRaids = () => {
+
+export const fetchCategories = () => {
     return (dispatch) => {
         dispatch(makeRequest());
-        http.get('/riads')
+        http.get('/categories')
             .then(response => {
-                const riadslist = response.data;
-                dispatch(getDataList(riadslist));
+                const categorieList = response.data;
+                dispatch(getDataList(categorieList));
+            })
+            .catch(error => {
+                dispatch(failRequest(error.message));
+            });
+    };
+}
+export const DeleteCategories = (id) => {
+    return (dispatch) => {
+        dispatch(makeRequest());
+        http.delete('/deletecategorie/' + id)
+            .then(response => {
+                dispatch(deleteDataList(response.data));
+            })
+            .catch(error => {
+                dispatch(failRequest(error.message));
+            });
+    };
+}
+export const AddCategorie = (data) => {
+    return (dispatch) => {
+        dispatch(makeRequest());
+        http.post('/categorie' , data)
+            .then(response => {
+                dispatch(addDataList(response.data));
+                toast.success('Categorie added successfully')
+
+            })
+            .catch(error => {
+                dispatch(failRequest(error.message));
+            });
+    };
+}
+export const UpdateCategorie = (id , data) => {
+    return (dispatch) => {
+        dispatch(makeRequest());
+        http.post('/updatecategorie/'+ id , data)
+            .then(response => {
+                dispatch(updateDataList(response.data));
+                toast.success('Categorie added successfully')
+
+            })
+            .catch(error => {
+                dispatch(failRequest(error.message));
+            });
+    };
+}
+//-------------END ADMIN------------
+export const fetchRaid = (id) => {
+    return (dispatch) => {
+        dispatch(makeRequest());
+        http.get('/riad' + id)
+            .then(response => {
+                const riadlist = response.data;
+                dispatch(getDataList(riadlist));
             })
             .catch(error => {
                 dispatch(failRequest(error.message));
@@ -152,42 +200,54 @@ export const fetchUsers = () => {
             });
     };
 };
-
-export const fetchCategories = () => {
+export const AddService = (data) => {
     return (dispatch) => {
         dispatch(makeRequest());
-        http.get('/categories')
-            .then(response => {
-                const categorieList = response.data;
-                dispatch(getDataList(categorieList));
-            })
-            .catch(error => {
-                dispatch(failRequest(error.message));
-            });
-    };
-}
-
-
-export const DeleteCategorie = (code) => {
-    return (dispatch) => {
-        dispatch(makeRequest());
-        http.get('/deletecategorie/' + code)
-            .then(response => {
-                dispatch(deleteDataList());
-            })
-            .catch(error => {
-                dispatch(failRequest(error.message));
-            });
-    };
-}
-
-export const AddCategorie = (data) => {
-    return (dispatch) => {
-        dispatch(makeRequest());
-        http.post('/categorie' , data)
+        const token = getCookie('ACCESS_TOKEN');
+        http.post('/createservice', data, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
             .then(response => {
                 dispatch(addDataList(response.data));
-                toast.success('Categorie added successfully')
+                toast.success('Service Added successfully');
+            })
+            .catch(error => {
+                dispatch(failRequest(error.message));
+            });
+    };
+};
+export const fetchService = () => {
+    return (dispatch) => {
+        dispatch(makeRequest());
+        const token = getCookie('ACCESS_TOKEN');
+        http.get('/services', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+            .then(response => {
+                const serviceList = response.data;
+                dispatch(getDataList(serviceList));
+            })
+            .catch(error => {
+                dispatch(failRequest(error.message));
+            });
+    };
+};
+export const UpdateServices = (id , data) => {
+    return (dispatch) => {
+        dispatch(makeRequest());
+        const token = getCookie('ACCESS_TOKEN');
+        http.post('/updateservice/'+ id , data , {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+            .then(response => {
+                dispatch(updateDataList(response.data));
+                toast.success('Service Updated Successfully')
 
             })
             .catch(error => {
@@ -195,15 +255,17 @@ export const AddCategorie = (data) => {
             });
     };
 }
-
-export const UpdateCategorie = (code , data) => {
+export const DeleteServices = (id) => {
     return (dispatch) => {
         dispatch(makeRequest());
-        http.post('/updatecategorie/'+ code , data)
+        const token = getCookie('ACCESS_TOKEN');
+        http.delete('/deleteservice/' + id , {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
             .then(response => {
-                dispatch(updateDataList(response.data));
-                toast.success('Categorie added successfully')
-
+                dispatch(deleteDataList(response.data));
             })
             .catch(error => {
                 dispatch(failRequest(error.message));
