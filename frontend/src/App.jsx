@@ -10,7 +10,7 @@ import Profile from "./pages/auth/Profile.jsx";
 import Griads from "./pages/admin/Griads.jsx";
 import GCategorie from "./pages/admin/GCategorie.jsx";
 import GRepas from "./pages/admin/GRepas.jsx";
-import CreateRiad from "./pages/drriad/CreateRiad.jsx";
+import MultiStepForm from "./pages/drriad/MultiStepForm.jsx";
 import Footer from "./components/Footer.jsx";
 
 function App() {
@@ -38,7 +38,7 @@ function App() {
                 <Route path='/gestionriads' element={<Griads/>}/>
                 <Route path='/categories' element={<GCategorie/>}/>
                 <Route path='/repas' element={<GRepas/>}/>
-                <Route path='/createriad' element={<CreateRiad/>}/>
+                <Route path='/createriad' element={<MultiStepForm/>}/>
             </Routes>
 
         </>

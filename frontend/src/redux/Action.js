@@ -4,7 +4,7 @@ import {
     GET_DATA_LIST,
     DELETE_DATA_LIST,
     ADD_DATA_LIST,
-    UPDATE_DATA_LIST, GET_DATA_OBJ, GET_RIAD_LIST, GET_CATEGORIE_LIST
+    UPDATE_DATA_LIST, GET_DATA_OBJ, GET_RIAD_LIST, GET_CATEGORIE_LIST, GET_SERVICE_LIST, GET_REPA_LIST
 } from "./ActionType.js";
 import Api from '../api/Api.jsx';
 import {toast} from "react-toastify";
@@ -30,8 +30,16 @@ export const getListsOfRiads = (data) => ({
     type: GET_RIAD_LIST,
     payload: data
 });
+export const getListOfServices= (data) => ({
+    type: GET_SERVICE_LIST,
+    payload : data
+})
 export const getListOfCategories= (data) => ({
     type: GET_CATEGORIE_LIST,
+    payload : data
+})
+export const getListOfRepa= (data) => ({
+    type: GET_REPA_LIST,
     payload : data
 })
 export const deleteDataList = () => {

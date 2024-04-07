@@ -1,9 +1,9 @@
-import {GET_CATEGORIE_LIST} from "../ActionType.js";
+import { GET_SERVICE_LIST} from "../ActionType.js";
 import initial from '../initiation.js'
 
-export const categorieReducer = (state = initial, action) => {
+export const serviceReducer = (state = initial, action) => {
     switch (action.type) {
-        case GET_CATEGORIE_LIST:
+        case GET_SERVICE_LIST:
             return {
                 ...state,
                 loading: false,

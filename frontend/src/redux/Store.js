@@ -3,8 +3,11 @@ import {Reducer} from "./Reducer.js"; // Assuming Reducer is default exported
 import {riadReducer} from './reducers/RiadReducer.jsx'
 import {thunk} from "redux-thunk";
 import logger from "redux-logger";
+import {categorieReducer} from "./reducers/CategorieReducer.jsx";
+import {serviceReducer} from "./reducers/ServiceReducer.jsx";
+import {repaReducer} from "./reducers/RepaReducer.js";
 
-const rootReducer = combineReducers({ data: Reducer, riadsData:riadReducer });
+const rootReducer = combineReducers({ data: Reducer, riadsData:riadReducer  , categorieData:categorieReducer , serviceData: serviceReducer , repaData: repaReducer});
 
 const middleware = [thunk, logger];
 
