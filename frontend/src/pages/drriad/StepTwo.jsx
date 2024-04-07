@@ -6,6 +6,7 @@ const StepTwo = ({ handleNext  , handlePrev , handleChange}) => {
         Aos.init({duration:1000});
     }, [])
     const [count, setCount] = useState(1);
+    const [room, setRoom] = useState(1);
     const handlePlusOne = () => {
         if (count < 20) {
             setCount(count + 1);
@@ -17,6 +18,19 @@ const StepTwo = ({ handleNext  , handlePrev , handleChange}) => {
             setCount(count - 1);
         }
     };
+
+    const handlePlusRoom = () => {
+        if (room < 20) {
+            setRoom(room + 1);
+        }
+    };
+
+    const handleMinesRoom = () => {
+        if (room > 1) {
+            setRoom(room - 1);
+        }
+    };
+
 
     return(
         <>
@@ -50,6 +64,7 @@ const StepTwo = ({ handleNext  , handlePrev , handleChange}) => {
                             <div className="nc-NcInputNumber flex items-center justify-between w-28">
                                 <button
                                     onClick={handleMinesOne}
+                                    name='guests'
                                     onChange={handleChange}
                                     className={`w-8 h-8 rounded-full  border border-gray-600 outline-0 text-white bg-white dark:bg-transparent flex items-center justify-center  dark:border-neutral-500  dark:bg-neutral-900 focus:outline-none hover:border-neutral-700 disabled:hover:border-neutral-400 dark:disabled:hover:border-neutral-500 disabled:opacity-50 disabled:cursor-default`}
                                     type="button">
@@ -60,7 +75,7 @@ const StepTwo = ({ handleNext  , handlePrev , handleChange}) => {
                                               clipRule="evenodd"></path>
                                     </svg>
                                 </button>
-                                <span>{count}</span>
+                                <input type='text' name='guests' value={count} readOnly className='outline-0 bg-transparent w-5'/>
                                 <button
                                     onClick={handlePlusOne}
                                     onChange={handleChange}
@@ -81,7 +96,7 @@ const StepTwo = ({ handleNext  , handlePrev , handleChange}) => {
                                 className="font-medium text-neutral-800 dark:text-neutral-200">Rooms</span></div>
                             <div className="nc-NcInputNumber flex items-center justify-between w-28">
                                 <button
-                                    onClick={handleMinesOne}
+                                    onClick={handleMinesRoom}
                                     onChange={handleChange}
                                     className={`w-8 h-8 rounded-full  border border-gray-600 outline-0 text-white bg-white dark:bg-transparent flex items-center justify-center  dark:border-neutral-500  dark:bg-neutral-900 focus:outline-none hover:border-neutral-700 disabled:hover:border-neutral-400 dark:disabled:hover:border-neutral-500 disabled:opacity-50 disabled:cursor-default`}
                                     type="button">
@@ -92,9 +107,9 @@ const StepTwo = ({ handleNext  , handlePrev , handleChange}) => {
                                               clipRule="evenodd"></path>
                                     </svg>
                                 </button>
-                                <span>{count}</span>
+                                <input type='text' name='rooms' value={room} readOnly className='outline-0 bg-transparent w-5'/>
                                 <button
-                                    onClick={handlePlusOne}
+                                    onClick={handlePlusRoom}
                                     onChange={handleChange}
                                     className={`w-8 h-8 rounded-full  border border-gray-600 outline-0 text-white bg-white dark:bg-transparent flex items-center justify-center  dark:border-neutral-500  dark:bg-neutral-900 focus:outline-none hover:border-neutral-700 disabled:hover:border-neutral-400 dark:disabled:hover:border-neutral-500 disabled:opacity-50 disabled:cursor-default`}
                                     type="button">

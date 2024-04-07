@@ -7,6 +7,8 @@ use App\Models\Comments;
 use App\Models\DrRiad;
 use App\Models\Image;
 use App\Models\Riad;
+use App\Models\Riad_Service;
+use App\Models\Services;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,11 +43,25 @@ class RiadController extends Controller
 
         if ($drriad) {
             $validatedData = $request->validated();
-
+            $serviceIds = $request->input('service_id');
             $image =[$request->file('image')];
             unset($validatedData['image']);
 
             $riads = Riad::create([...$validatedData, 'drriad_id' => $drriad->id]);
+            if (!is_array($serviceIds)) {
+                $serviceIds = [$serviceIds];
+            }
+            foreach ($serviceIds as $serviceId) {
+                $service = Services::find($serviceId);
+                if ($service) {
+                    Riad_Service::create([
+                        'riad_id' => $riads->id,
+                        'service_id' => $serviceId
+                    ]);
+                } else {
+                    return response()->json(['message' => 'Error Creating Services']);
+                }
+            }
 
             if ($image) {
                 foreach ($image as $file) {

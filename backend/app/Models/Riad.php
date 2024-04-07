@@ -22,6 +22,7 @@ class Riad extends Model
         'acreage',
         'checkout',
         'guests',
+        'rooms',
         'rule'
     ];
 

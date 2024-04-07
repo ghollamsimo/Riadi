@@ -1,5 +1,5 @@
 import  { useEffect } from "react";
-import { connect, useSelector } from "react-redux"; // corrected import
+import { connect, useSelector } from "react-redux";
 import { fetchService } from "../../redux/actions/ServiceAction";
 import {fetchRepas} from '../../redux/actions/RepaAction.jsx'
 const StepThree = ({ handlePrev, handleNext, loader , repas}) => {
@@ -29,10 +29,7 @@ const StepThree = ({ handlePrev, handleNext, loader , repas}) => {
                             <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                                 {service?.datalist?.map(item => (
                                     <div key={item.id} className="flex text-sm sm:text-base "><input id={item.name}
-                                                                                                     name="Wifi"
-                                                                                                     type="checkbox"
-                                                                                                     value={item.id}
-                                                                                                     className="focus:ring-action-primary h-6 w-6 text-primary-500 border-primary rounded border-neutral-500 bg-[#6366F1] dark:bg-[#6366F1]  dark:checked:bg-primary-500 focus:ring-primary-500"/><label
+                                                                                                     name="" type="checkbox" value={item.id} className="focus:ring-action-primary h-6 w-6 text-primary-500 border-primary rounded border-neutral-500 bg-[#6366F1] dark:bg-[#6366F1]  dark:checked:bg-primary-500 focus:ring-primary-500"/><label
                                         htmlFor={item.name} className="ml-3.5 flex flex-col flex-1 justify-center"><span
                                         className=" text-neutral-900 dark:text-neutral-100">{item.name}</span></label>
                                     </div>

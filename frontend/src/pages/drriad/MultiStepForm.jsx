@@ -8,6 +8,7 @@ import {useNavigate} from "react-router-dom";
 import Footer from "../../components/Footer.jsx";
 import StepFour from "./StepFour.jsx";
 import StepFive from "./StepFive.jsx";
+import StepSix from "./StepSix.jsx";
 const MultiStepForm = () =>{
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -24,7 +25,9 @@ const MultiStepForm = () =>{
         checkout : '',
         guests : '',
         rule : '',
-
+        rooms : '',
+        currency :  '',
+        service_id: '',
     });
 
     const handleChange = (e) => {
@@ -39,8 +42,8 @@ const MultiStepForm = () =>{
     };
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!formData.name || !formData.categorie_id || !formData.description) {
-            toast.error("Name and Category are required")
+        if (!formData.name || !formData.categorie_id || !formData.description || !formData.image || !formData.prix || !formData.date || !formData.acreage || !formData.checkout || !formData.guests || !formData.rule || !formData.rooms || !formData.currency) {
+            toast.error("Please fill in all fields")
         }else {
             toast.success('Success');
             console.log(formData);
@@ -85,6 +88,16 @@ const MultiStepForm = () =>{
                     formData={formData}
                     handleChange={handleChange}
                     handlePrev={handlePrev}
+                    handleNext={handleNext}
+                />
+            )}
+            {step === 6 && (
+                <StepSix
+                    formData={formData}
+                    handleChange={handleChange}
+                    handleSubmit={handleSubmit}
+                    handlePrev={handlePrev}
+
                 />
             )}
             <Footer/>

@@ -9,15 +9,13 @@ const StepOne = ({ handleNext  , handleChange  , loader} ) => {
     }, [])
 
     useEffect(() => {
-        // Load categories on component mount
         loader();
     }, []);
 
     const categorie = useSelector(state => state.categorieData);
 
-    // Now you can access the state managed by categorieData reducer
-    // For example:
-    console.log("useSelector",categorie.datalist);
+
+//    console.log("useSelector",categorie.datalist);
     return(
         <>
             <div className="nc-PageAddListing1  text-white px-4 max-w-3xl mx-auto pb-24 pt-14 sm:py-24 lg:pb-32"

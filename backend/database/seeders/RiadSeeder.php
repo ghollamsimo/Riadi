@@ -24,7 +24,10 @@ class RiadSeeder extends Seeder
                 'acreage' => 3,
                 'checkout' => now(),
                 'guests' => 4,
-                'rule' => 'matjibch lklab'            ],
+                'rule' => 'matjibch lklab',
+                'currency' => 'USD',
+                'rooms' => 4,
+            ],
             [
                 'name' => 'Riad Bab Dokala',
                 'localisation' => 'Marrakech',
@@ -35,7 +38,9 @@ class RiadSeeder extends Seeder
                 'acreage' => 3,
                 'checkout' => now(),
                 'guests' => 4,
-                'rule' => 'matjibch lklab'
+                'rule' => 'matjibch lklab',
+                'currency' => 'USD',
+                'rooms' => 4,
             ],
             [
                 'name' => 'Riad cha9a',
@@ -47,7 +52,9 @@ class RiadSeeder extends Seeder
                 'acreage' => 3,
                 'checkout' => now(),
                 'guests' => 4,
-                'rule' => 'matjibch lklab'
+                'rule' => 'matjibch lklab',
+                'currency' => 'USD',
+                'rooms' => 4,
             ]
         ];
 

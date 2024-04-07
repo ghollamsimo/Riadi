@@ -32,6 +32,10 @@ class RiadRequest extends FormRequest
             'date' => "required",
             'acreage' => 'required',
             'checkout' => "required",
+            'service_id' => 'required',
+            'service_id.*' => 'required',
+            'rooms' => 'required',
+            'currency' => 'required',
             'guests' => 'required',
             'rule' => 'required'
         ];
