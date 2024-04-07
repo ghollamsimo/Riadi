@@ -6,7 +6,9 @@ use App\Http\Requests\RiadRequest;
 use App\Models\Comments;
 use App\Models\DrRiad;
 use App\Models\Image;
+use App\Models\Repa;
 use App\Models\Riad;
+use App\Models\Riad_Repa;
 use App\Models\Riad_Service;
 use App\Models\Services;
 use Illuminate\Http\Request;
@@ -44,6 +46,7 @@ class RiadController extends Controller
         if ($drriad) {
             $validatedData = $request->validated();
             $serviceIds = $request->input('service_id');
+            $repa_ids = $request->input('repa_id');
             $image =[$request->file('image')];
             unset($validatedData['image']);
 
@@ -51,6 +54,22 @@ class RiadController extends Controller
             if (!is_array($serviceIds)) {
                 $serviceIds = [$serviceIds];
             }
+            if (!is_array($repa_ids)) {
+                $repa_ids = [$repa_ids];
+            }
+
+            foreach ($repa_ids as $repa_id) {
+                $repa = Repa::find($repa_id);
+                if ($repa) {
+                    Riad_Repa::create([
+                        'riad_id' => $riads->id,
+                        'repa_id' => $repa_id
+                    ]);
+                } else {
+                    return response()->json(['error' => 'Error Creating Repas'], 400);
+                }
+            }
+
             foreach ($serviceIds as $serviceId) {
                 $service = Services::find($serviceId);
                 if ($service) {
@@ -62,7 +81,6 @@ class RiadController extends Controller
                     return response()->json(['message' => 'Error Creating Services']);
                 }
             }
-
             if ($image) {
                 foreach ($image as $file) {
 
@@ -76,10 +94,7 @@ class RiadController extends Controller
                 }
                 return response()->json(['message' => 'Riad created successfully'], 201);
             }
-
-
         }
-
         return response()->json(['error' => 'Unauthorized'], 401);
     }
 

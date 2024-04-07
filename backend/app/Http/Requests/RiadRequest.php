@@ -34,6 +34,8 @@ class RiadRequest extends FormRequest
             'checkout' => "required",
             'service_id' => 'required',
             'service_id.*' => 'required',
+            'repa_id' => 'required',
+            'repa_id.*' => 'required',
             'rooms' => 'required',
             'currency' => 'required',
             'guests' => 'required',
