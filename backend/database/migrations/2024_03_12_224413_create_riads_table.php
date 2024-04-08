@@ -21,7 +21,6 @@ return new class extends Migration
             $table->integer('prix');
             $table->enum('currency' , ['USD' ,'MAD' , 'EURRO'])->nullable()->default('USD');
             $table->integer('rooms');
-            $table->date('date');
             $table->enum('status' , ['Waiting' ,'Rejected' , 'Approved'])->nullable()->default('Waiting');
             $table->integer('acreage');
             $table->date('checkout');

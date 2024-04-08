@@ -38,7 +38,7 @@ function App() {
                 <Route path='/gestionriads' element={<Griads/>}/>
                 <Route path='/categories' element={<GCategorie/>}/>
                 <Route path='/repas' element={<GRepas/>}/>
-                <Route path='/createriad' element={<MultiStepForm/>}/>
+                <Route path='/createriad' element={<MultiStepForm />}/>
             </Routes>
 
         </>

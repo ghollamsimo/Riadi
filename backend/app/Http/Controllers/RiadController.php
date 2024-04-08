@@ -21,7 +21,7 @@ class RiadController extends Controller
      */
     public function index()
     {
-        $riads = Riad::all();
+        $riads = Riad::with('images')->get();
 
         return response()->json($riads);
     }
@@ -47,7 +47,7 @@ class RiadController extends Controller
             $validatedData = $request->validated();
             $serviceIds = $request->input('service_id');
             $repa_ids = $request->input('repa_id');
-            $image =[$request->file('image')];
+            $images = $request->file('image');
             unset($validatedData['image']);
 
             $riads = Riad::create([...$validatedData, 'drriad_id' => $drriad->id]);
@@ -57,7 +57,6 @@ class RiadController extends Controller
             if (!is_array($repa_ids)) {
                 $repa_ids = [$repa_ids];
             }
-
             foreach ($repa_ids as $repa_id) {
                 $repa = Repa::find($repa_id);
                 if ($repa) {
@@ -69,7 +68,6 @@ class RiadController extends Controller
                     return response()->json(['error' => 'Error Creating Repas'], 400);
                 }
             }
-
             foreach ($serviceIds as $serviceId) {
                 $service = Services::find($serviceId);
                 if ($service) {
@@ -81,9 +79,8 @@ class RiadController extends Controller
                     return response()->json(['message' => 'Error Creating Services']);
                 }
             }
-            if ($image) {
-                foreach ($image as $file) {
-
+            if ($images) {
+                foreach ($images as $file) {
                     $filename = time() . '_' . $file->getClientOriginalName();
                     $file->storeAs('public/images', $filename);
 
@@ -92,9 +89,11 @@ class RiadController extends Controller
                         'riad_id' => $riads->id
                     ]);
                 }
-                return response()->json(['message' => 'Riad created successfully'], 201);
             }
+
+            return response()->json(['message' => 'Riad created successfully'], 201);
         }
+
         return response()->json(['error' => 'Unauthorized'], 401);
     }
 

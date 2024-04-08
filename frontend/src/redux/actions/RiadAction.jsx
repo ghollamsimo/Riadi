@@ -71,20 +71,21 @@ export const DeleteRiad = (id) => {
             });
     };
 }
-export const AddRiad = (data) => {
+export const AddRiad = (data, token) => {
     return async (dispatch) => {
         dispatch(makeRequest());
-        const token = getCookie('ACCESS_TOKEN');
         try {
-            const response = await http.post('/createriad', data ,{
+            const response = await http.post('/createriad', data, {
                 headers: {
-                    Authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "multipart/form-data"
                 }
             });
             dispatch(addDataList(response.data));
-            toast.success('Riad added successfully');
+            toast.success('Riad Added successfully');
         } catch (error) {
             dispatch(failRequest(error.message));
+            toast.error('Failed to add Riad');
         }
     };
 };

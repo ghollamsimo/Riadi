@@ -1,5 +1,5 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import {Reducer} from "./Reducer.js"; // Assuming Reducer is default exported
+import {Reducer} from "./Reducer.js";
 import {riadReducer} from './reducers/RiadReducer.jsx'
 import {thunk} from "redux-thunk";
 import logger from "redux-logger";

@@ -11,6 +11,6 @@ class Image extends Model
     protected $fillable=["image" , 'riad_id'];
 
     public function riad(){
-        return $this->hasMany(Riad::class);
+        return $this->hasMany(Riad::class,'riad_id');
     }
 }

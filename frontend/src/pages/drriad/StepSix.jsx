@@ -1,4 +1,7 @@
-const StepSix = ({ handleSubmit  , handlePrev} ) => {
+import {useNavigate} from "react-router-dom";
+
+const StepSix = ({ handleSubmit  , handlePrev , handleChange} ) => {
+    const navigate = useNavigate()
     return (
         <>
             <div className="listingSection__wrap text-white px-4 max-w-3xl mx-auto pb-24 pt-14 sm:py-24 lg:pb-32">
@@ -12,6 +15,8 @@ const StepSix = ({ handleSubmit  , handlePrev} ) => {
                             className="nc-Label text-sm font-medium text-neutral-700 dark:text-neutral-300 "
                             data-nc-id="Label">Currency</label>
                             <div className="mt-1"><select
+                                onChange={handleChange}
+                                name='currency'
                                 className="block w-full border border-gray-600 outline-0 text-white bg-white dark:bg-transparent rounded-2xl text-sm font-normal h-11 px-4 py-3 mt-1">
                                 <option className='text-black' value="USD">USD</option>
                                 <option className='text-black' value="MAD">MAD</option>
@@ -27,6 +32,8 @@ const StepSix = ({ handleSubmit  , handlePrev} ) => {
                                         className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                         <span className="text-gray-500">$</span></div>
                                     <input type="number"
+                                           onChange={handleChange}
+                                           name='prix'
                                            className="block w-full border border-gray-600 outline-0 text-white bg-white dark:bg-transparent rounded-2xl text-sm font-normal h-11 px-6 py-3 mt-1 "
                                            placeholder="0.00"/>
                                     <div
@@ -35,6 +42,48 @@ const StepSix = ({ handleSubmit  , handlePrev} ) => {
                                 </div>
                             </div>
                         </div>
+
+                        <div className=""><label
+                            className="nc-Label text-sm font-medium text-neutral-700 dark:text-neutral-300 "
+                            data-nc-id="Label">Rule Of Riad</label>
+                            <div className="mt-1">
+                                <div className="relative">
+                                    <div
+                                        className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <span className="text-gray-500">ç</span></div>
+                                    <input type="text"
+                                           onChange={handleChange}
+                                           name='rule'
+                                           className="block w-full border border-gray-600 outline-0 text-white bg-white dark:bg-transparent rounded-2xl text-sm font-normal h-11 px-6 py-3 mt-1 "
+                                           placeholder="Exemple..."/>
+                                    <div
+                                        className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div className=""><label
+                            className="nc-Label text-sm font-medium text-neutral-700 dark:text-neutral-300 "
+                            data-nc-id="Label">Checkout</label>
+                            <div className="mt-1">
+                                <div className="relative">
+                                    <div
+                                        className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <span className="text-gray-500">%</span></div>
+                                    <input type="date"
+                                           onChange={handleChange}
+                                           name='checkout'
+                                           className="block w-full border border-gray-600 outline-0 text-white bg-white dark:bg-transparent rounded-2xl text-sm font-normal h-11 px-6 py-3 mt-1 "
+                                           placeholder="Exemple..."/>
+                                    <div
+                                        className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 <div className="flex justify-end py-6 space-x-5">

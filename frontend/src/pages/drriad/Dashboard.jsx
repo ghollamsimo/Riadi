@@ -70,7 +70,7 @@ const Dashboard = (props) => {
                                         <div className="overflow-hidden rounded aspect-w-1 aspect-h-1">
                                             <img
                                                 className="object-cover w-full h-full transition-all duration-300 group-hover:scale-125"
-                                                src={Riadimage}
+                                                src={`http://localhost:8000/storage/images/${riad.images}`}
                                                 alt=""
                                             />
                                         </div>

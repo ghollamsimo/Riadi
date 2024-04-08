@@ -14,7 +14,6 @@ class Riad extends Model
         'localisation',
         'description',
         'prix',
-        'date',
         'drriad_id',
         'categorie_id',
         'status',
@@ -25,14 +24,14 @@ class Riad extends Model
         'rooms',
         'rule'
     ];
-
+    protected $table = 'riads';
     public function drriad()
     {
         return $this->belongsTo(DrRiad::class);
     }
     public function images()
     {
-        return $this->belongsTo(Image::class);
+        return $this->belongsTo(Image::class,'riad_id');
     }
     public function repa(){
         return $this->hasMany(Repa::class);

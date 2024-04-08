@@ -1,57 +1,103 @@
-import {useState} from "react";
-import StepOne from './StepOne.jsx'
+import { useState } from "react";
+import StepOne from './StepOne.jsx';
 import StepTwo from "./StepTwo.jsx";
 import StepThree from "./StepThree.jsx";
-import {useDispatch} from "react-redux";
-import {toast, ToastContainer} from "react-toastify";
-import {useNavigate} from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { toast, ToastContainer } from "react-toastify";
 import Footer from "../../components/Footer.jsx";
 import StepFour from "./StepFour.jsx";
 import StepFive from "./StepFive.jsx";
 import StepSix from "./StepSix.jsx";
-const MultiStepForm = () =>{
+import { AddRiad, fetchRaids } from "../../redux/actions/RiadAction.jsx";
+import getCookie from "../../helpers/cookie.js";
+import {useNavigate} from "react-router-dom";
+
+const MultiStepForm = () => {
     const navigate = useNavigate()
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const [step, setStep] = useState(1);
+    const token = getCookie('ACCESS_TOKEN');
     const [formData, setFormData] = useState({
         name: '',
         localisation: '',
-        categorie_id: '',
-        description : '',
-        image : '',
-        prix : '',
-        date : '',
-        acreage : '',
-        checkout : '',
-        guests : '',
-        rule : '',
-        rooms : '',
-        currency :  '',
-        service_id: '',
+        categorie_id: null,
+        description: '',
+        image: [],
+        prix: null,
+        acreage: '',
+        checkout: '',
+        guests: 1,
+        rule: '',
+        rooms: 1,
+        currency: '',
+        service_id: [],
+        repa_id: [],
     });
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+        setFormData(prevFormData => ({
+            ...prevFormData,
+            [name]: value
+        }));
     };
-    const handleNext = () => {
+    const handleImage=({name, value})=>{
+        console.log(name)
+        setFormData(prevFormData => ({
+            ...prevFormData,
+            [name]: value
+        }));
+    }
+
+    const handleServices = ({ name, value }) => {
+        setFormData(prevFormData => ({
+            ...prevFormData,
+            service_id: prevFormData.service_id.includes(value)
+                ? prevFormData.service_id.filter(id => id !== value)
+                : [...prevFormData.service_id, value]
+        }));
+    };
+
+    const handleRepas = ({ name, value }) => {
+        setFormData(prevFormData => ({
+            ...prevFormData,
+            repa_id: prevFormData.repa_id.includes(value)
+                ? prevFormData.repa_id.filter(id => id !== value)
+                : [...prevFormData.repa_id, value]
+        }));
+    };
+
+
+        const handleNext = () => {
         setStep(step + 1);
     };
+
     const handlePrev = () => {
         setStep(step - 1);
     };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!formData.name || !formData.categorie_id || !formData.description || !formData.image || !formData.prix || !formData.date || !formData.acreage || !formData.checkout || !formData.guests || !formData.rule || !formData.rooms || !formData.currency) {
-            toast.error("Please fill in all fields")
-        }else {
-            toast.success('Success');
-            console.log(formData);
+        console.log(formData)
+        //   console.log("ggdgs")
+        if (formData.image.length === 0) {
+            toast.error("Image field is required");
+            return;
         }
+        try {
+            await dispatch(AddRiad(formData , token));
+            dispatch(fetchRaids());
+            navigate('/directeur')
+        } catch (error) {
+            toast.error("Failed to add Riad");
+            console.log(error);
+        }
+    };
 
-    }
-    return(
+
+    return (
         <>
+            <form onSubmit={handleSubmit} encType="multipart/form-data">
             {step === 1 && (
                 <StepOne
                     formData={formData}
@@ -70,7 +116,8 @@ const MultiStepForm = () =>{
             {step === 3 && (
                 <StepThree
                     formData={formData}
-                    handleChange={handleChange}
+                    handleChange={handleServices}
+                    handleRepas={handleRepas}
                     handlePrev={handlePrev}
                     handleNext={handleNext}
                 />
@@ -86,7 +133,7 @@ const MultiStepForm = () =>{
             {step === 5 && (
                 <StepFive
                     formData={formData}
-                    handleChange={handleChange}
+                    handleChange={handleImage}
                     handlePrev={handlePrev}
                     handleNext={handleNext}
                 />
@@ -97,13 +144,13 @@ const MultiStepForm = () =>{
                     handleChange={handleChange}
                     handleSubmit={handleSubmit}
                     handlePrev={handlePrev}
-
                 />
             )}
-            <Footer/>
-            <ToastContainer/>
+            </form>
+            <Footer />
+            <ToastContainer />
         </>
-    )
-}
+    );
+};
 
-export default MultiStepForm
+export default MultiStepForm;

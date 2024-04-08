@@ -1,12 +1,14 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState, useCallback } from "react";
 import Aos from "aos";
 
-const StepTwo = ({ handleNext  , handlePrev , handleChange}) => {
-    useEffect(() =>{
-        Aos.init({duration:1000});
-    }, [])
+const StepTwo = ({ handleNext, handlePrev, handleChange }) => {
+    useEffect(() => {
+        Aos.init({ duration: 1000 });
+    }, []);
+
     const [count, setCount] = useState(1);
     const [room, setRoom] = useState(1);
+
     const handlePlusOne = () => {
         if (count < 20) {
             setCount(count + 1);
@@ -31,8 +33,17 @@ const StepTwo = ({ handleNext  , handlePrev , handleChange}) => {
         }
     };
 
+    const memoizedHandleChange = useCallback((e) => handleChange(e), [handleChange]);
 
-    return(
+    useEffect(() => {
+        memoizedHandleChange({ target: { name: 'guests', value: count } });
+    }, [count, memoizedHandleChange]);
+
+    useEffect(() => {
+        memoizedHandleChange({ target: { name: 'rooms', value: room } });
+    }, [room, memoizedHandleChange]);
+
+    return (
         <>
             <div className="listingSection__wrap  text-white px-4 max-w-3xl mx-auto pb-24 pt-14 sm:py-24 lg:pb-32"
                  data-aos="fade-down">
@@ -64,8 +75,6 @@ const StepTwo = ({ handleNext  , handlePrev , handleChange}) => {
                             <div className="nc-NcInputNumber flex items-center justify-between w-28">
                                 <button
                                     onClick={handleMinesOne}
-                                    name='guests'
-                                    onChange={handleChange}
                                     className={`w-8 h-8 rounded-full  border border-gray-600 outline-0 text-white bg-white dark:bg-transparent flex items-center justify-center  dark:border-neutral-500  dark:bg-neutral-900 focus:outline-none hover:border-neutral-700 disabled:hover:border-neutral-400 dark:disabled:hover:border-neutral-500 disabled:opacity-50 disabled:cursor-default`}
                                     type="button">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -75,10 +84,9 @@ const StepTwo = ({ handleNext  , handlePrev , handleChange}) => {
                                               clipRule="evenodd"></path>
                                     </svg>
                                 </button>
-                                <input type='text' name='guests' value={count} readOnly className='outline-0 bg-transparent w-5'/>
+                                <input type='number' name='guests' value={count} readOnly className='outline-0 bg-transparent pl-3 w-12 text-center mx-auto'/>
                                 <button
                                     onClick={handlePlusOne}
-                                    onChange={handleChange}
                                     className={`w-8 h-8 rounded-full  border border-gray-600 outline-0 text-white bg-white dark:bg-transparent flex items-center justify-center  dark:border-neutral-500  dark:bg-neutral-900 focus:outline-none hover:border-neutral-700 disabled:hover:border-neutral-400 dark:disabled:hover:border-neutral-500 disabled:opacity-50 disabled:cursor-default`}
                                     type="button">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -97,7 +105,6 @@ const StepTwo = ({ handleNext  , handlePrev , handleChange}) => {
                             <div className="nc-NcInputNumber flex items-center justify-between w-28">
                                 <button
                                     onClick={handleMinesRoom}
-                                    onChange={handleChange}
                                     className={`w-8 h-8 rounded-full  border border-gray-600 outline-0 text-white bg-white dark:bg-transparent flex items-center justify-center  dark:border-neutral-500  dark:bg-neutral-900 focus:outline-none hover:border-neutral-700 disabled:hover:border-neutral-400 dark:disabled:hover:border-neutral-500 disabled:opacity-50 disabled:cursor-default`}
                                     type="button">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -107,10 +114,9 @@ const StepTwo = ({ handleNext  , handlePrev , handleChange}) => {
                                               clipRule="evenodd"></path>
                                     </svg>
                                 </button>
-                                <input type='text' name='rooms' value={room} readOnly className='outline-0 bg-transparent w-5'/>
+                                <input type='number' name='rooms' value={room} readOnly className='outline-0 bg-transparent pl-3 w-12 text-center mx-auto'/>
                                 <button
                                     onClick={handlePlusRoom}
-                                    onChange={handleChange}
                                     className={`w-8 h-8 rounded-full  border border-gray-600 outline-0 text-white bg-white dark:bg-transparent flex items-center justify-center  dark:border-neutral-500  dark:bg-neutral-900 focus:outline-none hover:border-neutral-700 disabled:hover:border-neutral-400 dark:disabled:hover:border-neutral-500 disabled:opacity-50 disabled:cursor-default`}
                                     type="button">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -122,7 +128,6 @@ const StepTwo = ({ handleNext  , handlePrev , handleChange}) => {
                                 </button>
                             </div>
                         </div>
-
                     </div>
                 </div>
 
@@ -139,14 +144,10 @@ const StepTwo = ({ handleNext  , handlePrev , handleChange}) => {
                     >
                         Continue
                     </button>
-
                 </div>
-
-
             </div>
-
-
         </>
-    )
-}
-export default StepTwo
+    );
+};
+
+export default StepTwo;
