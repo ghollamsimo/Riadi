@@ -20,6 +20,7 @@ const MultiStepForm = () => {
     const [formData, setFormData] = useState({
         name: '',
         localisation: '',
+        cover: '',
         categorie_id: null,
         description: '',
         image: [],
@@ -40,7 +41,18 @@ const MultiStepForm = () => {
             ...prevFormData,
             [name]: value
         }));
+        if(formData.cover.length === 0){
+            console.log('The Cover Is Required')
+        }
     };
+    const handleCover = (cover) => {
+        console.log(cover);
+        setFormData(prevFormData => ({
+            ...prevFormData,
+            cover: cover
+        }));
+    };
+
     const handleImage=({name, value})=>{
         console.log(name)
         setFormData(prevFormData => ({
@@ -57,7 +69,6 @@ const MultiStepForm = () => {
                 : [...prevFormData.service_id, value]
         }));
     };
-
     const handleRepas = ({ name, value }) => {
         setFormData(prevFormData => ({
             ...prevFormData,
@@ -79,7 +90,6 @@ const MultiStepForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(formData)
-        //   console.log("ggdgs")
         if (formData.image.length === 0) {
             toast.error("Image field is required");
             return;
@@ -87,7 +97,7 @@ const MultiStepForm = () => {
         try {
             await dispatch(AddRiad(formData , token));
             dispatch(fetchRaids());
-            navigate('/directeur')
+        //    navigate('/directeur')
         } catch (error) {
             toast.error("Failed to add Riad");
             console.log(error);
@@ -97,7 +107,7 @@ const MultiStepForm = () => {
 
     return (
         <>
-            <form onSubmit={handleSubmit} encType="multipart/form-data">
+            <form onSubmit={handleSubmit} className='mt-16' encType="multipart/form-data">
             {step === 1 && (
                 <StepOne
                     formData={formData}
@@ -136,6 +146,7 @@ const MultiStepForm = () => {
                     handleChange={handleImage}
                     handlePrev={handlePrev}
                     handleNext={handleNext}
+                    handleCover={handleCover}
                 />
             )}
             {step === 6 && (

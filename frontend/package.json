@@ -25,6 +25,7 @@
     "@react-three/drei": "^9.99.0",
     "@react-three/fiber": "^8.15.16",
     "@reduxjs/toolkit": "^2.2.2",
+    "@stripe/stripe-js": "^3.3.0",
     "aos": "^2.3.4",
     "axios": "^1.6.8",
     "boxicons": "^2.1.4",

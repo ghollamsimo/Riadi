@@ -18,11 +18,11 @@ const Dashboard = (props) => {
 
     // Now you can access the state managed by riadsData reducer
     // For example:
-    console.log("useSelector",riads.datalist);
+ //   console.log("useSelector",riads.datalist);
     return(
         <>
 
-            <main className='container px-12 mt-12 mb-24 lg:mb-32 flex flex-col lg:flex-row'>
+            <main className='container px-12 mt-36 mb-24 lg:mb-32 flex flex-col lg:flex-row'>
                 <div className="block flex-grow mb-24 lg:mb-0">
                     <div className='lg:sticky lg:top-24'>
                         <div
@@ -41,9 +41,9 @@ const Dashboard = (props) => {
                                     <div className="pb-[2px]">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                              aria-hidden="true" className="w-[18px] h-[18px] text-orange-500">
-                                            <path fill-rule="evenodd"
+                                            <path fillRule="evenodd"
                                                   d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
-                                                  clip-rule="evenodd"></path>
+                                                  clipRule="evenodd"></path>
                                         </svg>
                                     </div>
                                     <span className="font-medium ">4.5</span><span
@@ -70,7 +70,7 @@ const Dashboard = (props) => {
                                         <div className="overflow-hidden rounded aspect-w-1 aspect-h-1">
                                             <img
                                                 className="object-cover w-full h-full transition-all duration-300 group-hover:scale-125"
-                                                src={`http://localhost:8000/storage/images/${riad.images}`}
+                                                src={`http://localhost:8000/storage/images/${riad.cover}`}
                                                 alt=""
                                             />
                                         </div>
@@ -97,13 +97,13 @@ const Dashboard = (props) => {
                                                         <span className="inset-0" aria-hidden="true"></span>
                                                     </a>
                                                 </h3>
-                                                <div className="text-xs text-white sm:text-sm md:text-base truncate">
+                                                <div className="text-xs text-white sm:text-sm md:text-base line-clamp-1">
                                                     <p>{riad.description}</p>
                                                 </div>
                                             </div>
 
                                             <div className="text-right">
-                                                <p className="text-xs text-white sm:text-sm md:text-base">Mad {riad.prix}<span className="text-gray-400">/night</span></p>
+                                                <p className="text-xs text-white sm:text-sm md:text-base">{riad.currency} {riad.prix}<span className="text-gray-400">/night</span></p>
                                             </div>
                                         </div>
                                     </div>

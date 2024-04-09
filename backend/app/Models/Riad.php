@@ -14,6 +14,7 @@ class Riad extends Model
         'localisation',
         'description',
         'prix',
+        'cover',
         'drriad_id',
         'categorie_id',
         'status',

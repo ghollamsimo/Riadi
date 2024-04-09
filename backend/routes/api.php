@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Middleware\CheckRole;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -67,6 +66,4 @@ Route::post('/createriad' , [\App\Http\Controllers\RiadController::class , 'stor
 Route::put('/updateraid/{id}' , [\App\Http\Controllers\RiadController::class , 'update']);
 Route::delete('/deleteriad/{id}' , [\App\Http\Controllers\RiadController::class , 'destroy']);
 
-Route::middleware(['auth:api', CheckRole::class . ':Client'])->group(function () {
 
-});

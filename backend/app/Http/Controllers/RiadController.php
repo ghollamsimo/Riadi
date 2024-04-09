@@ -19,8 +19,9 @@ class RiadController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+       // $perPage = $request->query('per_page', 10);
         $riads = Riad::with('images')->get();
 
         return response()->json($riads);
@@ -50,7 +51,14 @@ class RiadController extends Controller
             $images = $request->file('image');
             unset($validatedData['image']);
 
-            $riads = Riad::create([...$validatedData, 'drriad_id' => $drriad->id]);
+
+            if ($request->hasFile('cover')) {
+                $cover = $request->file('cover');
+                $coverName = time().'.'.$cover->extension();
+                $cover->storeAs('/public/images', $coverName);
+            }
+
+            $riads = Riad::create([...$validatedData, 'drriad_id' => $drriad->id , 'cover' => $coverName ]);
             if (!is_array($serviceIds)) {
                 $serviceIds = [$serviceIds];
             }
@@ -123,29 +131,51 @@ class RiadController extends Controller
     {
         $user_id = Auth::id();
         $drriad = DrRiad::where('user_id', $user_id)->first();
-        $riads = Riad::findOrFail($id);
 
         if ($drriad) {
             $validatedData = $request->validated();
-
+            $serviceIds = $request->input('service_id');
+            $repa_ids = $request->input('repa_id');
             $images = $request->file('image');
             unset($validatedData['image']);
 
-            $riads->update($validatedData);
+            $riad = Riad::findOrFail($id);
+
+            if ($request->hasFile('cover')) {
+                $cover = $request->file('cover');
+                $coverName = time().'.'.$cover->extension();
+                $cover->storeAs('/public/images', $coverName);
+                $validatedData['cover'] = $coverName;
+            }
+
+            $riad->update($validatedData);
+
+            if (!is_array($repa_ids)) {
+                $repa_ids = [$repa_ids];
+            }
+
+            $riad->repas()->sync($repa_ids);
+
+            // Update Services
+            if (!is_array($serviceIds)) {
+                $serviceIds = [$serviceIds];
+            }
+
+            $riad->services()->sync($serviceIds);
 
             if ($images) {
                 foreach ($images as $file) {
                     $filename = time() . '_' . $file->getClientOriginalName();
                     $file->storeAs('public/images', $filename);
 
-                    Image::updateOrCreate(
-                        ['riad_id' => $riads->id],
-                        ['image' => $filename]
-                    );
+                    Image::create([
+                        'image' => $filename,
+                        'riad_id' => $riad->id
+                    ]);
                 }
             }
 
-            return response()->json(['message' => 'Riad Updated Successfully'], 200);
+            return response()->json(['message' => 'Riad updated successfully'], 200);
         }
 
         return response()->json(['error' => 'Unauthorized'], 401);

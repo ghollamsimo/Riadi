@@ -10,6 +10,7 @@ export const riadReducer = (state = initial, action) => {
                 datalist: action.payload,
                 errormessage: ''
             };
+        // Add other riad-related cases as needed
         default:
             return state;
     }

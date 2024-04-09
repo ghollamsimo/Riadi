@@ -26,6 +26,7 @@ class RiadRequest extends FormRequest
             'localisation' => 'required',
             'categorie_id' => 'required' ,
             'description' => 'required',
+            'cover' => 'required',
             'image' => 'required|array',
             'image.*' => 'required',
             'prix' => 'required',

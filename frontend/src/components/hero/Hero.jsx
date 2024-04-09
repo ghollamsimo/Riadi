@@ -18,7 +18,7 @@ const Hero = () =>{
     return (
 
         <Fragment>
-            <section className=" relative py-12 bg-transparent overflow-hidden sm:pb-16 lg:pb-20 xl:pb-24">
+            <section className="mt-4 relative py-12 bg-transparent overflow-hidden sm:pb-16 lg:pb-20 xl:pb-24">
                 <div className=" mx-auto relative max-w-7xl">
                     <div className=" grid items-center grid-cols-1 gap-y-12 lg:grid-cols-2 gap-x-16">
                         <div className="">
@@ -27,7 +27,7 @@ const Hero = () =>{
                             <p className="mt-4 text-lg font-normal text-gray-400 sm:mt-8">Accompanying us, you have a trip full of experiences. With Riadi, booking accommodation, resort villas, hotels..</p>
 
                             <div className="absolute w-full h-full mt-3  rounded-full pr-16 sm:mt-12">
-                                <section className="search-sec relative z-50 search w-full bg-[#1F2937] py-4">
+                                <section className="search-sec relative  search w-full bg-[#1F2937] py-4">
                                     <div className="container mx-auto">
                                         <form action="#" method="post" noValidate="novalidate">
                                             <div className="grid grid-cols-1 lg:grid-cols-12">
@@ -41,7 +41,7 @@ const Hero = () =>{
                                                            className="w-full bg-transparent p-2 border-r-2 border-white text-white focus:outline-none"
                                                            placeholder="Enter Name Of Riad"/>
                                                 </div>
-                                                <div className="lg:col-span-3 z-50 relative h-full w-full md:col-span-6 col-span-12 p-2 bg-transparent" >
+                                                <div className="lg:col-span-3  relative h-full w-full md:col-span-6 col-span-12 p-2 bg-transparent" >
                                                     <Datepicker value={value} onChange={handleValueChange}/>
 
                                                 </div>

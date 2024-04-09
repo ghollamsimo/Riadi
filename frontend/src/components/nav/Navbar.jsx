@@ -18,8 +18,8 @@ function Navbar() {
         setIsSearchBarOpen(!isSearchBarOpen);}
     return (
         <Fragment>
-            <header className="header static ">
-                <nav className="  header__content__nav text-white  py-3 px-4 flex items-center justify-between">
+            <header className=" header bg-[#111827] z-50  fixed ">
+                <nav className="  bg-[#111827] header__content__nav text-white  py-3 px-4 flex items-center justify-between">
                     <Link to="/" className="header__content__logo md:flex hidden font-extrabold font-serif">
                         Riadi <span><TbPoint/></span>
                     </Link>

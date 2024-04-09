@@ -26,6 +26,7 @@ class RiadSeeder extends Seeder
                 'rule' => 'matjibch lklab',
                 'currency' => 'USD',
                 'rooms' => 4,
+                'cover' => 'hhhhhhhhhhh'
             ],
             [
                 'name' => 'Riad Bab Dokala',
@@ -39,6 +40,7 @@ class RiadSeeder extends Seeder
                 'rule' => 'matjibch lklab',
                 'currency' => 'USD',
                 'rooms' => 4,
+                'cover' => 'hhhhhhhhhhh'
             ],
             [
                 'name' => 'Riad cha9a',
@@ -52,6 +54,7 @@ class RiadSeeder extends Seeder
                 'rule' => 'matjibch lklab',
                 'currency' => 'USD',
                 'rooms' => 4,
+                'cover' => 'hhhhhhhhhhh'
             ]
         ];
 
