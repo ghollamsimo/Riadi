@@ -8,8 +8,8 @@ const HeadingPlace = () =>{
         <Fragment>
             <div className='font-normal'>
                 <div>
-                <h1 className='text-3xl px-3 sm:px-36 text-white pb-2 md:text-4xl font-semibold'>Heading of sections</h1>
-                <p className='text-gray-300 px-3 sm:px-36 text-xl'>Discover Many Place</p>
+                <h1 className='text-3xl px-3 sm:px-36 text-white pb-2 md:text-4xl font-semibold'>Categories</h1>
+                <p className='text-gray-300 px-3 sm:px-36 text-xl'>Most Popular Categories</p>
                 </div>
 
                 <section className="py-2 text-white sm:py-16 lg:py-2">

@@ -22,7 +22,7 @@ class RiadController extends Controller
     public function index(Request $request)
     {
        // $perPage = $request->query('per_page', 10);
-        $riads = Riad::with('images')->get();
+        $riads = Riad::with('images' , 'categorie')->paginate(4);
 
         return response()->json($riads);
     }
@@ -50,7 +50,6 @@ class RiadController extends Controller
             $repa_ids = $request->input('repa_id');
             $images = $request->file('image');
             unset($validatedData['image']);
-
 
             if ($request->hasFile('cover')) {
                 $cover = $request->file('cover');

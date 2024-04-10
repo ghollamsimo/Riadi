@@ -6,16 +6,25 @@ import {CiLocationOn} from "react-icons/ci";
 import Filterdistination from "../../components/Filterdistination.jsx";
 import HowitworksSection from "../../components/HowitworksSection.jsx";
 import Loadingdata from "../../components/Loadingdata.jsx";
-import {fetchRaids} from "../../redux/actions/RiadAction.jsx";
-import {connect} from "react-redux";
+import {connect, useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router";
+import {fetchApprovedRaids} from "../../redux/actions/ApprovedRiadAction.jsx";
+import {fetchRaids} from "../../redux/actions/RiadAction.jsx";
+import Pagination from "react-js-pagination";
 
-const Home = (props) => {
+const Home = () => {
+    const handlePageChange = (pageNum) => {
+        dispatch(fetchRaids(pageNum));
+    };
+
     const {id} = useParams()
 
+    const dispatch = useDispatch();
+    const riads = useSelector((state) => state.approvedRiads.datalist);
+
     useEffect(() => {
-        props.loader()
-    }, [])
+        dispatch(fetchApprovedRaids());
+    }, [dispatch]);
     return (
 
         <Fragment>
@@ -31,20 +40,22 @@ const Home = (props) => {
                         to stay that Chisfis recommends for you
                     </p>
                     <div className={`${`px-0 sm:px-24 sm:pb-2`}`}>
-                        <Filterdistination/>
+
 
                     </div>
                 </div>
 
-                {props.data.datalist && props.data.datalist.map(item =>
-                    <div className="px-4 mx-auto sm:px-6  max-w-7xl" key={item.id}>
+
+                    <div className="px-4 mx-auto sm:px-6  max-w-7xl" >
                         <div className="grid grid-cols-2 gap-6 mt-10 lg:gap-14 lg:grid-cols-3">
-                            <div className="relative group">
+                            {riads?.data?.map(item =>
+                            <div className="relative group" key={item.id}>
                                 <div className="overflow-hidden rounded aspect-w-1 aspect-h-1">
                                     <img
                                         className="object-cover w-full h-full transition-all duration-300 group-hover:scale-125"
-                                        src={Riadimage}
-                                        alt=""/>
+                                        src={`http://localhost:8000/storage/images/${item.cover}`}
+                                        alt=""
+                                    />
                                 </div>
                                 <div className="absolute left-3 top-3">
                                     <p className="sm:px-3 sm:py-1 px-1.5 py-1 text-[8px] sm:text-xs font-bold flex tracking-wide text-white  bg-[#111827] rounded-full gap-2">
@@ -58,7 +69,7 @@ const Home = (props) => {
                                                 <span className="absolute inset-0" aria-hidden="true"></span>
                                             </a>
                                         </h3>
-                                        <div className="text-xs text-white sm:text-sm md:text-base">
+                                        <div className="text-xs  text-white sm:text-sm md:text-base line-clamp-1">
                                             <p>{item.description}</p>
                                         </div>
                                     </div>
@@ -69,9 +80,34 @@ const Home = (props) => {
                                     </div>
                                 </div>
                             </div>
+                            )}
+
                         </div>
                     </div>
-                )}
+
+                <div className='text-white flex mb-10 mt-16 justify-center items-center'>
+                    <Pagination
+                        totalItemsCount={riads.total}
+                        activePage={riads.current_page}
+                        itemsCountPerPage={riads.per_page}
+                        onChange={handlePageChange}
+                        itemClass='page-item'
+                        linkClass='page-link bg-[#4F46E5] px-5 py-3 rounded-full mx-1'
+                        itemClassFirst='first:ml-0 mx-1'
+                        itemClassLast='last:mr-0 mx-1'
+                        itemClassPrev='mx-1'
+                        itemClassNext='mx-1'
+                        activeClass='font-bold'
+                        hideDisabled='true'
+                        innerClass='flex'
+                        activeLinkClass='bg-[#4F46E5] hover:bg-[#4F46E7] rounded-full mx-1'
+                        linkClassFirst='mx-1'
+                        linkClassPrev='mx-1'
+                        linkClassNext='mx-1'
+                        linkClassLast='mx-1'
+                    />
+                </div>
+
             </section>
             <HowitworksSection/>
 
@@ -81,15 +117,5 @@ const Home = (props) => {
 
 }
 
-const mapStateToProps = (state) => {
-    return {
-        data: state.data
-    }
-}
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        loader: () => dispatch(fetchRaids())
-    }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default Home;

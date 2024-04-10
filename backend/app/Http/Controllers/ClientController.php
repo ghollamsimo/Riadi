@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Models\Riad;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
@@ -12,7 +13,8 @@ class ClientController extends Controller
      */
     public function index()
     {
-        //
+        $raids = Riad::with('categorie')->where('status' , '=' , 'Approved')->paginate(5);
+        return response()->json($raids ,200);
     }
 
     /**

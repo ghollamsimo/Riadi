@@ -7,6 +7,7 @@ import { TbPoint } from "react-icons/tb";
 import { IoFilter } from "react-icons/io5";
 import { CiSearch } from "react-icons/ci";
 import Modalsearch from "../Modalsearch.jsx";
+import Home from "../../pages/home/Home.jsx";
 
 function Navbar() {
 
@@ -145,10 +146,6 @@ function Navbar() {
 
             {showModal && <Modalsearch setOpenModal={setShowModal}/>}
 
-            <Routes>
-                <Route path='login' element={<Login/>}/>
-                <Route path='' element={<RiadCard/>}/>
-            </Routes>
 
 
         </Fragment>

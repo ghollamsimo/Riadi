@@ -67,3 +67,4 @@ Route::put('/updateraid/{id}' , [\App\Http\Controllers\RiadController::class , '
 Route::delete('/deleteriad/{id}' , [\App\Http\Controllers\RiadController::class , 'destroy']);
 
 
+Route::get('/approvedriads' , [\App\Http\Controllers\ClientController::class, 'index']);

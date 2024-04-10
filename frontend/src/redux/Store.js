@@ -6,8 +6,9 @@ import logger from "redux-logger";
 import {categorieReducer} from "./reducers/CategorieReducer.jsx";
 import {serviceReducer} from "./reducers/ServiceReducer.jsx";
 import {repaReducer} from "./reducers/RepaReducer.js";
+import {ApprovedriadReducer} from "./reducers/ApprovedRiadReducer.jsx";
 
-const rootReducer = combineReducers({ data: Reducer, riadsData:riadReducer  , categorieData:categorieReducer , serviceData: serviceReducer , repaData: repaReducer});
+const rootReducer = combineReducers({ data: Reducer, riadsData:riadReducer  , categorieData:categorieReducer , serviceData: serviceReducer , repaData: repaReducer , approvedRiads: ApprovedriadReducer});
 
 const middleware = [thunk, logger];
 

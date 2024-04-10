@@ -5,11 +5,11 @@ import {toast} from "react-toastify";
 
 const { http } = Api();
 
-export const fetchRaids = () => {
+export const fetchRaids = (pageNum = 1) => {
     return (dispatch) => {
         dispatch(makeRequest());
         const token = getCookie('ACCESS_TOKEN');
-        http.get('/riads', {
+        http.get(`/riads?page=${pageNum}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

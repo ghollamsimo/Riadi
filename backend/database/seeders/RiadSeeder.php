@@ -55,7 +55,77 @@ class RiadSeeder extends Seeder
                 'currency' => 'USD',
                 'rooms' => 4,
                 'cover' => 'hhhhhhhhhhh'
-            ]
+            ],
+            [
+                'name' => 'Riad cha9a',
+                'localisation' => 'Lmhamid',
+                'description' => 'waaaa3',
+                'prix' => 99,
+                'drriad_id' => null,
+                'acreage' => 3,
+                'checkout' => now(),
+                'guests' => 4,
+                'rule' => 'matjibch lklab',
+                'currency' => 'USD',
+                'rooms' => 4,
+                'cover' => 'hhhhhhhhhhh'
+            ],
+            [
+                'name' => 'Riad cha9a',
+                'localisation' => 'Lmhamid',
+                'description' => 'waaaa3',
+                'prix' => 99,
+                'drriad_id' => null,
+                'acreage' => 3,
+                'checkout' => now(),
+                'guests' => 4,
+                'rule' => 'matjibch lklab',
+                'currency' => 'USD',
+                'rooms' => 4,
+                'cover' => 'hhhhhhhhhhh'
+            ],
+            [
+                'name' => 'Riad cha9a',
+                'localisation' => 'Lmhamid',
+                'description' => 'waaaa3',
+                'prix' => 99,
+                'drriad_id' => null,
+                'acreage' => 3,
+                'checkout' => now(),
+                'guests' => 4,
+                'rule' => 'matjibch lklab',
+                'currency' => 'USD',
+                'rooms' => 4,
+                'cover' => 'hhhhhhhhhhh'
+            ],
+            [
+                'name' => 'Riad cha9a',
+                'localisation' => 'Lmhamid',
+                'description' => 'waaaa3',
+                'prix' => 99,
+                'drriad_id' => null,
+                'acreage' => 3,
+                'checkout' => now(),
+                'guests' => 4,
+                'rule' => 'matjibch lklab',
+                'currency' => 'USD',
+                'rooms' => 4,
+                'cover' => 'hhhhhhhhhhh'
+            ],
+            [
+                'name' => 'Riad cha9a',
+                'localisation' => 'Lmhamid',
+                'description' => 'waaaa3',
+                'prix' => 99,
+                'drriad_id' => null,
+                'acreage' => 3,
+                'checkout' => now(),
+                'guests' => 4,
+                'rule' => 'matjibch lklab',
+                'currency' => 'USD',
+                'rooms' => 4,
+                'cover' => 'hhhhhhhhhhh'
+            ],
         ];
 
         Riad::insert($riads);

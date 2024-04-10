@@ -1,27 +1,79 @@
-import React, {useEffect, useMemo} from "react";
-import Riadimage from "../../assets/img/image-header.jpg";
-import {CiLocationOn} from "react-icons/ci";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchRaids } from "../../redux/actions/RiadAction";
+import Pagination from "react-js-pagination";
+import { CiLocationOn } from "react-icons/ci";
 import { GrUpdate } from "react-icons/gr";
 import { FiTrash2 } from "react-icons/fi";
-import { fetchRaids} from "../../redux/actions/RiadAction.jsx";
-import {connect, useSelector} from "react-redux";
-import TableServices from "../../data/TableServices.jsx";
+import TableServices from "../../data/TableServices";
 
-const Dashboard = (props) => {
-    useEffect(() =>{
-        props.loader()
-    }, [])
+const Dashboard = () => {
+    const dispatch = useDispatch();
+    const riads = useSelector((state) => state.riadsData.datalist);
 
-   /* const riads = useMemo(() => props.data.datalist || [], [props.data.datalist]);
-    console.log("===riads", riads);*/
-    const riads = useSelector(state => state.riadsData);
+    useEffect(() => {
+        dispatch(fetchRaids());
+    }, [dispatch]);
 
-    // Now you can access the state managed by riadsData reducer
-    // For example:
- //   console.log("useSelector",riads.datalist);
-    return(
+    const handlePageChange = (pageNum) => {
+        dispatch(fetchRaids(pageNum));
+    };
+
+    const renderRiads = () => {
+        return (
+            <div className='grid grid-cols-1 md:gap-7 sm:grid-cols-2'>
+                {riads?.data?.map(riad => (
+                    <div key={riad.id} className="border border-gray-700 p-4 rounded-xl">
+                        <div className="relative group">
+                            <div className="overflow-hidden rounded aspect-w-1 aspect-h-1">
+                                <img
+                                    className="object-cover w-full h-full transition-all duration-300 group-hover:scale-125"
+                                    src={`http://localhost:8000/storage/images/${riad.cover}`}
+                                    alt=""
+                                />
+                            </div>
+                            <div className="absolute left-3 top-3">
+                                <p className="sm:px-3 sm:py-1 px-1.5 py-1 text-[8px] sm:text-xs font-bold flex tracking-wide text-white bg-[#111827] rounded-full gap-2">
+                                    <span><CiLocationOn className="mt-0.5" /></span> {riad.localisation}
+                                </p>
+                            </div>
+
+                            <div className="absolute gap-2 flex justify-between right-3 top-3">
+                                <p className="sm:py-1 px-1 py-1 text-[8px] sm:text-sm font-bold flex tracking-wide text-white bg-[#111827] rounded-full gap-2">
+                                    <span><GrUpdate /></span>
+                                </p>
+
+                                <p className="sm:py-1 px-1 py-1 text-[8px] sm:text-sm font-bold flex tracking-wide text-white bg-[#111827] rounded-full gap-2">
+                                    <span><FiTrash2 /></span>
+                                </p>
+                            </div>
+                            <div className="flex items-start justify-between mt-4 space-x-4">
+                                <div>
+                                    <h3 className="text-xs font-bold text-white sm:text-sm md:text-base">
+                                        <a href="#" title="">
+                                            {riad.name}
+                                            <span className="inset-0" aria-hidden="true"></span>
+                                        </a>
+                                    </h3>
+                                    <div className="text-xs text-white sm:text-sm md:text-base line-clamp-1">
+                                        <p>{riad.description}</p>
+                                    </div>
+                                </div>
+
+                                <div className="text-right">
+                                    <p className="text-xs text-white sm:text-sm md:text-base">{riad.currency} {riad.prix}<span className="text-gray-400">/night</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+
+            </div>
+        );
+    };
+
+    return (
         <>
-
             <main className='container px-12 mt-36 mb-24 lg:mb-32 flex flex-col lg:flex-row'>
                 <div className="block flex-grow mb-24 lg:mb-0">
                     <div className='lg:sticky lg:top-24'>
@@ -62,75 +114,35 @@ const Dashboard = (props) => {
                         </div>
                         <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
                         <TableServices/>
-                        <div className='mt-8 grid grid-cols-1 md:gap-7 sm:grid-cols-2'>
-
-                            {riads?.datalist?.map(riad => (
-                                <div key={riad.id} className="border border-gray-700 p-4 rounded-xl">
-                                    <div className="relative group">
-                                        <div className="overflow-hidden rounded aspect-w-1 aspect-h-1">
-                                            <img
-                                                className="object-cover w-full h-full transition-all duration-300 group-hover:scale-125"
-                                                src={`http://localhost:8000/storage/images/${riad.cover}`}
-                                                alt=""
-                                            />
-                                        </div>
-                                        <div className="absolute left-3 top-3">
-                                            <p className="sm:px-3 sm:py-1 px-1.5 py-1 text-[8px] sm:text-xs font-bold flex tracking-wide text-white bg-[#111827] rounded-full gap-2">
-                                                <span><CiLocationOn className="mt-0.5" /></span> {riad.localisation}
-                                            </p>
-                                        </div>
-
-                                        <div className="absolute gap-2 flex justify-between right-3 top-3">
-                                            <p className="sm:py-1 px-1 py-1 text-[8px] sm:text-sm font-bold flex tracking-wide text-white bg-[#111827] rounded-full gap-2">
-                                                <span><GrUpdate /></span>
-                                            </p>
-
-                                            <p className="sm:py-1 px-1 py-1 text-[8px] sm:text-sm font-bold flex tracking-wide text-white bg-[#111827] rounded-full gap-2">
-                                                <span><FiTrash2 /></span>
-                                            </p>
-                                        </div>
-                                        <div className="flex items-start justify-between mt-4 space-x-4">
-                                            <div>
-                                                <h3 className="text-xs font-bold text-white sm:text-sm md:text-base">
-                                                    <a href="#" title="">
-                                                        {riad.name}
-                                                        <span className="inset-0" aria-hidden="true"></span>
-                                                    </a>
-                                                </h3>
-                                                <div className="text-xs text-white sm:text-sm md:text-base line-clamp-1">
-                                                    <p>{riad.description}</p>
-                                                </div>
-                                            </div>
-
-                                            <div className="text-right">
-                                                <p className="text-xs text-white sm:text-sm md:text-base">{riad.currency} {riad.prix}<span className="text-gray-400">/night</span></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
-
-
+                        {renderRiads()}
+                        <div className='text-white flex mt-16 justify-center items-center'>
+                            <Pagination
+                                totalItemsCount={riads.total}
+                                activePage={riads.current_page}
+                                itemsCountPerPage={riads.per_page}
+                                onChange={handlePageChange}
+                                itemClass='page-item'
+                                linkClass='page-link bg-[#4F46E5] px-5 py-3 rounded-full mx-1'
+                                itemClassFirst='first:ml-0 mx-1'
+                                itemClassLast='last:mr-0 mx-1'
+                                itemClassPrev='mx-1'
+                                itemClassNext='mx-1'
+                                activeClass='font-bold'
+                                hideDisabled='true'
+                                innerClass='flex'
+                                activeLinkClass='bg-[#4F46E5] hover:bg-[#4F46E7] rounded-full mx-1'
+                                linkClassFirst='mx-1'
+                                linkClassPrev='mx-1'
+                                linkClassNext='mx-1'
+                                linkClassLast='mx-1'
+                            />
                         </div>
+
                     </div>
                 </div>
             </main>
         </>
-    )
-}
-
-const riadStateProps = (state) => {
-    return {
-        data: state.data,
-    };
+    );
 };
 
-const mapDispatchToRiad = (dispatch) => {
-    return {
-        loader: () => dispatch(fetchRaids())
-    };
-};
-
-const ConnectedDashboard = connect(riadStateProps, mapDispatchToRiad)(Dashboard);
-
-export default ConnectedDashboard;
+export default Dashboard;

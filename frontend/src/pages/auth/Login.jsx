@@ -28,13 +28,15 @@ const Login = () => {
                     const [user, token] = data;
                     const {original} = token;
                     document.cookie = `ACCESS_TOKEN=${original.access_token};`
-                    console.log(token)
+//                    console.log(token)
                     setUserData(user);
                     toast.success(`Welcome ${token.original.user.name}`);
-                    if (token.original.user.role === 'Client'){
+                    if (token.original.user.role === 'Client') {
                         navigate('/')
-                    }else if (token.original.user.role === 'DrRiad'){
+                    } else if (token.original.user.role === 'DrRiad') {
                         navigate('/directeur')
+                    } else {
+                        navigate('/dashboard');
                     }
                 });
             } catch (error) {
