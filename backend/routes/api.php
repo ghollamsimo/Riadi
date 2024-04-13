@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NotificationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -63,8 +64,11 @@ Route::post('/updateservice/{id}' , [\App\Http\Controllers\ServicesController::c
 Route::post('/createservice' , [\App\Http\Controllers\ServicesController::class ,'store']);
 Route::delete('/deleteservice/{id}' , [\App\Http\Controllers\ServicesController::class , 'destroy']);
 Route::post('/createriad' , [\App\Http\Controllers\RiadController::class , 'store']);
-Route::put('/updateraid/{id}' , [\App\Http\Controllers\RiadController::class , 'update']);
+Route::post('/updateraid/{id}' , [\App\Http\Controllers\RiadController::class , 'update']);
 Route::delete('/deleteriad/{id}' , [\App\Http\Controllers\RiadController::class , 'destroy']);
 
 
 Route::get('/approvedriads' , [\App\Http\Controllers\ClientController::class, 'index']);
+Route::get('/adminriad' , [\App\Http\Controllers\AdminController::class , 'index']);
+Route::get('/notifications', [NotificationController::class, 'index']);
+Route::delete('/deletenotification/{id}', [NotificationController::class, 'destroy']);

@@ -12,9 +12,10 @@ const Register = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [role, setRole] = useState('');
+//    const [image , setImage] = useState('');
     const [loading, setLoading] = useState(false);
     const validateForm = () => {
-        if (!name || !email || !password || !role) {
+        if (!name || !email || !password || !role ) {
             toast.error("Please fill in all fields");
             setLoading(false);
             return false;
@@ -45,42 +46,44 @@ const Register = () => {
             console.error('Error creating user:', error);
         }
     };
-
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (validateForm()) {
             setLoading(true);
             await createUser();
-            navigate('/login')
+            navigate('/')
         }
     };
+
+
 
     return (
         <>
             <div className="container my-20 lg:mb-32">
                 <h2 className="flex items-center text-3xl leading-[115%] md:text-5xl md:leading-[115%] font-semibold text-neutral-900 dark:text-neutral-100 justify-center">Sign Up</h2>
                 <div className="max-w-md mx-auto space-y-6">
-                    <form className="grid grid-cols-1 gap-6" onSubmit={handleSubmit}>
+                    <form className="grid mt-5 grid-cols-1 gap-6" onSubmit={handleSubmit}>
 
                         <label className="block"><span className="text-neutral-800 dark:text-neutral-200">Name</span>
                             <input type="text"
                                    onChange={(e) => setName(e.target.value)}
                                    className="block w-full border border-gray-600 outline-0 text-white bg-white dark:bg-transparent rounded-2xl text-sm font-normal h-11 px-4 py-3 mt-1"
-                                   placeholder="John" />
+                                   placeholder="John"/>
                         </label>
 
-                        <label className="block"><span className="text-neutral-800 dark:text-neutral-200">Email address</span>
+                        <label className="block"><span
+                            className="text-neutral-800 dark:text-neutral-200">Email address</span>
                             <input type="email"
                                    onChange={(e) => setEmail(e.target.value)}
                                    className="block w-full border border-gray-600 outline-0 text-white bg-white dark:bg-transparent rounded-2xl text-sm font-normal h-11 px-4 py-3 mt-1"
-                                   placeholder="example@example.com" />
+                                   placeholder="example@example.com"/>
                         </label>
                         <label className="block">
-                            <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">Password</span>
+                            <span
+                                className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">Password</span>
                             <input type="password"
                                    onChange={(e) => setPassword(e.target.value)}
-                                   className="block w-full border border-gray-600 outline-0 text-white bg-white dark:bg-transparent rounded-2xl text-sm font-normal h-11 px-4 py-3 mt-1" />
+                                   className="block w-full border border-gray-600 outline-0 text-white bg-white dark:bg-transparent rounded-2xl text-sm font-normal h-11 px-4 py-3 mt-1"/>
                         </label>
 
                         <label htmlFor="roles" className="block text-sm font-medium text-gray-900 dark:text-white">
@@ -93,7 +96,9 @@ const Register = () => {
                             </select>
                         </label>
 
-                        <button className="nc-Button relative h-auto inline-flex items-center justify-center rounded-full transition-colors text-sm sm:text-base font-medium px-4 py-3 sm:px-6  ttnc-ButtonPrimary disabled:bg-opacity-70 bg-[#4F46E5] hover:bg-primary-700 text-neutral-50  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-6000 dark:focus:ring-offset-0" type="submit" disabled={loading}> {loading ?
+                        <button
+                            className="nc-Button relative h-auto inline-flex items-center justify-center rounded-full transition-colors text-sm sm:text-base font-medium px-4 py-3 sm:px-6  ttnc-ButtonPrimary disabled:bg-opacity-70 bg-[#4F46E5] hover:bg-primary-700 text-neutral-50  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-6000 dark:focus:ring-offset-0"
+                            type="submit" disabled={loading}> {loading ?
                             <svg aria-hidden="true" role="status"
                                  className="inline mr-3 w-4 h-4 text-white animate-spin" viewBox="0 0 100 101"
                                  fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -106,13 +111,15 @@ const Register = () => {
                             </svg> : 'Continue'} </button>
                     </form>
 
-                    <span className="block text-center text-neutral-700 dark:text-neutral-300">Already have an account? <Link to='/login'>Login</Link></span>
+                    <span
+                        className="block text-center text-neutral-700 dark:text-neutral-300">Already have an account? <Link
+                        to='/login'>Login</Link></span>
                 </div>
             </div>
             <Routes>
-                <Route path='/dashboard' element={< Dashboard />} />
+                <Route path='/dashboard' element={< Dashboard/>}/>
             </Routes>
-            <ToastContainer />
+            <ToastContainer/>
         </>
     );
 }

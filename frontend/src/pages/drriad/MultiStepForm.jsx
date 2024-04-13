@@ -11,6 +11,7 @@ import StepSix from "./StepSix.jsx";
 import { AddRiad, fetchRaids } from "../../redux/actions/RiadAction.jsx";
 import getCookie from "../../helpers/cookie.js";
 import {useNavigate} from "react-router-dom";
+import NavbarDirecteur from "../../components/NavbarDirecteur.jsx";
 
 const MultiStepForm = () => {
     const navigate = useNavigate()
@@ -30,6 +31,9 @@ const MultiStepForm = () => {
         guests: 1,
         rule: '',
         rooms: 1,
+        minnight :1 ,
+        maxnight :1,
+        checkin: '',
         currency: '',
         service_id: [],
         repa_id: [],
@@ -42,7 +46,7 @@ const MultiStepForm = () => {
             [name]: value
         }));
         if(formData.cover.length === 0){
-            console.log('The Cover Is Required')
+      //      console.log('The Cover Is Required')
         }
     };
     const handleCover = (cover) => {
@@ -54,7 +58,7 @@ const MultiStepForm = () => {
     };
 
     const handleImage=({name, value})=>{
-        console.log(name)
+      //  console.log(name)
         setFormData(prevFormData => ({
             ...prevFormData,
             [name]: value
@@ -91,7 +95,7 @@ const MultiStepForm = () => {
         e.preventDefault();
         console.log(formData)
         if (formData.image.length === 0) {
-            toast.error("Image field is required");
+         //   toast.error("Image field is required");
             return;
         }
         try {
@@ -107,6 +111,7 @@ const MultiStepForm = () => {
 
     return (
         <>
+            <NavbarDirecteur/>
             <form onSubmit={handleSubmit} className='mt-16' encType="multipart/form-data">
             {step === 1 && (
                 <StepOne

@@ -16,15 +16,16 @@ class ServicesController extends Controller
      */
     public function index()
     {
-        $user_id = Auth::id();
-        $drriad = DrRiad::where('user_id', $user_id)->first();
+
+        $drriad = DrRiad::where('user_id', Auth::id())->first();
 
         if ($drriad){
-            $service = Services::all();
-            return response()->json($service , 200);
+            $service = Services::where('drriad_id' , '=', $drriad->id)->get();
         }else{
             return response()->json(['message' => 'Unothorized']);
         }
+        return response()->json($service , 200);
+
     }
 
     /**

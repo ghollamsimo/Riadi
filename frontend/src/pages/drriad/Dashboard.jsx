@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import  { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchRaids } from "../../redux/actions/RiadAction";
 import Pagination from "react-js-pagination";
@@ -6,11 +6,13 @@ import { CiLocationOn } from "react-icons/ci";
 import { GrUpdate } from "react-icons/gr";
 import { FiTrash2 } from "react-icons/fi";
 import TableServices from "../../data/TableServices";
+import NavbarDirecteur from "../../components/NavbarDirecteur.jsx";
+import {useParams} from "react-router";
+import {Link} from "react-router-dom";
 
-const Dashboard = () => {
+const Dashboard = ({logOut, user}) => {
     const dispatch = useDispatch();
     const riads = useSelector((state) => state.riadsData.datalist);
-
     useEffect(() => {
         dispatch(fetchRaids());
     }, [dispatch]);
@@ -21,6 +23,7 @@ const Dashboard = () => {
 
     const renderRiads = () => {
         return (
+
             <div className='grid grid-cols-1 md:gap-7 sm:grid-cols-2'>
                 {riads?.data?.map(riad => (
                     <div key={riad.id} className="border border-gray-700 p-4 rounded-xl">
@@ -39,9 +42,9 @@ const Dashboard = () => {
                             </div>
 
                             <div className="absolute gap-2 flex justify-between right-3 top-3">
-                                <p className="sm:py-1 px-1 py-1 text-[8px] sm:text-sm font-bold flex tracking-wide text-white bg-[#111827] rounded-full gap-2">
+                                <Link to={`/update/${riad.id}`} className="sm:py-1 px-1 py-1 text-[8px] sm:text-sm font-bold flex tracking-wide text-white bg-[#111827] rounded-full gap-2">
                                     <span><GrUpdate /></span>
-                                </p>
+                                </Link>
 
                                 <p className="sm:py-1 px-1 py-1 text-[8px] sm:text-sm font-bold flex tracking-wide text-white bg-[#111827] rounded-full gap-2">
                                     <span><FiTrash2 /></span>
@@ -50,10 +53,10 @@ const Dashboard = () => {
                             <div className="flex items-start justify-between mt-4 space-x-4">
                                 <div>
                                     <h3 className="text-xs font-bold text-white sm:text-sm md:text-base">
-                                        <a href="#" title="">
+                                        <Link to={`/riaddetails/${riad.id}`} title="">
                                             {riad.name}
                                             <span className="inset-0" aria-hidden="true"></span>
-                                        </a>
+                                        </Link>
                                     </h3>
                                     <div className="text-xs text-white sm:text-sm md:text-base line-clamp-1">
                                         <p>{riad.description}</p>

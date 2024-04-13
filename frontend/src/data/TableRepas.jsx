@@ -18,7 +18,7 @@ const TableRepas = (props) => {
         props.loader();
     }, []);
 
-    let repas = props.data.datalist || [];
+    let repas = props.datalist || [];
 
     const repasList = repas.map(item => (
         <tr key={item.id}

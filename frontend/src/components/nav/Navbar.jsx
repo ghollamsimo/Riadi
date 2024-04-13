@@ -1,19 +1,31 @@
-import { useEffect, useState , Fragment } from "react";
-import Login from "../../pages/auth/Login.jsx";
-import { Link, useNavigate , Routes , Route } from "react-router-dom";
+import {  useState , Fragment } from "react";
+import {Link, useNavigate} from "react-router-dom";
 import "./Navbar.scss";
-import RiadCard from "../../pages/home/Home.jsx";
 import { TbPoint } from "react-icons/tb";
 import { IoFilter } from "react-icons/io5";
 import { CiSearch } from "react-icons/ci";
 import Modalsearch from "../Modalsearch.jsx";
-import Home from "../../pages/home/Home.jsx";
+import Api from "../../api/Api.jsx";
+import config from "../../helpers/config.js";
+import getCookie from "../../helpers/cookie.js";
+import {toast} from "react-toastify";
+import Notification from "../Notification.jsx";
 
-function Navbar() {
-
+function Navbar({user , setUser}) {
+    const {http} = Api
+    const navigate = useNavigate()
     const [showModal, setShowModal] = useState(false);
     const [isSearchBarOpen, setIsSearchBarOpen] = useState(false);
 
+    const logOut = async () => {
+        try {
+            await http.post('/logout');
+            setUser(null);
+            toast.success('Logged out successfully');
+        } catch (error) {
+            console.error('Error logging out:' , error.message);
+        }
+    };
 
     const toggleSearchBar = () => {
         setIsSearchBarOpen(!isSearchBarOpen);}
@@ -38,7 +50,11 @@ function Navbar() {
                             <li>
                                 <Link to="/help">Help</Link>
                             </li>
-
+                            <div className='relative'>
+                                <button className='text-2xl md:text-[28px] w-12 h-12 rounded-full text-neutral-700 dark:text-neutral-300   transition-all focus:outline-none flex items-center justify-center'>
+                                <Notification/>
+                                </button>
+                            </div>
                             <div className="relative z-20">
                                 <button onClick={toggleSearchBar}
                                         className="text-2xl md:text-[28px] w-12 h-12 rounded-full text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-gray-700 transition-all focus:outline-none flex items-center justify-center"
@@ -59,9 +75,18 @@ function Navbar() {
                                 )}
                             </div>
 
-                            <Link to="/login">
-                                <button className="btn btn__login">Login</button>
-                            </Link>
+                            {!user && (
+                                <li>
+                                    <button onClick={logOut} className="btn btn__login">Logout</button>
+                                </li>
+                            )}
+                            {user && (
+                                <li>
+                                    <Link to="/">
+                                        <button className="btn btn__login">Login</button>
+                                    </Link>
+                                </li>
+                            )}
 
 
                         </ul>

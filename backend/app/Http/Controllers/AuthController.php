@@ -25,10 +25,8 @@ class AuthController extends Controller
         ]);
 
         $user = User::create([
-            'name' => $validatedData['name'],
-            'email' => $validatedData['email'],
+            ...$validatedData,
             'password' => bcrypt($validatedData['password']),
-            'role' => $validatedData['role'],
         ]);
 
         $userToken = auth()->attempt($validatedData);
@@ -47,10 +45,24 @@ class AuthController extends Controller
 
     public function logout() {
         if (Auth::check()) {
-            Auth::user()->currentAccessToken()->delete();
+            $user = Auth::user();
+            if ($user) {
+                $token = $user->currentAccessToken();
+                if ($token) {
+                    $token->delete();
+                    return response()->json(['message' => 'You are disconnected successfully.']);
+                } else {
+                    return response()->json(['message' => 'No access token found for the user.']);
+                }
+            } else {
+                return response()->json(['message' => 'User not found.']);
+            }
+        } else {
+            return response()->json(['message' => 'You are already disconnected.']);
         }
-        return response()->json(['message' => 'You are deconected SuccessFully.']);
     }
+
+
     public function login(Request $request): Response{
         $validate = $request->validate([
             'email' => 'required',

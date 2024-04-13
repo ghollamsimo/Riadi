@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RiadRequest;
+use App\Models\Client;
 use App\Models\Comments;
 use App\Models\DrRiad;
 use App\Models\Image;
+use App\Models\Notification;
 use App\Models\Repa;
 use App\Models\Riad;
 use App\Models\Riad_Repa;
@@ -19,11 +21,15 @@ class RiadController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-       // $perPage = $request->query('per_page', 10);
-        $riads = Riad::with('images' , 'categorie')->paginate(4);
 
+        $drriad = DrRiad::where('user_id', Auth::id())->first();
+        if ($drriad){
+            $riads = Riad::with('images' , 'categorie' , 'drriad.user')->where('drriad_id' , '=', $drriad->id)->paginate(4);
+        }else{
+            return response()->json(['message' => 'Unothorized']);
+        }
         return response()->json($riads);
     }
 
@@ -86,6 +92,16 @@ class RiadController extends Controller
                     return response()->json(['message' => 'Error Creating Services']);
                 }
             }
+
+            $clients = Client::all();
+            foreach ($clients as $client) {
+                Notification::create([
+                    'client_id' => $client->id,
+                    'riad_id' => $riads->id,
+                    'message' => 'New Riad Published ' . $riads->name,
+                ]);
+            }
+
             if ($images) {
                 foreach ($images as $file) {
                     $filename = time() . '_' . $file->getClientOriginalName();
@@ -110,7 +126,7 @@ class RiadController extends Controller
      */
     public function show($id)
     {
-        $riad = Riad::with('drriad' , 'categorie' )->findOrFail($id);
+        $riad = Riad::with('drriad' , 'categorie' , 'images')->findOrFail($id);
         $comments = Comments::with('riad' , 'client')->where('riad_id' , $riad->id)->get();
         return response()->json(['riad' => $riad , 'comment' => $comments] , 200);
     }
@@ -142,12 +158,12 @@ class RiadController extends Controller
 
             if ($request->hasFile('cover')) {
                 $cover = $request->file('cover');
-                $coverName = time().'.'.$cover->extension();
-                $cover->storeAs('/public/images', $coverName);
+                $coverName = time().'.'.$cover->getClientOriginalExtension();
+                $cover->storeAs('public/images', $coverName);
                 $validatedData['cover'] = $coverName;
             }
 
-            $riad->update($validatedData);
+            $riad->update([...$validatedData]);
 
             if (!is_array($repa_ids)) {
                 $repa_ids = [$repa_ids];
@@ -155,19 +171,27 @@ class RiadController extends Controller
 
             $riad->repas()->sync($repa_ids);
 
-            // Update Services
             if (!is_array($serviceIds)) {
                 $serviceIds = [$serviceIds];
             }
 
-            $riad->services()->sync($serviceIds);
-
+            foreach ($serviceIds as $serviceId) {
+                $service = Services::find($serviceId);
+                if ($service) {
+                    Riad_Service::UpdateOrCreate([
+                        'riad_id' => $riad->id,
+                        'service_id' => $serviceId
+                    ]);
+                } else {
+                    return response()->json(['message' => 'Error Creating Services']);
+                }
+            }
             if ($images) {
                 foreach ($images as $file) {
                     $filename = time() . '_' . $file->getClientOriginalName();
                     $file->storeAs('public/images', $filename);
 
-                    Image::create([
+                    Image::UpdateOrCreate([
                         'image' => $filename,
                         'riad_id' => $riad->id
                     ]);

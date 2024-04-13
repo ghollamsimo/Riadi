@@ -11,6 +11,7 @@ import {useParams} from "react-router";
 import {fetchApprovedRaids} from "../../redux/actions/ApprovedRiadAction.jsx";
 import {fetchRaids} from "../../redux/actions/RiadAction.jsx";
 import Pagination from "react-js-pagination";
+import Navbar from "../../components/nav/Navbar.jsx";
 
 const Home = () => {
     const handlePageChange = (pageNum) => {
@@ -28,7 +29,7 @@ const Home = () => {
     return (
 
         <Fragment>
-
+            <Navbar/>
             <Hero/>
             <HeadingPlace/>
             <section className="py-3 bg-[#0E131F] rounded-t-3xl text-white sm:py-16 lg:py-2">
@@ -52,7 +53,7 @@ const Home = () => {
                             <div className="relative group" key={item.id}>
                                 <div className="overflow-hidden rounded aspect-w-1 aspect-h-1">
                                     <img
-                                        className="object-cover w-full h-full transition-all duration-300 group-hover:scale-125"
+                                        className="object-cover w-full h-full transition-all duration-300 group-hover:scale-125 aspect-video 	"
                                         src={`http://localhost:8000/storage/images/${item.cover}`}
                                         alt=""
                                     />

@@ -39,7 +39,10 @@ class RiadRequest extends FormRequest
             'rooms' => 'required',
             'currency' => 'required',
             'guests' => 'required',
-            'rule' => 'required'
+            'rule' => 'required',
+            'maxnight' => 'required',
+            'minnight' => 'required',
+            'checkin' => 'required'
         ];
     }
 }

@@ -31,13 +31,6 @@ const Login = () => {
 //                    console.log(token)
                     setUserData(user);
                     toast.success(`Welcome ${token.original.user.name}`);
-                    if (token.original.user.role === 'Client') {
-                        navigate('/')
-                    } else if (token.original.user.role === 'DrRiad') {
-                        navigate('/directeur')
-                    } else {
-                        navigate('/dashboard');
-                    }
                 });
             } catch (error) {
                 setLoading(false)
@@ -60,7 +53,9 @@ const Login = () => {
 
     return (
         <Fragment>
-            <div className="container mb-24 lg:mb-32">
+
+            <div className='mt-36'>
+            <div className="container  mb-24 lg:mb-32">
                 <h2 className="my-20 flex items-center text-3xl leading-[115%] md:text-5xl md:leading-[115%] font-semibold text-neutral-900 dark:text-neutral-100 justify-center">
                     Login
                 </h2>
@@ -109,6 +104,7 @@ const Login = () => {
                     </span>
                     
                 </div>
+            </div>
             </div>
             <ToastContainer />
 

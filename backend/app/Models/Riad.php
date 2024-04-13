@@ -23,7 +23,10 @@ class Riad extends Model
         'checkout',
         'guests',
         'rooms',
-        'rule'
+        'rule',
+        'checkin',
+        'maxnight',
+        'minnight'
     ];
     protected $table = 'riads';
     public function drriad()
@@ -32,15 +35,23 @@ class Riad extends Model
     }
     public function images()
     {
-        return $this->belongsTo(Image::class,'riad_id');
+        return $this->hasMany(Image::class,'riad_id');
     }
-    public function repa(){
-        return $this->hasMany(Repa::class);
+    public function repas()
+    {
+        return $this->belongsToMany(Repa::class, 'riad__repas');
     }
+
     public function categorie(){
         return $this->belongsTo(Categorie::class);
     }
-    public function service(){
-        return $this->hasMany(Services::class);
+    public function services(){
+        return $this->belongsToMany(Services::class, 'riad__services');
     }
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
+
 }

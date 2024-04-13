@@ -1,27 +1,27 @@
 import React, { useEffect } from "react";
-import {fetchRaids, UpdateStatusOfRiad} from "../redux/actions/RiadAction.jsx";
+import {fetchAdminRaids, UpdateStatusOfRiad} from "../redux/actions/RiadAction.jsx";
 import {connect, useDispatch, useSelector} from "react-redux";
 import Loadingdata from "../components/Loadingdata.jsx";
 import Pagination from "react-js-pagination";
 
-const TableRiads = (props) => {
+const TableRiads = () => {
     const dispatch = useDispatch();
-    const riads = useSelector((state) => state.riadsData.datalist);
-    console.log('rrrrrrrr',riads)
+    const riads = useSelector((state) => state.riadsData.datalist.riads);
+//    console.log('rrrrrrrr',riads)
     useEffect(() => {
-        dispatch(fetchRaids());
+        dispatch(fetchAdminRaids());
     }, [dispatch]);
 
     const handleSubmit = async (id, data) => {
         try {
             await dispatch(UpdateStatusOfRiad(id, data));
-            dispatch(fetchRaids())
+            dispatch(fetchAdminRaids())
         } catch (error) {
             console.error("Error updating status:", error);
         }
     };
     const handlePageChange = (pageNum) => {
-        dispatch(fetchRaids(pageNum));
+        dispatch(fetchAdminRaids(pageNum));
     };
 
 
@@ -39,10 +39,10 @@ const TableRiads = (props) => {
                 {item.currency} {item.prix}
             </td>
             <td className="p-3 text-sm whitespace-nowrap">
-                {item.categorie_id}
+                {item.categorie.name}
             </td>
             <td className="p-3 text-sm whitespace-nowrap">
-                {item.drriad_id}
+                {item.drriad.user.name}
             </td>
             <td className="p-3 text-sm whitespace-nowrap">
                 <span
@@ -108,26 +108,7 @@ const TableRiads = (props) => {
                 </div>
             </div>
             <div className='text-white flex mt-16 justify-center items-center'>
-                <Pagination
-                    totalItemsCount={riads.total}
-                    activePage={riads.current_page}
-                    itemsCountPerPage={riads.per_page}
-                    onChange={handlePageChange}
-                    itemClass='page-item'
-                    linkClass='page-link bg-[#4F46E5] px-5 py-3 rounded-full mx-1'
-                    itemClassFirst='first:ml-0 mx-1'
-                    itemClassLast='last:mr-0 mx-1'
-                    itemClassPrev='mx-1'
-                    itemClassNext='mx-1'
-                    activeClass='font-bold'
-                    hideDisabled='true'
-                    innerClass='flex'
-                    activeLinkClass='bg-[#4F46E5] hover:bg-[#4F46E7] rounded-full mx-1'
-                    linkClassFirst='mx-1'
-                    linkClassPrev='mx-1'
-                    linkClassNext='mx-1'
-                    linkClassLast='mx-1'
-                />
+
             </div>
 
         </>

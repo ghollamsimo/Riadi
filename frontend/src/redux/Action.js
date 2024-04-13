@@ -10,7 +10,7 @@ import {
     GET_CATEGORIE_LIST,
     GET_SERVICE_LIST,
     GET_REPA_LIST,
-    GET_APPROVED_RIAD
+    GET_APPROVED_RIAD, GET_NOTIFICATION_LIST
 } from "./ActionType.js";
 import Api from '../api/Api.jsx';
 import {toast} from "react-toastify";
@@ -44,6 +44,10 @@ export const getListOfServices= (data) => ({
     type: GET_SERVICE_LIST,
     payload : data
 })
+export const getListOfNotification = (data) => ({
+    type: GET_NOTIFICATION_LIST,
+    payload : data
+})
 export const getListOfCategories= (data) => ({
     type: GET_CATEGORIE_LIST,
     payload : data
@@ -73,6 +77,20 @@ export const getDataObj = (data) => ({
 });
 
 //--------ADMIN DASHBOARD------------
+export const fetchAdminRiad = (pageNum = 1) => {
+    return (dispatch) => {
+        dispatch(makeRequest());
+//        const token = getCookie('ACCESS_TOKEN');
+        http.get(`/riads?page=${pageNum}`)
+            .then(response => {
+                const riads = response.data
+                dispatch(getListsOfRiads(riads));
+            })
+            .catch(error => {
+                dispatch(failRequest(error.message));
+            });
+    };
+};
 export const fetchStats = () => {
     return (dispatch) => {
         dispatch(makeRequest());

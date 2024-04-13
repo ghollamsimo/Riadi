@@ -1,10 +1,16 @@
 import getCookie from "../../helpers/cookie.js";
-import {addDataList, deleteDataList, failRequest, getListsOfRiads, makeRequest, updateDataList} from "../Action.js";
+import {
+    addDataList,
+    deleteDataList,
+    failRequest,
+    getDataList,
+    getListsOfRiads,
+    makeRequest,
+    updateDataList
+} from "../Action.js";
 import Api from '../../api/Api.jsx'
 import {toast} from "react-toastify";
-
 const { http } = Api();
-
 export const fetchRaids = (pageNum = 1) => {
     return (dispatch) => {
         dispatch(makeRequest());
@@ -23,6 +29,35 @@ export const fetchRaids = (pageNum = 1) => {
             });
     };
 };
+
+export const fetchAdminRaids = (pageNum = 1) => {
+    return (dispatch) => {
+        dispatch(makeRequest());
+        http.get(`/adminriad?page=${pageNum}`)
+            .then(response => {
+                const riads = response.data
+                dispatch(getListsOfRiads(riads));
+            })
+            .catch(error => {
+                dispatch(failRequest(error.message));
+            });
+    };
+};
+
+export const fetchRiad = (id) => {
+    return (dispatch) => {
+        dispatch(makeRequest());
+        http.get('/riad/' +id)
+            .then(response => {
+                const riad = response.data;
+                dispatch(getListsOfRiads(riad));
+            })
+            .catch(error => {
+                dispatch(failRequest(error.message));
+            });
+    };
+};
+
 export const UpdateStatusOfRiad = (id , data) => {
     return (dispatch) => {
         dispatch(makeRequest());
@@ -35,18 +70,19 @@ export const UpdateStatusOfRiad = (id , data) => {
             });
     };
 }
-export const UpdateRiad = (id , data) => {
+export const UpdateRiad = (payload) => {
+    const { id, data } = payload;
     return (dispatch) => {
         dispatch(makeRequest());
         const token = getCookie('ACCESS_TOKEN');
-        http.put('/updateraid/'+ id , data , {
+        http.post('/updateraid/'+ id , data , {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         })
             .then(response => {
                 dispatch(updateDataList(response.data));
-                toast.success('Service Updated Successfully')
+                toast.success('Riad Updated Successfully')
 
             })
             .catch(error => {

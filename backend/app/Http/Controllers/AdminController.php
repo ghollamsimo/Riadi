@@ -38,15 +38,12 @@ class AdminController extends Controller
 
     public function index()
     {
-        $users = User::where('role' , 'DrRaid')->orWhere('role', 'Client')->get();
-        $riads = Riad::join('categories', 'categories.id', '=', 'riads.categorie_id')
-            ->select('riads.*', 'categories.name as categorie_name')
-            ->with('drriad.user as drname')
-            ->get();
+//        $users = User::where('role' , 'DrRaid')->orWhere('role', 'Client')->get();
+        $riads = Riad::with('images' , 'categorie' , 'drriad.user')->paginate(4);
 
 
         return response()->json([
-            'users' => $users,
+//            'users' => $users,
             'riads' => $riads
         ] , 200);
     }

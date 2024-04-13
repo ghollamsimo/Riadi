@@ -7,8 +7,9 @@ import {categorieReducer} from "./reducers/CategorieReducer.jsx";
 import {serviceReducer} from "./reducers/ServiceReducer.jsx";
 import {repaReducer} from "./reducers/RepaReducer.js";
 import {ApprovedriadReducer} from "./reducers/ApprovedRiadReducer.jsx";
+import {NotificationReducer} from "./reducers/NotificationReducer.jsx";
 
-const rootReducer = combineReducers({ data: Reducer, riadsData:riadReducer  , categorieData:categorieReducer , serviceData: serviceReducer , repaData: repaReducer , approvedRiads: ApprovedriadReducer});
+const rootReducer = combineReducers({ data: Reducer, riadsData:riadReducer  , categorieData:categorieReducer , serviceData: serviceReducer , repaData: repaReducer , approvedRiads: ApprovedriadReducer , notification: NotificationReducer});
 
 const middleware = [thunk, logger];
 

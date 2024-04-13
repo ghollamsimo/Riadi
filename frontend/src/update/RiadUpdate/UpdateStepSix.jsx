@@ -1,7 +1,4 @@
-import {useNavigate} from "react-router-dom";
-
-const StepSix = ({ handleSubmit  , handlePrev , handleChange} ) => {
-    const navigate = useNavigate()
+const UpdateStepSix = ({ handleSubmit  , handlePrev , handleChange}) => {
     return (
         <>
             <div className="listingSection__wrap text-white px-4 max-w-3xl mx-auto pb-24 pt-14 sm:py-24 lg:pb-32">
@@ -128,4 +125,4 @@ const StepSix = ({ handleSubmit  , handlePrev , handleChange} ) => {
     )
 }
 
-export default StepSix
+export default UpdateStepSix

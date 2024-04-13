@@ -1,5 +1,5 @@
 import {Fragment, useEffect, useState} from 'react';
-import {Route, Routes, useLocation} from 'react-router-dom';
+import {Navigate, Route, Routes, useLocation, useNavigate} from 'react-router-dom';
 import Navbar from './components/nav/Navbar.jsx';
 import MobileNavbar from './components/MobileNavbar.jsx';
 import Register from './pages/auth/Register.jsx';
@@ -16,35 +16,38 @@ import Home from "./pages/home/Home.jsx";
 import getCookie from "./helpers/cookie.js";
 import Api from "./api/Api.jsx";
 import {jwtDecode} from 'jwt-decode';
-
+import {toast, ToastContainer} from "react-toastify";
+import config from "./helpers/config.js";
+import SingleRiadPage from "./pages/drriad/SingleRiadPage.jsx";
+import NotFounde from "./pages/home/NotFounde.jsx";
+import MultipleUpdateSteps from "./update/RiadUpdate/MultipleUpdateSteps.jsx";
 function App() {
     const location = useLocation();
-    const [ user, setUser ] = useState(null)
-
-    const excludedRoutes = ['/dashboard' , '/editecategory' , '/gestionriads' , '/categories' , '/repas' ];
-
+    const [user, setUser] = useState(null);
+    const {http} = Api()
+    const excludedRoutes = ['/dashboard' , '/editecategory' , '/gestionriads' , '/categories' , '/repas' , '/'];
+    const navigate = useNavigate()
     const shouldDisplayNavbar = !excludedRoutes.some(route => location.pathname.includes(route));
   //  const navigate = useNavigate();
+    const token = getCookie('ACCESS_TOKEN');
 
 
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const token = getCookie('ACCESS_TOKEN');
-                console.log('Token:', token);
+//                console.log('Token:', token);
                 if (!token) {
                     console.error('Access token is missing');
-                    return;
+                    return ;
                 }
-                const { http } = Api();
                 const decodedToken = decodeToken(token);
-                console.log('Decoded token:', decodedToken);
+//                console.log('jjjjjjjjjjjj:', decodedToken);
                 const response = await http.get(`/user/${decodedToken}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
-//                console.log('User data:', response.data[0].role);
+//                console.log('userrole:', response.data[0].role);
                 setUser(response.data[0]);
             } catch (error) {
                 console.error('Error fetching user data:', error);
@@ -58,29 +61,33 @@ function App() {
             const decoded = jwtDecode(token);
             return decoded.sub;
         } catch (error) {
-            console.error('Error decoding token:', error);
+            console.error('Error decodin token:', error);
             return null;
         }
     };
 
     const isAdmin = user && user.role === 'Admin';
-    const isDrRiad = user && user.role === 'DrRiad';
+    const isDrRiad = user && user.role === 'DrRaid';
     const isClient = user && user.role === 'Client';
 
+
+//    console.log('ddddddd' , logOut())
 
     return (
         <>
 
+
             {shouldDisplayNavbar && (
                 <Fragment>
-                    <Navbar user={user} setUser={setUser}/>
+                    <Navbar user={user} setUser={setUser} />
                     <MobileNavbar />
                 </Fragment>
             )}
             <Routes>
-                <Route path='login' element={<Login setUser={setUser} />} />
+                <Route path='' element={<Login setUser={setUser} />} />
                 <Route path='/register' element={<Register />} />
                 <Route path='/profile/:id' element={<Profile />} />
+                <Route path='*' element={<NotFounde/>}/>
                 {isAdmin && (
                     <>
                         <Route path='/dashboard' element={<Dashboard />} />
@@ -89,21 +96,26 @@ function App() {
                         <Route path='/repas' element={<GRepas />} />
                     </>
                 )}
+
                 {isDrRiad && (
                     <>
-                        <Route path='/directeur' element={<Drriad />} />
+                        <Route path='/directeur'  element={<Drriad />} />
                         <Route path='/createriad' element={<MultiStepForm />} />
-                    </>
+                        <Route path='/riaddetails/:id' element={<SingleRiadPage/>}/>
+                        <Route path='/update/:id' element={<MultipleUpdateSteps/> }/>
+                        </>
                 )}
+
                 {isClient && (
                     <>
-                        <Route path='' element={<Home />} />
+                        <Route path='/home' element={<Home />} />
                     </>
                 )}
-            </Routes>
 
+            </Routes>
+<ToastContainer/>
         </>
-    );
+    )
 }
 
 export default App;
