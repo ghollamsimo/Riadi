@@ -11,11 +11,14 @@ class Services extends Model
 
     protected $fillable = ['drriad_id' , 'name'];
 
-    public function riad(){
-        return $this->hasMany(Riad::class);
-    }
+
 
     public function drriad(){
         return $this->belongsTo(DrRiad::class);
+    }
+
+    public function riads()
+    {
+        return $this->hasMany(Riad::class);
     }
 }

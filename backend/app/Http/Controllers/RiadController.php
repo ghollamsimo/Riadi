@@ -18,9 +18,7 @@ use Illuminate\Support\Facades\Auth;
 
 class RiadController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
 
@@ -33,18 +31,20 @@ class RiadController extends Controller
         return response()->json($riads);
     }
 
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function search(Request $request)
     {
-        //
+        $query = $request->input('query');
+
+        $riads = Riad::where(function($queryBuilder) use ($query) {
+            $queryBuilder->where('name', 'like', "%$query%")
+                ->orWhere('localisation', 'like', "%$query%");
+        })
+            ->where('status', '=', 'Approved')
+            ->get();
+
+        return response()->json($riads);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(RiadRequest $request)
     {
         $user_id = Auth::id();
@@ -121,27 +121,15 @@ class RiadController extends Controller
     }
 
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show($id)
     {
-        $riad = Riad::with('drriad' , 'categorie' , 'images')->findOrFail($id);
-        $comments = Comments::with('riad' , 'client')->where('riad_id' , $riad->id)->get();
+        $riad = Riad::with('drriad.user' , 'categorie' , 'images' , 'serviceid'  )->findOrFail($id);
+        $comments = Comments::with('riad' , 'client.user')->where('riad_id' , $riad->id)->get();
         return response()->json(['riad' => $riad , 'comment' => $comments] , 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Riad $riad)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(RiadRequest $request, $id)
     {
         $user_id = Auth::id();
@@ -162,8 +150,8 @@ class RiadController extends Controller
                 $cover->storeAs('public/images', $coverName);
                 $validatedData['cover'] = $coverName;
             }
-
-            $riad->update([...$validatedData]);
+        //    dd($coverName);
+            $riad->update([...$validatedData , $validatedData['cover'] ]);
 
             if (!is_array($repa_ids)) {
                 $repa_ids = [$repa_ids];
@@ -204,9 +192,7 @@ class RiadController extends Controller
         return response()->json(['error' => 'Unauthorized'], 401);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy($id)
     {
         $user_id = Auth::id();

@@ -29,6 +29,7 @@ return new class extends Migration
             $table->integer('minnight');
             $table->integer('maxnight');
             $table->integer('guests');
+            $table->enum('etat', ['Automatic', 'Manual'])->default('Automatic');
             $table->string('rule');
             $table->foreignId('drriad_id')->nullable()->constrained('dr_riads');
             $table->timestamps();

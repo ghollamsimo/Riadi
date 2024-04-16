@@ -7,7 +7,7 @@ const UpdateStepFive = ({ handleChange, handleNext, handlePrev , handleCover}) =
 
     const handleCoverChange = (e) => {
         const fileList = e.target.files;
-        handleCover(fileList[0]);
+        handleCover( fileList[0] );
     }
 
     return(

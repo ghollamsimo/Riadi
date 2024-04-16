@@ -18,7 +18,7 @@ const Hero = () =>{
     return (
 
         <Fragment>
-            <section className="mt-12 relative py-12 bg-transparent overflow-hidden sm:pb-16 lg:pb-20 xl:pb-24">
+            <section className="mt-24 relative py-12 bg-transparent overflow-hidden sm:pb-16 lg:pb-20 xl:pb-24">
                 <div className=" mx-auto relative max-w-7xl">
                     <div className=" grid items-center grid-cols-1 gap-y-12 lg:grid-cols-2 gap-x-16">
                         <div className="">
@@ -26,8 +26,8 @@ const Hero = () =>{
                                 Best, Real Estate</h1>
                             <p className="mt-4 text-lg font-normal text-gray-400 sm:mt-8">Accompanying us, you have a trip full of experiences. With Riadi, booking accommodation, resort villas, hotels..</p>
 
-                            <div className="absolute w-full h-full mt-3   pr-16 sm:mt-12">
-                                <section className="rounded-full search-sec relative  search w-full bg-[#1F2937] py-4">
+                            <div className="absolute w-full h-full mt-3  pr-16 sm:mt-12">
+                                <section className="rounded-2xl search-sec relative  search w-full bg-[#1F2937] py-4">
                                     <div className="m-5 container mx-auto">
 
                                     </div>
@@ -36,8 +36,8 @@ const Hero = () =>{
                             </div>
                         </div>
 
-                        <div className="relative grid grid-cols-2  px-24">
-                            <img src={HeroImage} alt="..." className='col-span-2 w-full'/>
+                        <div className="relative  grid grid-cols-2  px-24">
+                            <img src={HeroImage} alt="..." className='col-span-2 rounded-xl w-full'/>
 
                         </div>
                     </div>

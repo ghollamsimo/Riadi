@@ -37,6 +37,7 @@ const MultiStepForm = () => {
         currency: '',
         service_id: [],
         repa_id: [],
+        etat : '',
     });
 
     const handleChange = (e) => {
@@ -45,9 +46,6 @@ const MultiStepForm = () => {
             ...prevFormData,
             [name]: value
         }));
-        if(formData.cover.length === 0){
-      //      console.log('The Cover Is Required')
-        }
     };
     const handleCover = (cover) => {
         console.log(cover);

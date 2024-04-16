@@ -1,0 +1,386 @@
+import {useDispatch, useSelector} from "react-redux";
+import {useParams} from "react-router";
+import {useEffect, useState} from "react";
+import {fetchRiad} from "../../redux/actions/RiadAction.jsx";
+import moment from "moment/moment.js";
+import Navbar from '../../components/nav/Navbar.jsx'
+import {toast} from "react-toastify";
+import {AddComment} from "../../redux/actions/CommentAction.jsx";
+import Footer from '../../components/Footer.jsx'
+
+const RiadSinglePage = () =>{
+    const dispatch = useDispatch()
+    const [comment , setComment] = useState('')
+    const {id} = useParams();
+    const riad = useSelector((state) => state.riadsData.datalist.riad);
+    const comments = useSelector((state) => state.riadsData.datalist.comment)
+    const images = useSelector((state) => state.riadsData.datalist.riad);
+    const validate = () => {
+        if (!comment){
+            toast.error('Please enter a comment')
+            return false
+        }
+        return true
+    }
+    const form = new FormData()
+    form.append('comments', comment)
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (validate()) {
+            await dispatch(AddComment(riad.id, form ))
+        }
+    };
+    console.log('riad' , comments)
+    useEffect(() => {
+        dispatch(fetchRiad(id));
+    }, [dispatch, id]);
+
+    const dateComments = riad && moment(comments.created_at).format('MMM DD');
+
+    const formattedCheckoutDate = riad && moment(riad.checkout).format('MMM DD');
+    const checkout = riad && moment(riad.checkout).format('hh:mm A');
+    const checkin = riad && moment(riad.checkout).format('hh:mm A');
+    const formattedCheckinDate = riad && moment(riad.checkin).format('MMM DD');
+
+    return(
+        <>
+            <Navbar/>
+            <div className="container mt-28 py-5 px-8 relative grid grid-cols-3 sm:grid-cols-4 gap-1 sm:gap-2">
+
+                {images?.images?.map((item, index) => {
+                    console.log(index)
+                    return (
+
+                        <div key={index} className={`${
+                            index === 0 ? "col-span-2 row-span-2 sm:row-span-3 relative rounded-md sm:rounded-xl overflow-hidden cursor-pointer" : "relative rounded-md sm:rounded-xl overflow-hidden "
+                        }`}>
+                            <div>
+                                <img src={`http://localhost:8000/storage/images/${item.image}`} alt=""/>
+                            </div>
+                        </div>
+                    )
+                })}
+            </div>
+
+            <main className='px-12 mb-10 relative text-white z-10 mt-11 flex flex-col lg:flex-row '>
+                <div className="w-full lg:w-3/5 xl:w-2/3 space-y-8 lg:space-y-10 lg:pr-10">
+                    <div className="listingSection__wrap px-12 py-6 border-gray-600 rounded-xl border space-y-6">
+                        <div className="flex justify-between items-center">
+                            <span
+                                className="nc-Badge inline-flex px-2.5 py-1 rounded-full font-medium text-xs relative text-blue-800 bg-blue-100">{riad && riad.categorie.name}</span>
+                            <div className="flow-root">
+                                <div className="flex text-neutral-700 dark:text-neutral-300 text-sm -mx-3 -my-1.5">
+                    <span
+                        className="py-1.5 px-3 flex rounded-lg hover:bg-neutral-100 dark:hover:bg-gray-800 cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+                                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
+                        </svg>
+                        <span className="hidden sm:block ml-2.5">Share</span>
+                    </span>
+                                    <span
+                                        className="py-1.5 px-3 flex rounded-lg hover:bg-gray-600 dark:hover:bg-gray-800 cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+                                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                        <span className="hidden sm:block ml-2.5">Save</span>
+                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold">{riad && riad.name}</h2>
+                        <div className="flex items-center space-x-4">
+                            <div className="nc-StartRating flex items-center space-x-1 text-sm"
+                                 data-nc-id="StartRating">
+                                <div className="pb-[2px]">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                         aria-hidden="true" className="w-[18px] h-[18px] text-orange-500">
+                                        <path fillRule="evenodd"
+                                              d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+                                              clipRule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                <span className="font-medium">4.5</span>
+                                <span className="text-neutral-500 dark:text-neutral-400">(112)</span>
+                            </div>
+                            <span>·</span>
+                            <span>
+                <i className="las la-map-marker-alt"></i>
+                <span className="ml-1">{riad && riad.localisation}</span>
+            </span>
+                        </div>
+                        <div className="flex items-center">
+                            <div
+                                className="wil-avatar relative flex-shrink-0 inline-flex items-center justify-center text-neutral-100 uppercase font-semibold shadow-inner rounded-full h-10 w-10 ring-1 ring-white dark:ring-neutral-900">
+
+                                <span className="wil-avatar__name">J</span>
+                                <span
+                                    className="bg-teal-500 rounded-full text-white text-xs flex items-center justify-center absolute w-4 h-4 -top-0.5 -right-0.5">
+                    <i className="las la-check"></i>
+                </span>
+                            </div>
+                            <span className="ml-2.5 text-neutral-500 dark:text-neutral-400">Hosted by <span
+                                className="text-neutral-900 dark:text-neutral-200 font-medium">{riad && riad.drriad.user.name}</span></span>
+                        </div>
+                        <div className="w-full border-b border-neutral-100 dark:border-neutral-700"></div>
+                        <div
+                            className="flex items-center justify-between xl:justify-start space-x-8 xl:space-x-12 text-sm text-neutral-700 dark:text-neutral-300">
+                            <div className="flex items-center space-x-3">
+                                <i className="las la-user text-2xl"></i>
+                                <span>{riad && riad.guests} <span
+                                    className="hidden sm:inline-block">guests</span></span>
+                            </div>
+                            <div className="flex items-center space-x-3">
+                                <i className="las la-bed text-2xl"></i>
+                                <span>{riad && riad.rooms} <span className="hidden sm:inline-block">Rooms</span></span>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div className="listingSection__wrap  px-12 py-6 border-gray-600 rounded-xl border"><h2
+                        className="text-2xl font-semibold">Riad information</h2>
+                        <div className="w-14 mt-5 border-b border-neutral-200 dark:border-neutral-700"></div>
+                        <div className="text-neutral-6000 mt-5 dark:text-neutral-300">
+                            <span>{riad && riad.description}</span>
+                        </div>
+                    </div>
+
+                    <div className="listingSection__wrap px-12 py-6 border-gray-600 rounded-xl border">
+                        <div><h2 className="text-2xl font-semibold">Amenities </h2><span
+                            className="block mt-2 text-neutral-500 dark:text-neutral-400"> About the amenities and services</span>
+                        </div>
+                        <div className="w-14 mt-5 border-b border-neutral-200 dark:border-neutral-700"></div>
+                        <div
+                            className="grid mt-5 grid-cols-1 xl:grid-cols-3 gap-6 text-sm text-neutral-700 dark:text-neutral-300 ">
+                            <div className="flex items-center space-x-3"><i className="text-3xl las la-key"></i><span
+                                className=" ">la-key</span></div>
+                            <div className="flex items-center space-x-3"><i
+                                className="text-3xl las la-luggage-cart"></i><span className=" ">la-luggage-cart</span>
+                            </div>
+                            <div className="flex items-center space-x-3"><i className="text-3xl las la-shower"></i><span
+                                className=" ">la-shower</span></div>
+                            <div className="flex items-center space-x-3"><i
+                                className="text-3xl las la-smoking"></i><span className=" ">la-smoking</span></div>
+                            <div className="flex items-center space-x-3"><i
+                                className="text-3xl las la-snowflake"></i><span className=" ">la-snowflake</span></div>
+                            <div className="flex items-center space-x-3"><i className="text-3xl las la-spa"></i><span
+                                className=" ">la-spa</span></div>
+                            <div className="flex items-center space-x-3"><i
+                                className="text-3xl las la-suitcase"></i><span className=" ">la-suitcase</span></div>
+                            <div className="flex items-center space-x-3"><i
+                                className="text-3xl las la-suitcase-rolling"></i><span
+                                className=" ">la-suitcase-rolling</span></div>
+                            <div className="flex items-center space-x-3"><i
+                                className="text-3xl las la-swimmer"></i><span className=" ">la-swimmer</span></div>
+                            <div className="flex items-center space-x-3"><i
+                                className="text-3xl las la-swimming-pool"></i><span
+                                className=" ">la-swimming-pool</span></div>
+                            <div className="flex items-center space-x-3"><i className="text-3xl las la-tv"></i><span
+                                className=" ">la-tv</span></div>
+                            <div className="flex items-center space-x-3"><i
+                                className="text-3xl las la-umbrella-beach"></i><span
+                                className=" ">la-umbrella-beach</span></div>
+                        </div>
+                        <div className="w-14 mt-5 border-b border-neutral-200"></div>
+                    </div>
+
+                    <div className="listingSection__wrap px-12 py-6 border-gray-600 rounded-xl border">
+                        <div><h2 className="text-2xl font-semibold">Room Rates </h2><span
+                            className="block mt-2 text-neutral-500 dark:text-neutral-400">Prices may increase on weekends or holidays</span>
+                        </div>
+                        <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
+                        <div className="flow-root">
+                            <div className="text-sm mt-5 sm:text-base text-neutral-6000 dark:text-neutral-300 -mb-4">
+
+                                <div
+                                    className="p-4 mt-5 bg-neutral-100 dark:bg-gray-800 flex justify-between items-center space-x-4 rounded-lg">
+                                    <span>Minimum number of nights</span><span>{riad && riad.minnight} night</span>
+                                </div>
+                                <div className="p-4 flex justify-between items-center space-x-4 rounded-lg"><span>Max number of nights</span><span>{riad && riad.maxnight} nights</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="listingSection__wrap px-12 py-6 border-gray-600 rounded-xl border">
+                        <h2 className="text-2xl font-semibold">Reviews (23
+                            reviews)</h2>
+                        <div className="w-14 mt-5 border-b border-neutral-200 dark:border-neutral-700">
+
+                        </div>
+                        <div className="space-y-5">
+
+                            <div className="relative mt-5">
+                                <form onSubmit={handleSubmit}>
+                                    <input type="text"
+                                           value={comment}
+                                           onChange={(e) => setComment(e.target.value)}
+                                           className="block w-full  border border-gray-600 outline-0 text-white bg-white dark:bg-transparent rounded-3xl  h-16 px-4 py-3 "
+                                           placeholder="Share your thoughts ..."/>
+                                    <button
+                                        className="ttnc-ButtonCircle flex items-center justify-center rounded-full !leading-none disabled:bg-opacity-70 bg-primary-6000 hover:bg-primary-700 text-neutral-50 absolute right-2 top-1/2 transform -translate-y-1/2  w-12 h-12  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-6000 dark:focus:ring-offset-0"
+                                        type='submit'>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                             stroke-width="1.5" stroke="currentColor" aria-hidden="true"
+                                             className="w-5 h-5">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                  d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path>
+                                        </svg>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div className="divide-y divide-neutral-100 dark:divide-neutral-800">
+                            {comments?.map(item => (
+                                <div key={item.id} className="nc-CommentListing flex space-x-4 py-8"
+                                     data-nc-id="CommentListing">
+
+                                    <div key={item} className="pt-0.5">
+                                        <div
+                                            className="wil-avatar relative flex-shrink-0 inline-flex items-center justify-center text-neutral-100 uppercase font-semibold shadow-inner rounded-full h-10 w-10 text-lg ring-1 ring-white dark:ring-neutral-900">
+                                            <span className="wil-avatar__name">C</span></div>
+                                    </div>
+                                    <div className="flex-grow">
+                                        <div className="flex justify-between space-x-3">
+                                            <div className="flex flex-col">
+                                                <div className="text-sm font-semibold">
+                                                    <span>{item.client.user.name}</span></div>
+                                                <span
+                                                    className="text-sm text-neutral-500 dark:text-neutral-400 mt-0.5">{dateComments}</span>
+                                            </div>
+
+                                            <div>ddd</div>
+                                        </div>
+                                        <span
+                                            className="block mt-3 text-neutral-6000 dark:text-neutral-300">{item.comments}</span>
+                                    </div>
+                                </div>
+                            ))}
+
+                        </div>
+
+
+                    </div>
+
+                    <div className="listingSection__wrap px-12 py-6 border-gray-600 rounded-xl border"><h2 className="text-2xl font-semibold">Things to know</h2>
+                        <div className="w-14 mt-5 border-b border-neutral-200 dark:border-neutral-700"></div>
+
+                        <div><h4 className="text-lg mt-5 font-semibold">Check-in time</h4>
+                            <div className="mt-3 text-neutral-500 dark:text-neutral-400 max-w-md text-sm sm:text-base">
+                                <div
+                                    className="flex space-x-10 justify-between p-3 bg-neutral-100 dark:bg-gray-800 rounded-lg">
+                                    <span>Check-in</span><span>{checkin}</span></div>
+                                <div className="flex space-x-10 justify-between p-3"><span>Check-out</span><span>{checkout}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="w-14 mt-5 border-b border-neutral-200 dark:border-neutral-700"></div>
+                        <div className='mt-5'><h4 className="text-lg font-semibold">Rule Note</h4>
+                            <div className="prose sm:prose">
+                                <ul className="mt-3 text-neutral-500 dark:text-neutral-400 space-y-2">
+                                    <li>{riad && riad.rule}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div className="hidden w-fit  lg:block flex-grow mt-14 lg:mt-0">
+                    <div className="sticky  border rounded-xl  p-12 border-gray-600 top-28">
+                        <div className="listingSectionSidebar__wrap ">
+                            <div className="flex justify-between">
+                            <span className="text-3xl font-semibold">{riad && riad.currency} {riad && riad.prix}<span
+                                className="ml-1 text-base font-normal text-neutral-500 dark:text-neutral-400">/night</span></span>
+                                <div className="nc-StartRating  flex items-center space-x-1 text-sm"
+                                     data-nc-id="StartRating">
+                                    <div className="pb-[2px]">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                             aria-hidden="true" className="w-[18px] h-[18px] text-orange-500">
+                                            <path fillRule="evenodd"
+                                                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+                                                  clipRule="evenodd"></path>
+                                        </svg>
+                                    </div>
+                                    <span className="font-medium">4.5</span>
+                                    <span className="text-neutral-500 dark:text-neutral-400">(112)</span>
+                                </div>
+                            </div>
+                            <form
+                                className="flex mt-10 flex-col border border-neutral-200 dark:border-neutral-700 rounded-3xl">
+                                <div className="StayDatesRangeInput z-10 relative flex flex-1 z-[11]"
+                                     data-headlessui-state="">
+                                    <button
+                                        className="flex-1 flex relative p-3 items-center space-x-3 focus:outline-none"
+                                        type="button" aria-expanded="false" data-headlessui-state=""
+                                        id="headlessui-popover-button-:rn:">
+                                        <div className="text-neutral-300 dark:text-neutral-400">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                 strokeWidth="1.5" stroke="currentColor" aria-hidden="true"
+                                                 className="w-5 h-5 lg:w-7 lg:h-7">
+                                                <path strokeLinecap="round" strokeLinejoin="round"
+                                                      d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"></path>
+                                            </svg>
+                                        </div>
+                                        <div className="flex-grow text-left">
+                                            <span
+                                                className="block xl:text-lg font-semibold">{formattedCheckinDate} - {formattedCheckoutDate}</span>
+                                            <span
+                                                className="block mt-1 text-sm text-neutral-400 leading-none font-light">Check in - Check out</span>
+                                        </div>
+                                    </button>
+                                </div>
+                                <div className="w-full border-b border-neutral-200 dark:border-neutral-700"></div>
+                                <div className="flex relative flex-1" data-headlessui-state="">
+                                    <div className="flex-1 flex items-center focus:outline-none rounded-b-3xl">
+                                        <button
+                                            className="relative z-10 flex-1 flex text-left items-center p-3 space-x-3 focus:outline-none"
+                                            type="button" aria-expanded="false" data-headlessui-state=""
+                                            id="headlessui-popover-button-:rp:">
+                                            <div className="text-neutral-300 dark:text-neutral-400">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                     strokeWidth="1.5" stroke="currentColor" aria-hidden="true"
+                                                     className="w-5 h-5 lg:w-7 lg:h-7">
+                                                    <path strokeLinecap="round" strokeLinejoin="round"
+                                                          d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z"></path>
+                                                </svg>
+                                            </div>
+                                            <div className="flex-grow">
+                                                <span className="block xl:text-lg font-semibold">4 Guests</span>
+                                                <span
+                                                    className="block mt-1 text-sm text-neutral-400 leading-none font-light">Guests</span>
+                                            </div>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                            <div className="flex mt-8 flex-col space-y-4">
+                                <div className="flex justify-between text-neutral-6000 dark:text-neutral-300">
+                                    <span>{riad && riad.currency} {riad && riad.prix} x {riad && riad.maxnight} night</span>
+                                    <span>{riad && riad.prix * riad.maxnight} {riad && riad.currency}</span>
+                                </div>
+
+                                <div className="border-b border-neutral-200 dark:border-neutral-700"></div>
+                                <div className="flex justify-between font-semibold">
+                                    <span>Total</span>
+                                    <span>{riad && riad.prix * riad.maxnight} {riad && riad.currency}</span>
+                                </div>
+                            </div>
+                            <a className="nc-Button mt-5 mx-auto w-full relative h-auto inline-flex items-center justify-center rounded-full transition-colors text-sm sm:text-base font-medium px-4 py-3 sm:px-6 ttnc-ButtonPrimary disabled:bg-opacity-70 bg-[#4F46E5] hover:bg-primary-700 text-neutral-50 "
+                               rel="noopener noreferrer" href="/checkout">Reserve</a>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+<Footer/>
+        </>
+    )
+}
+
+export default RiadSinglePage

@@ -92,7 +92,7 @@ const Register = () => {
                                     onChange={(e) => setRole(e.target.value)}
                                     className="block w-full border border-gray-600 outline-0 text-white  bg-white rounded-2xl text-sm font-normal h-11 px-4 py-3 mt-1 dark:bg-[#1F2937] dark:text-white">
                                 <option value="Client">Client</option>
-                                <option value="DrRaid">DrRaid</option>
+                                <option value="DrRaid">Directeur De Riad</option>
                             </select>
                         </label>
 

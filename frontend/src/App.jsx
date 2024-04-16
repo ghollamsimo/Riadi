@@ -21,6 +21,7 @@ import config from "./helpers/config.js";
 import SingleRiadPage from "./pages/drriad/SingleRiadPage.jsx";
 import NotFounde from "./pages/home/NotFounde.jsx";
 import MultipleUpdateSteps from "./update/RiadUpdate/MultipleUpdateSteps.jsx";
+import RiadSinglePage from "./pages/home/RiadSinglePage.jsx";
 function App() {
     const location = useLocation();
     const [user, setUser] = useState(null);
@@ -79,7 +80,7 @@ function App() {
 
             {shouldDisplayNavbar && (
                 <Fragment>
-                    <Navbar user={user} setUser={setUser} />
+                    <Navbar user={user}  />
                     <MobileNavbar />
                 </Fragment>
             )}
@@ -99,7 +100,7 @@ function App() {
 
                 {isDrRiad && (
                     <>
-                        <Route path='/directeur'  element={<Drriad />} />
+                        <Route path='/directeur'  element={<Drriad user={user}/>} />
                         <Route path='/createriad' element={<MultiStepForm />} />
                         <Route path='/riaddetails/:id' element={<SingleRiadPage/>}/>
                         <Route path='/update/:id' element={<MultipleUpdateSteps/> }/>
@@ -108,8 +109,9 @@ function App() {
 
                 {isClient && (
                     <>
+                        <Route path='/riad/:id' element={<RiadSinglePage/>} />
                         <Route path='/home' element={<Home />} />
-                    </>
+                        </>
                 )}
 
             </Routes>

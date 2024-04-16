@@ -5,15 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Comments extends Model
+class Reservation extends Model
 {
     use HasFactory;
-    protected $fillable = ['client_id' , 'riad_id' , 'comments'];
+
+    protected $fillable = ['client_id' , 'status' , 'riad_id'];
 
     public function client()
     {
         return $this->belongsTo(Client::class);
     }
+
     public function riad(){
         return $this->belongsTo(Riad::class);
     }

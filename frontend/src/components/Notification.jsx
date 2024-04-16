@@ -32,7 +32,6 @@ const Notification = () => {
                     >
                         <IoNotificationsOutline/>
                     </span>
-                {/* Dropdown content */}
                 {isNotificationOpen && (
                     <>
                         <div className='absolute z-10 text-left w-screen max-w-xs sm:max-w-sm px-4 mt-3 sm:right-0 sm:px-0 opacity-100 translate-y-0'>

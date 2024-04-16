@@ -43,23 +43,10 @@ class AuthController extends Controller
         return response()->json(['user' => $user, 'token' => $token], 201);
     }
 
-    public function logout() {
-        if (Auth::check()) {
-            $user = Auth::user();
-            if ($user) {
-                $token = $user->currentAccessToken();
-                if ($token) {
-                    $token->delete();
-                    return response()->json(['message' => 'You are disconnected successfully.']);
-                } else {
-                    return response()->json(['message' => 'No access token found for the user.']);
-                }
-            } else {
-                return response()->json(['message' => 'User not found.']);
-            }
-        } else {
-            return response()->json(['message' => 'You are already disconnected.']);
-        }
+    public function logout(Request $request) : Response
+    {
+        auth()->user()->tokens()->delete();
+        return response('You Logged Out!', 200);
     }
 
 

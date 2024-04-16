@@ -12,15 +12,17 @@ import {fetchApprovedRaids} from "../../redux/actions/ApprovedRiadAction.jsx";
 import {fetchRaids} from "../../redux/actions/RiadAction.jsx";
 import Pagination from "react-js-pagination";
 import Navbar from "../../components/nav/Navbar.jsx";
+import {Link} from "react-router-dom";
 
 const Home = () => {
+    const dispatch = useDispatch();
+
     const handlePageChange = (pageNum) => {
         dispatch(fetchRaids(pageNum));
     };
 
     const {id} = useParams()
 
-    const dispatch = useDispatch();
     const riads = useSelector((state) => state.approvedRiads.datalist);
 
     useEffect(() => {
@@ -65,10 +67,10 @@ const Home = () => {
                                 <div className="flex items-start justify-between mt-4 space-x-4">
                                     <div>
                                         <h3 className="text-xs font-bold text-white sm:text-sm md:text-base">
-                                            <a href="#" title="">
+                                            <Link to={`/riad/${item.id}`} title="">
                                                 {item.name}
                                                 <span className="absolute inset-0" aria-hidden="true"></span>
-                                            </a>
+                                            </Link>
                                         </h3>
                                         <div className="text-xs  text-white sm:text-sm md:text-base line-clamp-1">
                                             <p>{item.description}</p>

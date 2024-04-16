@@ -35,6 +35,22 @@ const UpdateStepOne = ({ handleNext  , handleChange  , loader} ) => {
                                 </select></div>
                                 <span className="block mt-3 text-xs text-neutral-500 dark:text-neutral-400 ">Hotel: Professional hospitality businesses that usually have a unique style or theme defining their brand and decor</span>
                             </div>
+
+                            <div className=""><label
+                                className="nc-Label text-sm font-medium text-neutral-700 dark:text-neutral-300 "
+                                data-nc-id="Label">Choose a type Of Reservation</label>
+                                <div className="mt-1">
+                                    <select
+                                        name="etat"
+                                        onChange={handleChange}
+                                        className="block w-full border border-gray-600 outline-0 text-white bg-white dark:bg-transparent rounded-2xl text-sm font-normal h-11 px-4 py-3 mt-1">
+                                        <option value='Automatic' className='text-black'>Automatic</option>
+                                        <option value='Manual' className='text-black'>Manual</option>
+                                    </select></div>
+
+                                <span className="block mt-3 text-xs text-neutral-500 dark:text-neutral-400 ">Hotel: Professional hospitality businesses that usually have a unique style or theme defining their brand and decor</span>
+                            </div>
+
                             <div className=""><label
                                 className="nc-Label text-sm font-medium text-neutral-700 dark:text-neutral-300 "
                                 data-nc-id="Label">Place name</label>

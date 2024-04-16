@@ -20,7 +20,6 @@ const Dashboard = ({logOut, user}) => {
     const handlePageChange = (pageNum) => {
         dispatch(fetchRaids(pageNum));
     };
-
     const renderRiads = () => {
         return (
 
@@ -82,15 +81,9 @@ const Dashboard = ({logOut, user}) => {
                     <div className='lg:sticky lg:top-24'>
                         <div
                             className=" w-full flex flex-col items-center text-center sm:rounded-2xl sm:border border-neutral-200 dark:border-neutral-700 space-y-6 sm:space-y-7 px-0 sm:p-6 xl:p-8">
-                            <div
-                                className="wil-avatar relative flex-shrink-0 inline-flex items-center justify-center text-neutral-100 uppercase font-semibold shadow-inner rounded-full w-28 h-28 ring-1 ring-white dark:ring-neutral-900">
-                                <img className="absolute inset-0 w-full h-full object-cover rounded-full"
-                                     src="./static/media/Image-1.90baa8cc883db8970fda.png" alt="John Doe"/><span
-                                className="wil-avatar__name">J</span><span
-                                className=" bg-teal-500 rounded-full text-white text-xs flex items-center justify-center absolute  w-6 h-6 -top-0.5 right-2"><i
-                                className="las la-check"></i></span></div>
+
                             <div className="space-y-3 text-center flex flex-col items-center"><h2
-                                className="text-3xl font-semibold">Kevin Francis</h2>
+                                className="text-3xl font-semibold text-white">{user.name}</h2>
                                 <div className="nc-StartRating flex items-center space-x-1 text-sm  !text-base"
                                      data-nc-id="StartRating">
                                     <div className="pb-[2px]">
@@ -107,12 +100,19 @@ const Dashboard = ({logOut, user}) => {
                             <p className="text-neutral-500 dark:text-neutral-400">Providing lake views, The Symphony 9
                                 Tam Coc in Ninh Binh provides accommodation, an outdoor.</p>
                             <div className="border-b border-neutral-200 dark:border-neutral-700 w-14"></div>
+
+                            <div className=''>
+ss
+                            </div>
+
                         </div>
+
+
                     </div>
                 </div>
                 <div className='w-full  lg:w-3/5 xl:w-2/3 space-y-8 lg:space-y-10 lg:pl-10 flex-shrink-0'>
                     <div className='border border-gray-700 p-4 rounded-xl'>
-                        <div><h2 className="text-2xl text-white font-semibold">Kevin Francis's listings</h2><span
+                        <div><h2 className="text-2xl text-white font-semibold">{user.email} listings</h2><span
                             className="block mt-2 text-neutral-500 dark:text-neutral-400">Kevin Francis's listings is very rich, 5 star reviews help him to be more branded.</span>
                         </div>
                         <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>

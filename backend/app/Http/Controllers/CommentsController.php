@@ -35,7 +35,7 @@ class CommentsController extends Controller
 
         if ($client) {
             $validation = $request->validate([
-                'comments' => 'required',
+                'comments' => '',
             ]);
             $comment = Comments::create([
                 'client_id' => $client->id,

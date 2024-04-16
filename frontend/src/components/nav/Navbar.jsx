@@ -1,4 +1,4 @@
-import {  useState , Fragment } from "react";
+import {useState, Fragment, useEffect} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import "./Navbar.scss";
 import { TbPoint } from "react-icons/tb";
@@ -10,17 +10,31 @@ import config from "../../helpers/config.js";
 import getCookie from "../../helpers/cookie.js";
 import {toast} from "react-toastify";
 import Notification from "../Notification.jsx";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchRaidSearch} from "../../redux/actions/SearchAction.jsx";
 
 function Navbar({user , setUser}) {
     const {http} = Api
+    const dispatch = useDispatch()
     const navigate = useNavigate()
     const [showModal, setShowModal] = useState(false);
     const [isSearchBarOpen, setIsSearchBarOpen] = useState(false);
+    const [query, setQuery] = useState('');
+    const search = useSelector((state) => state.searchRiad.datalist)
+    useEffect(() => {
+        if (query.trim() !== '') {
+            dispatch(fetchRaidSearch(query));
+        } else {
+            if (search.length === 0) {
+                console.log('No raid found');
+            }
+        }
+    }, [dispatch, query, search]);
+
 
     const logOut = async () => {
         try {
-            await http.post('/logout');
-            setUser(null);
+            await http.post('/logout' , config());
             toast.success('Logged out successfully');
         } catch (error) {
             console.error('Error logging out:' , error.message);
@@ -62,16 +76,37 @@ function Navbar({user , setUser}) {
                                     <CiSearch/>
                                 </button>
                                 {isSearchBarOpen && (
+                                    <>
                                     <div
                                         className="right-0 z-50 absolute w-screen max-w-sm mt-2 opacity-100 translate-y-0"
                                         tabIndex="-1">
-                                        <form action="" method="POST" className={`${`z-10`}`}>
                                             <input type="search"
-                                                   className="block w-full border-neutral-200 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 bg-white dark:border-neutral-700 dark:focus:ring-primary-6000 dark:focus:ring-opacity-25 dark:bg-neutral-900 rounded-2xl text-sm font-normal h-11 px-4 py-3 "
-                                                   placeholder="Type and press enter"/>
-                                            <input type="submit" hidden="" value=""/>
-                                        </form>
+                                                   value={query}
+                                                   onChange={(e) => setQuery(e.target.value)}
+                                                   className="block w-full outline-0  bg-white dark:border-neutral-700  dark:bg-[#1F2937] rounded-2xl text-sm font-normal h-11 px-4 py-3 "
+                                                   placeholder="Type and Search"/>
+
+                                        {search.length > 0 ? (
+                                                <div className='bg-[#0E131F] flex-wrap w-full py-6 text-white rounded-t-md mt-1 px-4  rounded-b-2xl'>
+                                            <ul className='flex-wrap'>
+                                                {search.map(item => (
+                                                    <li className='w-full text-left' key={item.id}>
+                                                        <div className='flex justify-between'>
+                                                            <Link to={`/riad/${item.id}`}>{item.name}</Link>
+                                                            <span className=''>{item.prix} {item.currency}</span>
+                                                        </div>
+
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                                </div>
+                                        ) : (
+                                            <div className='bg-[#0E131F] py-6 text-white rounded-t-md mt-1 rounded-b-2xl'>This Riad Not Found</div>
+                                        )}
+
                                     </div>
+
+                                    </>
                                 )}
                             </div>
 

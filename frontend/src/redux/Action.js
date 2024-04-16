@@ -10,7 +10,7 @@ import {
     GET_CATEGORIE_LIST,
     GET_SERVICE_LIST,
     GET_REPA_LIST,
-    GET_APPROVED_RIAD, GET_NOTIFICATION_LIST
+    GET_APPROVED_RIAD, GET_NOTIFICATION_LIST, SEARCH_LIST_RIAD, ADD_COMMENT_LIST, GET_COMMENT_LIST
 } from "./ActionType.js";
 import Api from '../api/Api.jsx';
 import {toast} from "react-toastify";
@@ -48,6 +48,14 @@ export const getListOfNotification = (data) => ({
     type: GET_NOTIFICATION_LIST,
     payload : data
 })
+export const SearchOfRiad = (data) => ({
+    type: SEARCH_LIST_RIAD,
+    payload : data
+})
+export const getListOfComments = (data) => ({
+    type: GET_COMMENT_LIST,
+    payload : data
+})
 export const getListOfCategories= (data) => ({
     type: GET_CATEGORIE_LIST,
     payload : data
@@ -64,6 +72,11 @@ export const deleteDataList = () => {
 export const addDataList = () => {
     return{
         type: ADD_DATA_LIST
+    }
+}
+export const addCommentList = () => {
+    return{
+        type: ADD_COMMENT_LIST
     }
 }
 export const updateDataList = () => {

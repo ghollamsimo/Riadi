@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\StripeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -72,3 +73,5 @@ Route::get('/approvedriads' , [\App\Http\Controllers\ClientController::class, 'i
 Route::get('/adminriad' , [\App\Http\Controllers\AdminController::class , 'index']);
 Route::get('/notifications', [NotificationController::class, 'index']);
 Route::delete('/deletenotification/{id}', [NotificationController::class, 'destroy']);
+Route::post('/payment', [StripeController::class, 'processPayment']);
+Route::get('/riads/search' , [\App\Http\Controllers\RiadController::class , 'search']);

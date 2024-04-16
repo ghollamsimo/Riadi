@@ -43,6 +43,7 @@ const MultipleUpdateSteps = () => {
         currency: '',
         service_id: [],
         repa_id: [],
+        etat: '',
     });
 
     const handleChange = (e) => {
@@ -53,14 +54,11 @@ const MultipleUpdateSteps = () => {
         }));
 
     };
-    const handleCover = (coverFile) => {
-        console.log(coverFile)
+    const handleCover = () => {
         setFormData(prevFormData => ({
-            ...prevFormData,
-            cover: coverFile
+            ...prevFormData
         }));
     };
-
     const handleImage=( value)=>{
         setFormData(prevFormData => ({
             ...prevFormData,

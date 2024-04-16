@@ -198,7 +198,7 @@ const StepTwo = ({ handleNext, handlePrev, handleChange }) => {
                         <div className="nc-NcInputNumber flex items-center justify-between space-x-5 w-full"
                              data-nc-id="NcInputNumber">
                             <div className="flex flex-col"><span
-                                className="font-medium text-neutral-800 dark:text-neutral-200">Min Night</span></div>
+                                className="font-medium text-neutral-800 dark:text-neutral-200">Max Night</span></div>
                             <div className="nc-NcInputNumber flex items-center justify-between w-28">
                                 <button
                                     onClick={handleMineMaxNight}

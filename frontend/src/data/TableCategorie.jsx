@@ -57,7 +57,7 @@ const TableCategorie = (props) => {
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {props.data.datalist && props.data.datalist.map(category =>(
+                                {props.data.datalist && props?.data?.datalist?.map(category =>(
                                     <tr key={category.id}
                                 className="bg-white text-white border-b border-dashed dark:bg-gray-800 dark:border-gray-700">
                                 <td className="p-3 text-sm font-medium whitespace-nowrap dark:text-white">

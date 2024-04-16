@@ -26,7 +26,7 @@ class RiadRequest extends FormRequest
             'localisation' => 'required',
             'categorie_id' => 'required' ,
             'description' => 'required',
-            'cover' => 'required',
+            'cover' => '',
             'image' => 'required|array',
             'image.*' => 'required',
             'prix' => 'required',
@@ -42,6 +42,7 @@ class RiadRequest extends FormRequest
             'rule' => 'required',
             'maxnight' => 'required',
             'minnight' => 'required',
+            'etat' => 'required',
             'checkin' => 'required'
         ];
     }
