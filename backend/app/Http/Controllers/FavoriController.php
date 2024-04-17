@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FavoriRequest;
 use App\Models\Favori;
+use App\Models\Riad;
+use http\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FavoriController extends Controller
 {
@@ -26,9 +30,19 @@ class FavoriController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(FavoriRequest $request , $riad_id)
     {
-        //
+        $validate = $request->validated();
+        $riad = Riad::findOrFail($riad_id);
+
+        $client = \App\Models\Client::where('user_id', Auth::id())->first();
+        Favori::create([
+            'client_id' => $client->id,
+            'riad_id' => $riad->id,
+            'status' => true
+        ]);
+
+        return response()->json(['message' => 'The Riad Has Been Fovorite']);
     }
 
     /**

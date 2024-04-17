@@ -11,95 +11,43 @@ use Illuminate\Support\Facades\Auth;
 
 class ReservationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(ReservationRequest $request, $riad_id)
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(ReservationRequest $request , $riad_id)
-    {
-        $validateData = $request->validated();
+        $validatedData = $request->validated();
         $riad = Riad::findOrFail($riad_id);
         $client = Client::where('user_id', Auth::id())->first();
 
-        if ($riad->guests > $validateData['guests']){
+        if (!$client) {
+            return response()->json(['message' => 'Client not found.'], 404);
+        }
 
-            $stripeController = new StripeController();
-            $paymentResponse = $stripeController->processPayment($request);
-
+        if ($riad->guests > $validatedData['guests']) {
             if ($riad->etat === 'Automatic') {
-
                 Reservation::create([
                     'client_id' => $client->id,
                     'riad_id' => $riad->id,
-                    'guests' => $validateData['guests'],
+                    'guests' => $validatedData['guests'],
                     'status' => 'Booked'
                 ]);
-
-                $riad->guests = -$validateData['guests'];
+                $riad->guests -= $validatedData['guests'];
                 $riad->save();
-
-                return response()->json(['message' => 'Your Reservation Has Ben Confirmed']);
-            }elseif ($riad->etat === 'Manual'){
+                return response()->json(['message' => 'Your Reservation Has Been Confirmed']);
+            } elseif ($riad->etat === 'Manual') {
                 Reservation::create([
                     'client_id' => $client->id,
                     'riad_id' => $riad->id,
-                    'guests' => $validateData['guests'],
-                    'status' => 'Manual'
+                    'guests' => $validatedData['guests'],
+                    'status' => 'Available'
                 ]);
-
-                $riad->guests = -$validateData['guests'];
+                $riad->guests -= $validatedData['guests'];
                 $riad->save();
+                return response()->json(['message' => 'Your Reservation Is Pending Approval']);
             }
-            }else{
-            return response()->json(['message' => 'This Riad Allredy Booked']);
+        } else {
+            return response()->json(['message' => 'This Riad Is Already Fully Booked']);
         }
-        return response()->json(['message' => 'Riad Is Not Disponible' ]);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Reservation $reservation)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Reservation $reservation)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Reservation $reservation)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Reservation $reservation)
-    {
-        //
-    }
 }

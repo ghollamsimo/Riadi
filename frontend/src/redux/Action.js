@@ -321,3 +321,22 @@ export const DeleteServices = (id) => {
             });
     };
 }
+
+export const AddFavori = (id , data) => {
+    return (dispatch) => {
+        dispatch(makeRequest());
+        const token = getCookie('ACCESS_TOKEN');
+        http.post(`/favori/${id}`, data, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+            .then(response => {
+                dispatch(addDataList(response.data));
+                toast.success('Service Added successfully');
+            })
+            .catch(error => {
+                dispatch(failRequest(error.message));
+            });
+    };
+};

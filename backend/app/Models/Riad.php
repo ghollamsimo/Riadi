@@ -63,4 +63,9 @@ class Riad extends Model
         return $this->hasMany(Notification::class);
     }
 
+    public function favori()
+    {
+        return $this->belongsTo(Favori::class);
+    }
+
 }

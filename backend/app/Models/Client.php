@@ -19,4 +19,8 @@ class Client extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function favori()
+    {
+        return $this->belongsTo(Favori::class);
+    }
 }

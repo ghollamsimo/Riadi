@@ -5,16 +5,29 @@ import {fetchRiad} from "../../redux/actions/RiadAction.jsx";
 import moment from "moment/moment.js";
 import Navbar from '../../components/nav/Navbar.jsx'
 import {toast} from "react-toastify";
-import {AddComment} from "../../redux/actions/CommentAction.jsx";
+import {AddComment, DeleteComment} from "../../redux/actions/CommentAction.jsx";
 import Footer from '../../components/Footer.jsx'
+import { IoClose } from "react-icons/io5";
 
 const RiadSinglePage = () =>{
     const dispatch = useDispatch()
     const [comment , setComment] = useState('')
+    const [dropdown , setDropdown] = useState(false)
+    const [guests , setGuests] = useState(1)
     const {id} = useParams();
     const riad = useSelector((state) => state.riadsData.datalist.riad);
     const comments = useSelector((state) => state.riadsData.datalist.comment)
     const images = useSelector((state) => state.riadsData.datalist.riad);
+    const handleChangeGuests = () => {
+        if (guests < 15){
+            setGuests(guests + 1)
+        }
+    }
+    const handleMinGuests = () => {
+        if (guests > 1){
+            setGuests(guests - 1)
+        }
+    }
     const validate = () => {
         if (!comment){
             toast.error('Please enter a comment')
@@ -27,20 +40,29 @@ const RiadSinglePage = () =>{
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (validate()) {
-            await dispatch(AddComment(riad.id, form ))
+            await dispatch(AddComment(riad.id, form ) )
+            dispatch(fetchRiad(id));
+
         }
     };
-    console.log('riad' , comments)
+    const handleDelete = async (e) => {
+        e.preventDefault();
+        await dispatch(DeleteComment(comments[0].id))
+        dispatch(fetchRiad(id))
+    }
     useEffect(() => {
         dispatch(fetchRiad(id));
     }, [dispatch, id]);
 
-    const dateComments = riad && moment(comments.created_at).format('MMM DD');
-
+    const dateComments = riad && moment(comments.created_at).format('MMM DD, YYYY');
     const formattedCheckoutDate = riad && moment(riad.checkout).format('MMM DD');
     const checkout = riad && moment(riad.checkout).format('hh:mm A');
     const checkin = riad && moment(riad.checkout).format('hh:mm A');
     const formattedCheckinDate = riad && moment(riad.checkin).format('MMM DD');
+
+    const handleOpen = () => {
+        setDropdown(!dropdown)
+    }
 
     return(
         <>
@@ -48,7 +70,6 @@ const RiadSinglePage = () =>{
             <div className="container mt-28 py-5 px-8 relative grid grid-cols-3 sm:grid-cols-4 gap-1 sm:gap-2">
 
                 {images?.images?.map((item, index) => {
-                    console.log(index)
                     return (
 
                         <div key={index} className={`${
@@ -222,12 +243,12 @@ const RiadSinglePage = () =>{
                                            className="block w-full  border border-gray-600 outline-0 text-white bg-white dark:bg-transparent rounded-3xl  h-16 px-4 py-3 "
                                            placeholder="Share your thoughts ..."/>
                                     <button
-                                        className="ttnc-ButtonCircle flex items-center justify-center rounded-full !leading-none disabled:bg-opacity-70 bg-primary-6000 hover:bg-primary-700 text-neutral-50 absolute right-2 top-1/2 transform -translate-y-1/2  w-12 h-12  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-6000 dark:focus:ring-offset-0"
+                                        className="ttnc-ButtonCircle flex items-center justify-center rounded-full !leading-none disabled:bg-opacity-70 bg-[#4F46E5] hover:bg-primary-700 text-neutral-50 absolute right-2 top-1/2 transform -translate-y-1/2  w-12 h-12  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-6000 dark:focus:ring-offset-0"
                                         type='submit'>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                             stroke-width="1.5" stroke="currentColor" aria-hidden="true"
+                                             strokeWidth="1.5" stroke="currentColor" aria-hidden="true"
                                              className="w-5 h-5">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                            <path strokeLinecap="round" strokeLinejoin="round"
                                                   d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path>
                                         </svg>
                                     </button>
@@ -253,8 +274,9 @@ const RiadSinglePage = () =>{
                                                 <span
                                                     className="text-sm text-neutral-500 dark:text-neutral-400 mt-0.5">{dateComments}</span>
                                             </div>
-
-                                            <div>ddd</div>
+                                            <form onSubmit={handleDelete}>
+                                            <button  type='submit'  className=''><IoClose/></button>
+                                            </form>
                                         </div>
                                         <span
                                             className="block mt-3 text-neutral-6000 dark:text-neutral-300">{item.comments}</span>
@@ -312,8 +334,8 @@ const RiadSinglePage = () =>{
                                 </div>
                             </div>
                             <form
-                                className="flex mt-10 flex-col border border-neutral-200 dark:border-neutral-700 rounded-3xl">
-                                <div className="StayDatesRangeInput z-10 relative flex flex-1 z-[11]"
+                                className="flex mt-10 flex-col border border-neutral-200 dark:border-gray-700 rounded-3xl">
+                                <div className="StayDatesRangeInput relative flex flex-1 z-[11]"
                                      data-headlessui-state="">
                                     <button
                                         className="flex-1 flex relative p-3 items-center space-x-3 focus:outline-none"
@@ -335,10 +357,11 @@ const RiadSinglePage = () =>{
                                         </div>
                                     </button>
                                 </div>
-                                <div className="w-full border-b border-neutral-200 dark:border-neutral-700"></div>
+                                <div className="w-full border-b border-gray-600 dark:border-neutral-700"></div>
                                 <div className="flex relative flex-1" data-headlessui-state="">
                                     <div className="flex-1 flex items-center focus:outline-none rounded-b-3xl">
                                         <button
+                                            onClick={handleOpen}
                                             className="relative z-10 flex-1 flex text-left items-center p-3 space-x-3 focus:outline-none"
                                             type="button" aria-expanded="false" data-headlessui-state=""
                                             id="headlessui-popover-button-:rp:">
@@ -351,12 +374,59 @@ const RiadSinglePage = () =>{
                                                 </svg>
                                             </div>
                                             <div className="flex-grow">
-                                                <span className="block xl:text-lg font-semibold">4 Guests</span>
+                                                <span className="block xl:text-lg font-semibold">{guests} Guests</span>
                                                 <span
                                                     className="block mt-1 text-sm text-neutral-400 leading-none font-light">Guests</span>
                                             </div>
                                         </button>
                                     </div>
+
+                                    {dropdown && (
+                                        <>
+                                            <div
+                                                className="absolute right-0 z-10 w-full sm:min-w-[340px] max-w-sm dark:bg-gray-800  top-full mt-3 py-5 sm:py-6 px-4 sm:px-8 rounded-3xl shadow-xl ring-1 ring-black ring-opacity-5 opacity-100 translate-y-0"
+                                                id="headlessui-popover-panel-:r9:" tabIndex="-1"
+                                                data-headlessui-state="open">
+                                                <div
+                                                    className="nc-NcInputNumber flex items-center justify-between space-x-5 w-full"
+                                                    data-nc-id="NcInputNumber">
+                                                    <div className="flex flex-col"><span
+                                                        className="font-medium text-neutral-800 dark:text-neutral-200">Guests</span><span
+                                                        className="text-xs text-neutral-500 dark:text-neutral-400 font-normal">Ages 18 or above</span>
+                                                    </div>
+                                                    <div
+                                                        className="nc-NcInputNumber flex items-center justify-between w-28">
+                                                        <button
+                                                            onClick={handleMinGuests}
+                                                            className={`w-8 h-8 rounded-full  border border-gray-600 outline-0 text-white bg-white dark:bg-transparent flex items-center justify-center  dark:border-neutral-500  dark:bg-neutral-900 focus:outline-none hover:border-neutral-700 disabled:hover:border-neutral-400 dark:disabled:hover:border-neutral-500 disabled:opacity-50 disabled:cursor-default`}
+                                                            type="button">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                                 fill="currentColor" aria-hidden="true"
+                                                                 className="w-4 h-4">
+                                                                <path fillRule="evenodd"
+                                                                      d="M3.75 12a.75.75 0 01.75-.75h15a.75.75 0 010 1.5h-15a.75.75 0 01-.75-.75z"
+                                                                      clipRule="evenodd"></path>
+                                                            </svg>
+                                                        </button>
+                                                        <input type='number' name='guests' value={guests} readOnly
+                                                               className='outline-0 bg-transparent pl-3 w-12 text-center mx-auto'/>
+                                                        <button
+                                                            onClick={handleChangeGuests}
+                                                            className={`w-8 h-8 rounded-full  border border-gray-600 outline-0 text-white bg-white dark:bg-transparent flex items-center justify-center  dark:border-neutral-500  dark:bg-neutral-900 focus:outline-none hover:border-neutral-700 disabled:hover:border-neutral-400 dark:disabled:hover:border-neutral-500 disabled:opacity-50 disabled:cursor-default`}
+                                                            type="button">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                                 fill="currentColor" aria-hidden="true"
+                                                                 className="w-4 h-4">
+                                                                <path fillRule="evenodd"
+                                                                      d="M12 3.75a.75.75 0 01.75.75v6.75h6.75a.75.75 0 010 1.5h-6.75v6.75a.75.75 0 01-1.5 0v-6.75H4.5a.75.75 0 010-1.5h6.75V4.5a.75.75 0 01.75-.75z"
+                                                                      clipRule="evenodd"></path>
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </>
+                                    )}
                                 </div>
                             </form>
                             <div className="flex mt-8 flex-col space-y-4">
@@ -378,7 +448,7 @@ const RiadSinglePage = () =>{
                 </div>
 
             </main>
-<Footer/>
+            <Footer/>
         </>
     )
 }

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::disableForeignKeyConstraints();
         Schema::create('riads', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('categorie_id')->nullable()->constrained('categories');
+            $table->foreignId('categorie_id')->nullable()->constrained('categories')->onDelete('cascade');
             $table->string('name');
             $table->string('cover');
             $table->string('localisation');

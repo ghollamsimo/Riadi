@@ -90,7 +90,7 @@ export const UpdateRiad = (payload) => {
             });
     };
 }
-export const DeleteRiad = (id) => {
+export const DeleteRiads = (id) => {
     return (dispatch) => {
         dispatch(makeRequest());
         const token = getCookie('ACCESS_TOKEN');

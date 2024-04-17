@@ -113,14 +113,10 @@ class RiadController extends Controller
                     ]);
                 }
             }
-
             return response()->json(['message' => 'Riad created successfully'], 201);
         }
-
         return response()->json(['error' => 'Unauthorized'], 401);
     }
-
-
 
     public function show($id)
     {
@@ -128,7 +124,6 @@ class RiadController extends Controller
         $comments = Comments::with('riad' , 'client.user')->where('riad_id' , $riad->id)->get();
         return response()->json(['riad' => $riad , 'comment' => $comments] , 200);
     }
-
 
     public function update(RiadRequest $request, $id)
     {

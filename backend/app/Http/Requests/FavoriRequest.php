@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ReservationRequest extends FormRequest
+class FavoriRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,7 @@ class ReservationRequest extends FormRequest
         return [
             'client_id' => '',
             'riad_id' => '',
-            'status' => '',
-            'guests' => 'required',
-
+            'status' => ''
         ];
     }
 }

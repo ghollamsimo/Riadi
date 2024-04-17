@@ -1,4 +1,4 @@
-import  { useEffect } from "react";
+import {useEffect, useState} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchRaids } from "../../redux/actions/RiadAction";
 import Pagination from "react-js-pagination";
@@ -9,9 +9,12 @@ import TableServices from "../../data/TableServices";
 import NavbarDirecteur from "../../components/NavbarDirecteur.jsx";
 import {useParams} from "react-router";
 import {Link} from "react-router-dom";
+import DeleteRiad from "../../modal/DeleteRiad.jsx";
 
 const Dashboard = ({logOut, user}) => {
     const dispatch = useDispatch();
+    const [Delete , setDelete] = useState(false)
+    const [id , setId] = useState(null)
     const riads = useSelector((state) => state.riadsData.datalist);
     useEffect(() => {
         dispatch(fetchRaids());
@@ -45,9 +48,11 @@ const Dashboard = ({logOut, user}) => {
                                     <span><GrUpdate /></span>
                                 </Link>
 
-                                <p className="sm:py-1 px-1 py-1 text-[8px] sm:text-sm font-bold flex tracking-wide text-white bg-[#111827] rounded-full gap-2">
+                                <button onClick={() => { setDelete(true)
+                                    setId(riad.id)
+                                }} className="sm:py-1 px-1 py-1 text-[8px] sm:text-sm font-bold flex tracking-wide text-white bg-[#111827] rounded-full gap-2">
                                     <span><FiTrash2 /></span>
-                                </p>
+                                </button>
                             </div>
                             <div className="flex items-start justify-between mt-4 space-x-4">
                                 <div>
@@ -144,6 +149,7 @@ ss
                     </div>
                 </div>
             </main>
+            {Delete && <DeleteRiad Modal={setDelete} item={id} />}
         </>
     );
 };

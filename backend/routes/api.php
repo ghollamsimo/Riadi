@@ -72,6 +72,9 @@ Route::delete('/deleteriad/{id}' , [\App\Http\Controllers\RiadController::class 
 Route::get('/approvedriads' , [\App\Http\Controllers\ClientController::class, 'index']);
 Route::get('/adminriad' , [\App\Http\Controllers\AdminController::class , 'index']);
 Route::get('/notifications', [NotificationController::class, 'index']);
+Route::post('/favori/{riad_id}' , [\App\Http\Controllers\FavoriController::class , 'store']);
 Route::delete('/deletenotification/{id}', [NotificationController::class, 'destroy']);
 Route::post('/payment', [StripeController::class, 'processPayment']);
+Route::post('/confiramtion/reservation/{riad_id}' , [\App\Http\Controllers\ReservationController::class , 'store']);
+Route::get('/confirmation/riad' , [\App\Http\Controllers\DrRiadController::class , 'index']);
 Route::get('/riads/search' , [\App\Http\Controllers\RiadController::class , 'search']);
