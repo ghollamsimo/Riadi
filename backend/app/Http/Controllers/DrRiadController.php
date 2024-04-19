@@ -25,17 +25,20 @@ class DrRiadController extends Controller
         return response()->json($riads);
     }
 
-    public function Reservationaccepted(Request $request ,$reservations ){
+    public function Reservationaccepted($reservations ){
         $reservation = Reservation::findOrFail($reservations);
         $reservation->update([
             'status' => 'Booked',
         ]);
         return response()->json(['message' => 'Reservation Accesepted Successfully']);
     }
-
-    public function destroy( $id ){
-        $reservation = Reservation::findOrFail($id);
-        $reservation->delete();
-        return response()->json(['message' => 'Reservation Deleted Successfully']);
+    public function ReservationRejected($reservations ){
+        $reservation = Reservation::findOrFail($reservations);
+        $reservation->update([
+            'status' => 'Rejected',
+        ]);
+        return response()->json(['message' => 'Reservation Rejected Successfully']);
     }
+
+
 }

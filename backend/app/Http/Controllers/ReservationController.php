@@ -28,6 +28,7 @@ class ReservationController extends Controller
                     'client_id' => $client->id,
                     'riad_id' => $riad->id,
                     'guests' => $validatedData['guests'],
+                    'night' => $validatedData['night'],
                     'status' => 'Booked'
                 ]);
                 $riad->guests -= $validatedData['guests'];

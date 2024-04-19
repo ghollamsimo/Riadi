@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('client_id')->nullable()->constrained('clients');
             $table->integer('guests');
             $table->integer('night');
-            $table->enum('status', ['Booked', 'Available' , 'Pending' , 'Waiting'])->default('Available');
+            $table->enum('status', ['Booked', 'Available' , 'Pending' , 'Rejected'])->default('Available');
             $table->timestamps();
         });
     }

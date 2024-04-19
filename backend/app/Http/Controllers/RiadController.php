@@ -93,14 +93,15 @@ class RiadController extends Controller
                 }
             }
 
-            $clients = Client::all();
-            foreach ($clients as $client) {
-                Notification::create([
-                    'client_id' => $client->id,
-                    'riad_id' => $riads->id,
-                    'message' => 'New Riad Published ' . $riads->name,
-                ]);
-            }
+                $clients = Client::all();
+                foreach ($clients as $client) {
+                    Notification::create([
+                        'client_id' => $client->id,
+                        'riad_id' => $riads->id,
+                        'message' => 'New Riad Has Been Published ' . $riads->name,
+                    ]);
+                }
+
 
             if ($images) {
                 foreach ($images as $file) {

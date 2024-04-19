@@ -76,6 +76,8 @@ Route::post('/favori/{riad_id}' , [\App\Http\Controllers\FavoriController::class
 Route::delete('/deletenotification/{id}', [NotificationController::class, 'destroy']);
 Route::post('/payment', [StripeController::class, 'processPayment']);
 Route::post('/confiramtion/reservation/{riad_id}' , [\App\Http\Controllers\ReservationController::class , 'store']);
+Route::post('/reservation/accepted/{reservations}', [\App\Http\Controllers\DrRiadController::class , 'Reservationaccepted']);
+Route::post('/reservation/rejected/{riad_id}' , [\App\Http\Controllers\DrRiadController::class , 'ReservationRejected']);
 Route::get('/confirmation/riad' , [\App\Http\Controllers\DrRiadController::class , 'index']);
 Route::get('/riads/search' , [\App\Http\Controllers\RiadController::class , 'search']);
 Route::get('/wishlists' , [\App\Http\Controllers\FavoriController::class , 'index']);
