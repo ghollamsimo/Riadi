@@ -15,7 +15,9 @@ class Favori extends Model
         return $this->hasMany(Client::class);
     }
 
-    public function riad(){
-        return $this->belongsToMany(Riad::class);
+    public function riad()
+    {
+        return $this->belongsTo(Riad::class);
     }
+
 }

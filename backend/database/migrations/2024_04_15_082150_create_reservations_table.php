@@ -16,7 +16,8 @@ return new class extends Migration
             $table->foreignId('riad_id')->nullable()->constrained('riads')->onDelete('cascade');
             $table->foreignId('client_id')->nullable()->constrained('clients');
             $table->integer('guests');
-            $table->enum('status', ['Booked', 'Available'])->default('Available');
+            $table->integer('night');
+            $table->enum('status', ['Booked', 'Available' , 'Pending' , 'Waiting'])->default('Available');
             $table->timestamps();
         });
     }

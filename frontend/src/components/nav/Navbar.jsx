@@ -12,9 +12,9 @@ import {toast} from "react-toastify";
 import Notification from "../Notification.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchRaidSearch} from "../../redux/actions/SearchAction.jsx";
+import ProfileSettings from "../ProfileSettings.jsx";
 
-function Navbar({user , setUser}) {
-    const {http} = Api
+function Navbar({id}) {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [showModal, setShowModal] = useState(false);
@@ -32,14 +32,7 @@ function Navbar({user , setUser}) {
     }, [dispatch, query, search]);
 
 
-    const logOut = async () => {
-        try {
-            await http.post('/logout' , config());
-            toast.success('Logged out successfully');
-        } catch (error) {
-            console.error('Error logging out:' , error.message);
-        }
-    };
+
 
     const toggleSearchBar = () => {
         setIsSearchBarOpen(!isSearchBarOpen);}
@@ -110,18 +103,9 @@ function Navbar({user , setUser}) {
                                 )}
                             </div>
 
-                            {!user && (
-                                <li>
-                                    <button onClick={logOut} className="btn btn__login">Logout</button>
-                                </li>
-                            )}
-                            {user && (
-                                <li>
-                                    <Link to="/">
-                                        <button className="btn btn__login">Login</button>
-                                    </Link>
-                                </li>
-                            )}
+                           <div className='relative'>
+                               <ProfileSettings user={id}/>
+                           </div>
 
 
                         </ul>

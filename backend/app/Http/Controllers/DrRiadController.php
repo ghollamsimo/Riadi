@@ -12,10 +12,15 @@ class DrRiadController extends Controller
 
     public function index()
     {
-        $user_id = Auth::user()->id;
+        $user_id = Auth::id();
         $drriadid = DrRiad::where('user_id', $user_id)->first();
-        $riads = Reservation::with('client.user','riad.drriad')
-            ->where('status', 'Available')->get();
+        if ($drriadid){
+            $riads = Reservation::with('client.user','riad.drriad')
+                ->where('status', '=' , 'Available')->get();
+        }else{
+            return response()->json(['message' => 'Unothorized']);
+        }
+
 
         return response()->json($riads);
     }
@@ -23,7 +28,7 @@ class DrRiadController extends Controller
     public function Reservationaccepted(Request $request ,$reservations ){
         $reservation = Reservation::findOrFail($reservations);
         $reservation->update([
-            'status' => $request->status,
+            'status' => 'Booked',
         ]);
         return response()->json(['message' => 'Reservation Accesepted Successfully']);
     }

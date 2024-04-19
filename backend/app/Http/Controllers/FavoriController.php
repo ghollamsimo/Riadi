@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\FavoriRequest;
 use App\Models\Favori;
 use App\Models\Riad;
-use http\Client;
+use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,7 +16,15 @@ class FavoriController extends Controller
      */
     public function index()
     {
-        //
+        $user_id = Auth::id();
+        $client = Client::where('user_id' , $user_id )->first();
+        if (!$client){
+            return response()->json(['message' => 'Unothorized']);
+        }else{
+        $favori = Favori::where('client_id' , '=' , $client->id)->with('riad')->get();
+        }
+
+        return response()->json($favori);
     }
 
     /**
@@ -72,8 +80,9 @@ class FavoriController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Favori $favori)
+    public function destroy($id)
     {
-        //
+        $favori = Favori::findOrFail($id);
+
     }
 }

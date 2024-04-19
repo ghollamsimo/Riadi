@@ -78,3 +78,4 @@ Route::post('/payment', [StripeController::class, 'processPayment']);
 Route::post('/confiramtion/reservation/{riad_id}' , [\App\Http\Controllers\ReservationController::class , 'store']);
 Route::get('/confirmation/riad' , [\App\Http\Controllers\DrRiadController::class , 'index']);
 Route::get('/riads/search' , [\App\Http\Controllers\RiadController::class , 'search']);
+Route::get('/wishlists' , [\App\Http\Controllers\FavoriController::class , 'index']);

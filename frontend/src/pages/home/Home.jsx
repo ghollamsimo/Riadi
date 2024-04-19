@@ -17,8 +17,10 @@ import {AddFavori} from "../../redux/Action.js";
 import {GrUpdate} from "react-icons/gr";
 import {FiTrash2} from "react-icons/fi";
 import { GrFavorite } from "react-icons/gr";
+import ContactSection from "../../components/ContactSection.jsx";
+import Footer from "../../components/Footer.jsx";
 
-const Home = () => {
+const Home = ({id}) => {
     const dispatch = useDispatch();
     const [favori , setFavori] = useState(false)
 
@@ -26,8 +28,7 @@ const Home = () => {
         dispatch(fetchRaids(pageNum));
     };
 
-    const {id} = useParams()
-
+ //   console.log("ddd", id)
     const riads = useSelector((state) => state.approvedRiads.datalist);
     useEffect(() => {
         dispatch(fetchApprovedRaids());
@@ -44,7 +45,7 @@ const Home = () => {
     return (
 
         <Fragment>
-            <Navbar/>
+            <Navbar id={id}/>
             <Hero/>
             <HeadingPlace/>
             <section className="py-3 bg-[#0E131F] rounded-t-3xl text-white sm:py-16 lg:py-2">
@@ -93,8 +94,8 @@ const Home = () => {
                                         <div>
                                             <h3 className="text-xs font-bold text-white sm:text-sm md:text-base">
                                             <Link to={`/riad/${item.id}`} title="">
-                                                    {item.name}
-                                                    <span className="inset-0" aria-hidden="true"></span>
+                                                <span className='border-b border-gray-600'> {item.name}</span>
+                                                    <span className=" inset-0" aria-hidden="true"></span>
                                                 </Link>
                                             </h3>
                                             <div className="text-xs  text-white sm:text-sm md:text-base line-clamp-1">
@@ -139,6 +140,9 @@ const Home = () => {
             </section>
             <HowitworksSection/>
 
+            <ContactSection/>
+
+            <Footer/>
         </Fragment>
 
     )

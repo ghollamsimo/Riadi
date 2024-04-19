@@ -10,7 +10,13 @@ import {
     GET_CATEGORIE_LIST,
     GET_SERVICE_LIST,
     GET_REPA_LIST,
-    GET_APPROVED_RIAD, GET_NOTIFICATION_LIST, SEARCH_LIST_RIAD, ADD_COMMENT_LIST, GET_COMMENT_LIST
+    GET_APPROVED_RIAD,
+    GET_NOTIFICATION_LIST,
+    SEARCH_LIST_RIAD,
+    ADD_COMMENT_LIST,
+    GET_COMMENT_LIST,
+    GET_FAVORITE_LIST,
+    ADD_RESERVATION_LIST, GET_RESERVATION_LIST
 } from "./ActionType.js";
 import Api from '../api/Api.jsx';
 import {toast} from "react-toastify";
@@ -64,6 +70,15 @@ export const getListOfRepa= (data) => ({
     type: GET_REPA_LIST,
     payload : data
 })
+export const getListOfFavorites= (data) => ({
+    type: GET_FAVORITE_LIST,
+    payload : data
+})
+
+export const getListOfReservation= (data) => ({
+    type: GET_RESERVATION_LIST,
+    payload : data
+})
 export const deleteDataList = () => {
     return {
         type: DELETE_DATA_LIST
@@ -72,6 +87,11 @@ export const deleteDataList = () => {
 export const addDataList = () => {
     return{
         type: ADD_DATA_LIST
+    }
+}
+export const addReservationList = () => {
+    return{
+        type: ADD_RESERVATION_LIST
     }
 }
 export const addCommentList = () => {

@@ -10,14 +10,22 @@ import NavbarDirecteur from "../../components/NavbarDirecteur.jsx";
 import {useParams} from "react-router";
 import {Link} from "react-router-dom";
 import DeleteRiad from "../../modal/DeleteRiad.jsx";
+import Navbar from "../../components/nav/Navbar.jsx";
+import ProfileSettings from "../../components/ProfileSettings.jsx";
+import {fetchReservation} from "../../redux/actions/ReservationAction.jsx";
+import { GrValidate } from "react-icons/gr";
+
 
 const Dashboard = ({logOut, user}) => {
     const dispatch = useDispatch();
     const [Delete , setDelete] = useState(false)
     const [id , setId] = useState(null)
     const riads = useSelector((state) => state.riadsData.datalist);
+    const reservation = useSelector((state) => state.reservations.datalist[0]?.riad)
+    console.log('ddkjsicijefjicjodf', reservation)
     useEffect(() => {
         dispatch(fetchRaids());
+        dispatch(fetchReservation())
     }, [dispatch]);
 
     const handlePageChange = (pageNum) => {
@@ -107,7 +115,54 @@ const Dashboard = ({logOut, user}) => {
                             <div className="border-b border-neutral-200 dark:border-neutral-700 w-14"></div>
 
                             <div className=''>
-ss
+                                <div  className="border border-gray-700 p-4 rounded-xl">
+                                    <div className="relative group">
+                                        <div className="overflow-hidden rounded aspect-w-1 aspect-h-1">
+                                            <img
+                                                className="object-cover w-full h-full transition-all duration-300 group-hover:scale-125"
+                                                src={`http://localhost:8000/storage/images/${reservation?.cover}`}
+                                                alt=""
+                                            />
+                                        </div>
+                                        <div className="absolute left-3 top-3">
+                                            <p className="sm:px-3 sm:py-1 px-1.5 py-1 text-[8px] sm:text-xs font-bold flex tracking-wide text-white bg-[#111827] rounded-full gap-2">
+                                                <span><CiLocationOn className="mt-0.5"/></span> {reservation?.localisation}
+                                            </p>
+                                        </div>
+
+                                        <div className="absolute gap-2 flex justify-between right-3 top-3">
+                                            <button
+                                                className="sm:py-1 px-1 py-1 text-[20px] sm:text-lg font-bold flex tracking-wide text-white bg-[#111827] rounded-full gap-2">
+                                                <span><GrValidate/></span>
+                                            </button>
+
+                                            <button
+                                                className="sm:py-1 px-1 py-1 text-[8px] sm:text-lg font-bold flex tracking-wide text-white bg-[#111827] rounded-full gap-2">
+                                                <span><FiTrash2/></span>
+                                            </button>
+                                        </div>
+                                        <div className="flex items-start justify-between mt-4 space-x-4">
+                                            <div>
+                                                <h3 className="text-xs font-bold text-white sm:text-sm md:text-base">
+                                                <Link to={`/riaddetails/${reservation?.id}`} title="">
+                                                        {reservation?.name}
+                                                        <span className="inset-0" aria-hidden="true"></span>
+                                                    </Link>
+                                                </h3>
+                                                <div
+                                                    className="text-xs text-white sm:text-sm md:text-base line-clamp-1">
+                                                    <p>{reservation?.description}</p>
+                                                </div>
+                                            </div>
+
+                                            <div className="text-right">
+                                                <p className="text-xs text-white sm:text-sm md:text-base">{reservation?.currency} {reservation?.prix}<span
+                                                    className="text-gray-400">/night</span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
 
                         </div>
@@ -149,7 +204,7 @@ ss
                     </div>
                 </div>
             </main>
-            {Delete && <DeleteRiad Modal={setDelete} item={id} />}
+            {Delete && <DeleteRiad Modal={setDelete} item={id}/>}
         </>
     );
 };

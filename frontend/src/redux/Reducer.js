@@ -1,6 +1,6 @@
 import {
     ADD_COMMENT_LIST,
-    ADD_DATA_LIST,
+    ADD_DATA_LIST, ADD_RESERVATION_LIST,
     DELETE_DATA_LIST,
     FAIL_REQUEST,
     GET_DATA_LIST, GET_DATA_OBJ,
@@ -16,6 +16,7 @@ export const Reducer = (state = initial , action) => {
         case DELETE_DATA_LIST: return {...state,loading: false}
         case ADD_DATA_LIST: return {...state,loading:false}
         case ADD_COMMENT_LIST: return {...state,loading:false}
+        case ADD_RESERVATION_LIST: return {...state,loading:false}
         case UPDATE_DATA_LIST: return {...state,loading:false}
         case GET_DATA_OBJ: return {...state,loading:false , dataobject: action.payload }
         default: return state

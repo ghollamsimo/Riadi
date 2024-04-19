@@ -45,8 +45,12 @@ class AuthController extends Controller
 
     public function logout(Request $request) : Response
     {
-        auth()->user()->tokens()->delete();
-        return response('You Logged Out!', 200);
+        if (auth()->check()) {
+            auth()->user()->tokens()->delete();
+            return response('You Logged Out!', 200);
+        } else {
+            return response('Not authenticated', 401);
+        }
     }
 
 

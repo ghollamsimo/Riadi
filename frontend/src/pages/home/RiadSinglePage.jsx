@@ -8,12 +8,19 @@ import {toast} from "react-toastify";
 import {AddComment, DeleteComment} from "../../redux/actions/CommentAction.jsx";
 import Footer from '../../components/Footer.jsx'
 import { IoClose } from "react-icons/io5";
+import {AddReservation} from "../../redux/actions/ReservationAction.jsx";
+import {Link} from "react-router-dom";
+import PayPage from "./PayPage.jsx";
 
 const RiadSinglePage = () =>{
     const dispatch = useDispatch()
     const [comment , setComment] = useState('')
     const [dropdown , setDropdown] = useState(false)
+    const [Pay , setPay] = useState(false)
     const [guests , setGuests] = useState(1)
+    const [Booked] = useState('Booked')
+    const [Manual] = useState('Manual')
+    const [numberofGuests , setNumberOfGuuests] = useState(1)
     const {id} = useParams();
     const riad = useSelector((state) => state.riadsData.datalist.riad);
     const comments = useSelector((state) => state.riadsData.datalist.comment)
@@ -42,7 +49,6 @@ const RiadSinglePage = () =>{
         if (validate()) {
             await dispatch(AddComment(riad.id, form ) )
             dispatch(fetchRiad(id));
-
         }
     };
     const handleDelete = async (e) => {
@@ -62,6 +68,19 @@ const RiadSinglePage = () =>{
 
     const handleOpen = () => {
         setDropdown(!dropdown)
+    }
+
+    const handleReservations = async (e) => {
+        e.preventDefault()
+        if (guests){
+            if (riad.etat === 'Automatic'){
+                await dispatch(AddReservation(riad.id , {guests , Booked}))
+            }else if (riad.etat === 'Manual'){
+                await dispatch(AddReservation(riad.id , {guests , Manual}))
+            }
+        }else {
+            toast.error('Please enter The Number Of Guests')
+        }
     }
 
     return(
@@ -316,6 +335,7 @@ const RiadSinglePage = () =>{
                 <div className="hidden w-fit  lg:block flex-grow mt-14 lg:mt-0">
                     <div className="sticky  border rounded-xl  p-12 border-gray-600 top-28">
                         <div className="listingSectionSidebar__wrap ">
+
                             <div className="flex justify-between">
                             <span className="text-3xl font-semibold">{riad && riad.currency} {riad && riad.prix}<span
                                 className="ml-1 text-base font-normal text-neutral-500 dark:text-neutral-400">/night</span></span>
@@ -390,6 +410,7 @@ const RiadSinglePage = () =>{
                                                 <div
                                                     className="nc-NcInputNumber flex items-center justify-between space-x-5 w-full"
                                                     data-nc-id="NcInputNumber">
+
                                                     <div className="flex flex-col"><span
                                                         className="font-medium text-neutral-800 dark:text-neutral-200">Guests</span><span
                                                         className="text-xs text-neutral-500 dark:text-neutral-400 font-normal">Ages 18 or above</span>
@@ -408,7 +429,7 @@ const RiadSinglePage = () =>{
                                                                       clipRule="evenodd"></path>
                                                             </svg>
                                                         </button>
-                                                        <input type='number' name='guests' value={guests} readOnly
+                                                        <input type='number' name='guests' value={guests} onChange={(e) => setNumberOfGuuests(e.target.value)} readOnly
                                                                className='outline-0 bg-transparent pl-3 w-12 text-center mx-auto'/>
                                                         <button
                                                             onClick={handleChangeGuests}
@@ -441,13 +462,16 @@ const RiadSinglePage = () =>{
                                     <span>{riad && riad.prix * riad.maxnight} {riad && riad.currency}</span>
                                 </div>
                             </div>
-                            <a className="nc-Button mt-5 mx-auto w-full relative h-auto inline-flex items-center justify-center rounded-full transition-colors text-sm sm:text-base font-medium px-4 py-3 sm:px-6 ttnc-ButtonPrimary disabled:bg-opacity-70 bg-[#4F46E5] hover:bg-primary-700 text-neutral-50 "
-                               rel="noopener noreferrer" href="/checkout">Reserve</a>
+                            <button onClick={() => {
+                                setPay(true)
+                            }} className="nc-Button mt-5 mx-auto w-full relative h-auto inline-flex items-center justify-center rounded-full transition-colors text-sm sm:text-base font-medium px-4 py-3 sm:px-6 ttnc-ButtonPrimary disabled:bg-opacity-70 bg-[#4F46E5] hover:bg-primary-700 text-neutral-50 "
+                               rel="noopener noreferrer" >Reserve</button>
                         </div>
                     </div>
                 </div>
 
             </main>
+            {Pay && <PayPage setOpenModal={setPay} id={riad}/>}
             <Footer/>
         </>
     )

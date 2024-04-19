@@ -9,8 +9,10 @@ import {repaReducer} from "./reducers/RepaReducer.js";
 import {ApprovedriadReducer} from "./reducers/ApprovedRiadReducer.jsx";
 import {NotificationReducer} from "./reducers/NotificationReducer.jsx";
 import {SearchriadReducer} from "./reducers/SearchReducer.jsx";
+import {FavoriteReducer} from "./reducers/FavoriteReducer.jsx";
+import {ReservationReducer} from "./reducers/ReservationReducer.jsx";
 
-const rootReducer = combineReducers({ data: Reducer, riadsData:riadReducer  , categorieData:categorieReducer , serviceData: serviceReducer , repaData: repaReducer , approvedRiads: ApprovedriadReducer , notification: NotificationReducer , searchRiad:SearchriadReducer});
+const rootReducer = combineReducers({ data: Reducer, riadsData:riadReducer  , categorieData:categorieReducer , serviceData: serviceReducer , repaData: repaReducer , approvedRiads: ApprovedriadReducer , notification: NotificationReducer , searchRiad:SearchriadReducer , favorite:  FavoriteReducer , reservations: ReservationReducer});
 
 const middleware = [thunk, logger];
 

@@ -16,8 +16,7 @@ import Home from "./pages/home/Home.jsx";
 import getCookie from "./helpers/cookie.js";
 import Api from "./api/Api.jsx";
 import {jwtDecode} from 'jwt-decode';
-import {toast, ToastContainer} from "react-toastify";
-import config from "./helpers/config.js";
+import { ToastContainer} from "react-toastify";
 import SingleRiadPage from "./pages/drriad/SingleRiadPage.jsx";
 import NotFounde from "./pages/home/NotFounde.jsx";
 import MultipleUpdateSteps from "./update/RiadUpdate/MultipleUpdateSteps.jsx";
@@ -26,7 +25,7 @@ function App() {
     const location = useLocation();
     const [user, setUser] = useState(null);
     const {http} = Api()
-    const excludedRoutes = ['/dashboard' , '/editecategory' , '/gestionriads' , '/categories' , '/repas' , '/'];
+    const excludedRoutes = ['/dashboard' , '/editecategory' , '/gestionriads' , '/categories' , '/repas' , '/' , '/home' ];
     const navigate = useNavigate()
     const shouldDisplayNavbar = !excludedRoutes.some(route => location.pathname.includes(route));
   //  const navigate = useNavigate();
@@ -50,13 +49,13 @@ function App() {
                 });
 //                console.log('userrole:', response.data[0].role);
                 setUser(response.data[0]);
+
             } catch (error) {
                 console.error('Error fetching user data:', error);
             }
         };
         fetchUserData();
     }, []);
-
     const decodeToken = (token) => {
         try {
             const decoded = jwtDecode(token);
@@ -80,7 +79,7 @@ function App() {
 
             {shouldDisplayNavbar && (
                 <Fragment>
-                    <Navbar user={user}  />
+                    <Navbar />
                     <MobileNavbar />
                 </Fragment>
             )}
@@ -110,8 +109,8 @@ function App() {
                 {isClient && (
                     <>
                         <Route path='/riad/:id' element={<RiadSinglePage/>} />
-                        <Route path='/home' element={<Home />} />
-                        </>
+                        <Route path='/home' element={<Home id={user}/>} />
+                    </>
                 )}
 
             </Routes>
