@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use App\Models\Comments;
+use App\Models\Riad;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,9 +13,15 @@ class CommentsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function count($id)
     {
-        //
+        $riad = Riad::findOrFail($id);
+        if ($riad){
+            $comment = Comments::where('riad_id' , '=' , $riad->id )->count();
+            return response()->json(['comments' => $comment]);
+        }else{
+            return response()->json(['message' => 'No Raid Found']);
+        }
     }
 
     /**
@@ -93,14 +100,15 @@ class CommentsController extends Controller
      */
     public function destroy($id)
     {
+        $client = Client::where('user_id', Auth::id())->first();
         $comment = Comments::findOrFail($id);
         if (!$comment){
             return response()->json(['message' => 'Comment Not Found'] , 404);
         }
-        if (Auth::user()->id !== $comment->client_id){
-            return response()->json(['message' => 'Unauthorized'], 403);
-        }
+       if ($comment->client_id == $client->id){
         $comment->delete();
-        return response()->json(['message' => 'Comments Deleted SuccessFull']);
+           return response()->json(['message' => 'Comments Deleted SuccessFull']);
+       }
+        return response()->json(['message' => 'Unauthorized'], 403);
     }
 }

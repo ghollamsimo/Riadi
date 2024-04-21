@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import Api from "../api/Api.jsx";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-import {DeleteCategories, fetchCategories, fetchRepas} from "../redux/Action.js";
+import {DeleteCategories} from "../redux/Action.js";
+import {fetchCategories} from "../redux/actions/CategorieAction.jsx";
 import { connect } from "react-redux";
 import Aos from "aos";
 import { IoClose } from "react-icons/io5";
@@ -70,7 +71,7 @@ const DeleteCategorie = ({ setOpenModal, category, deleteCategorie, loader }) =>
 const mapDispatchToProps = (dispatch) => {
     return {
         loader: () => dispatch(fetchCategories()),
-        deleteCategorie: (id) => dispatch(DeleteCategories(id)) // Fixed action name
+        deleteCategorie: (id) => dispatch(DeleteCategories(id))
     };
 };
 

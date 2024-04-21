@@ -1,5 +1,7 @@
 import Api from "../../api/Api.jsx";
-import {failRequest, getListOfNotification, makeRequest} from "../Action.js";
+import {deleteDataList, failRequest, getListOfNotification, makeRequest} from "../Action.js";
+import getCookie from "../../helpers/cookie.js";
+import {toast} from "react-toastify";
 
 const { http } = Api();
 export const fetchNotification = () => {
@@ -14,4 +16,21 @@ export const fetchNotification = () => {
                 dispatch(failRequest(error.message));
             });
     };
+}
+export const DeleteNotification = (id) => {
+    return (dispatch) => {
+        dispatch(makeRequest());
+        const token = getCookie('ACCESS_TOKEN');
+        http.delete(`/delete/notification/${id}` , {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then(response => {
+            dispatch(deleteDataList(response.data));
+            toast.success('Notification Deleted SuccessFully')
+        }).catch(error => {
+            dispatch(failRequest(error.message));
+            toast.error('Failed to Delete Notification');
+        })
+    }
 }

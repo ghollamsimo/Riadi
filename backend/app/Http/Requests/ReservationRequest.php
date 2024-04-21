@@ -25,8 +25,8 @@ class ReservationRequest extends FormRequest
             'client_id' => '',
             'riad_id' => '',
             'status' => '',
-            'guests' => 'required',
-            'night' => 'required'
+            'guests' => 'required|integer|min:1',
+            'night' => 'required|integer|min:1'
         ];
     }
 }

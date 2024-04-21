@@ -1,23 +1,32 @@
 import {useDispatch, useSelector} from "react-redux";
 import React, {useEffect} from "react";
-import {fetchFavorite} from "../redux/actions/FavoriteAction.jsx";
+import {DeleteFavorite, fetchFavorite} from "../redux/actions/FavoriteAction.jsx";
 import {CiLocationOn} from "react-icons/ci";
 import {GrFavorite} from "react-icons/gr";
 import {Link} from "react-router-dom";
+import { LuHeartOff } from "react-icons/lu";
 
 const Wishlist = ({setOpenModal}) => {
     const dispatch = useDispatch()
-    const wishlist = useSelector((state) => state.favorite.datalist[0]?.riad)
-//    console.log('dddddddddddddddddddd', wishlist)
+    const wishlist = useSelector((state) => state.favorite.datalist);
+    const wishliststatus = useSelector((state) => state.favorite.datalist[0]?.status === 1)
+    console.log('dhih',wishlist)
+    console.log('dddddddddddddddddddd', wishlist)
 
     useEffect(() => {
         dispatch(fetchFavorite())
     }, [dispatch]);
+
+    const handledelete = (id) => {
+        dispatch(DeleteFavorite(id))
+        dispatch(fetchFavorite())
+    }
+
     return(
         <>
             <div className='fixed inset-0 z-50 '>
             <div className="min-h-screen  px-4 text-center">
-                <div  className="fixed inset-0  " id="headlessui-dialog-overlay-:ra:"
+                <div  className="fixed inset-0" id="headlessui-dialog-overlay-:ra:"
                      aria-hidden="true" data-headlessui-state="open"></div>
                 <div className="inline-block py-8 h-screen w-full max-w-4xl opacity-100 scale-100">
                     <div
@@ -35,54 +44,58 @@ const Wishlist = ({setOpenModal}) => {
                         <div
                             className="">
 
-                            <div className="px-4 mx-auto sm:px-6  max-w-7xl" >
+                            <div className="px-4  mx-auto sm:px-6  max-w-7xl" >
+                                {wishliststatus ? (
+                                    <div className="grid grid-cols-2 gap-6 mt-10 lg:gap-14 lg:grid-cols-3">
+                                        {wishlist.map((item, index) => (
+                                            <div className="relative group" key={index}>
+                                                <div className="overflow-hidden rounded aspect-w-1 aspect-h-1">
+                                                    <img
+                                                        className="object-cover w-full h-full transition-all duration-300 group-hover:scale-125 aspect-video"
+                                                        src={`http://localhost:8000/storage/images/${item.riad.cover}`}
+                                                        alt=""
+                                                    />
+                                                </div>
+                                                <div className="absolute left-3 top-3">
+                                                    <p className="sm:px-3 sm:py-1 px-1.5 py-1 text-[2px] sm:text-[10px] font-bold flex tracking-wide text-white bg-[#111827] rounded-full gap-2">
+                                                        <span><CiLocationOn className='mt-0.5 sm:text-[14px]'/></span> {item.riad.localisation}
+                                                    </p>
+                                                </div>
 
-                            <div className="grid grid-cols-2 gap-6 mt-10 lg:gap-14 lg:grid-cols-3">
+                                                <div className="absolute gap-2 flex justify-between right-3 top-3">
+                                                    <button
+                                                        onClick={() => handledelete(item.id)}
+                                                        className="sm:py-1 px-1 py-1 text-[8px] sm:text-[14px] font-bold flex tracking-wide text-white bg-[#111827] rounded-full gap-2"
+                                                    >
+                                                        <span>
+                                                            <LuHeartOff />
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                                <div className="flex items-start justify-between mt-4 space-x-4">
+                                                    <div>
+                                                        <h3 className="sm:text-[5px] font-bold text-white md:text-base">
+                                                            <Link to={`/riad/${item.riad.id}`} title="">
+                                                                <span className='border-b sm:text-[13px] border-gray-600'> {item.riad.name}</span>
+                                                                <span className="inset-0" aria-hidden="true"></span>
+                                                            </Link>
+                                                        </h3>
+                                                        <div className="text-xs text-white sm:text-sm md:text-base line-clamp-1">
+                                                            <p className='sm:text-[12px]'>{item.riad.description}</p>
+                                                        </div>
+                                                    </div>
 
-                                        <div className="relative group" >
-                                            <div className="overflow-hidden rounded aspect-w-1 aspect-h-1">
-                                                <img
-                                                    className="object-cover w-full h-full transition-all duration-300 group-hover:scale-125 aspect-video 	" src={`http://localhost:8000/storage/images/${wishlist?.cover}`}
-                                                    alt=""
-                                                />
-                                            </div>
-                                            <div className="absolute left-3 top-3">
-                                                <p className="sm:px-3 sm:py-1 px-1.5 py-1 text-[8px] sm:text-xs font-bold flex tracking-wide text-white  bg-[#111827] rounded-full gap-2">
-                                                    <span><CiLocationOn className='mt-0.5'/></span> {wishlist?.localisation}</p>
-                                            </div>
-
-                                            <div className="absolute gap-2 flex justify-between right-3 top-3">
-
-                                                <button
-
-                                                    className="sm:py-1 px-1 py-1 text-[8px] sm:text-lg font-bold flex tracking-wide text-white bg-[#111827] rounded-full gap-2"
-                                                >
-      <span >
-        <GrFavorite/>
-      </span>
-                                                </button>
-                                            </div>
-                                            <div className="flex items-start justify-between mt-4 space-x-4">
-                                                <div>
-                                                    <h3 className="text-xs font-bold text-white sm:text-sm md:text-base">
-                                                        <Link to={`/riad/${wishlist?.id}`} title="">
-                                                            <span className='border-b border-gray-600'> {wishlist?.name}</span>
-                                                            <span className=" inset-0" aria-hidden="true"></span>
-                                                        </Link>
-                                                    </h3>
-                                                    <div
-                                                        className="text-xs  text-white sm:text-sm md:text-base line-clamp-1">
-                                                        <p>{wishlist?.description}</p>
+                                                    <div className="text-right">
+                                                        <p className=" text-white sm:text-[15px] ">${item.riad.prix}<span className='text-gray-400'>/night</span></p>
                                                     </div>
                                                 </div>
-
-                                                <div className="text-right">
-                                                    <p className="text-xs text-white sm:text-sm md:text-base">${wishlist?.prix}<span
-                                                        className='text-gray-400'>/night</span></p>
-                                                </div>
                                             </div>
-                                        </div>
-                            </div>
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <div className='mx-auto justify-center flex mt-72'>No wishlist found</div>
+                                )}
+
                             </div>
                         </div>
                     </div>

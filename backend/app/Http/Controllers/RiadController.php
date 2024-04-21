@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RiadRequest;
+use App\Models\Categorie;
 use App\Models\Client;
 use App\Models\Comments;
 use App\Models\DrRiad;
@@ -45,6 +46,16 @@ class RiadController extends Controller
         return response()->json($riads);
     }
 
+    public function filter(Request $request)
+    {
+        $query = Riad::all();
+        $categoryFilter = $request->input('categorie');
+        $categories = Categorie::all();
+        $services = Services::all();
+        if ($categoryFilter && $categoryFilter !== 'All') {
+            $query->where('categorie_id', $categoryFilter);
+        }
+    }
     public function store(RiadRequest $request)
     {
         $user_id = Auth::id();
@@ -99,6 +110,7 @@ class RiadController extends Controller
                         'client_id' => $client->id,
                         'riad_id' => $riads->id,
                         'message' => 'New Riad Has Been Published ' . $riads->name,
+                        'reservation_id' => null
                     ]);
                 }
 

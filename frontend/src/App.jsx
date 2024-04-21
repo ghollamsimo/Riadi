@@ -71,6 +71,7 @@ function App() {
     const isClient = user && user.role === 'Client';
 
 
+
 //    console.log('ddddddd' , logOut())
 
     return (
@@ -84,13 +85,13 @@ function App() {
                 </Fragment>
             )}
             <Routes>
-                <Route path='' element={<Login setUser={setUser} />} />
+                <Route path='' element={<Login setuser={user} />} />
                 <Route path='/register' element={<Register />} />
                 <Route path='/profile/:id' element={<Profile />} />
                 <Route path='*' element={<NotFounde/>}/>
                 {isAdmin && (
                     <>
-                        <Route path='/dashboard' element={<Dashboard />} />
+                        <Route path='/dashboard' element={<Dashboard user={user}/>} />
                         <Route path='/gestionriads' element={<Griads />} />
                         <Route path='/categories' element={<GCategorie />} />
                         <Route path='/repas' element={<GRepas />} />

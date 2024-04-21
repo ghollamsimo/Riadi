@@ -1,4 +1,4 @@
-import {addCommentList, deleteDataList, failRequest, makeRequest} from "../Action.js";
+import {addCommentList, deleteDataList, failRequest, getListOfCount, makeRequest} from "../Action.js";
 import {toast} from "react-toastify";
 import Api from "../../api/Api.jsx";
 import getCookie from "../../helpers/cookie.js";
@@ -36,9 +36,25 @@ export const DeleteComment = (id) => {
         })
             .then(response => {
                 dispatch(deleteDataList(response.data));
+                toast.success('Comment deleted successfully')
             })
             .catch(error => {
                 dispatch(failRequest(error.message));
             });
     };
+}
+export const fetchCommentsCount = (id) => {
+    return (dispatch) => {
+        dispatch(makeRequest())
+        const token = getCookie('ACCESS_TOKEN')
+        http.get(`/comment/count/${id}` , {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then(response => {
+            dispatch(getListOfCount(response.data))
+        }) .catch(error => {
+            dispatch(failRequest(error.message));
+        });
+    }
 }

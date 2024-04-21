@@ -71,13 +71,21 @@ Route::delete('/deleteriad/{id}' , [\App\Http\Controllers\RiadController::class 
 
 Route::get('/approvedriads' , [\App\Http\Controllers\ClientController::class, 'index']);
 Route::get('/adminriad' , [\App\Http\Controllers\AdminController::class , 'index']);
-Route::get('/notifications', [NotificationController::class, 'index']);
 Route::post('/favori/{riad_id}' , [\App\Http\Controllers\FavoriController::class , 'store']);
-Route::delete('/deletenotification/{id}', [NotificationController::class, 'destroy']);
 Route::post('/payment', [StripeController::class, 'processPayment']);
-Route::post('/confiramtion/reservation/{riad_id}' , [\App\Http\Controllers\ReservationController::class , 'store']);
-Route::post('/reservation/accepted/{reservations}', [\App\Http\Controllers\DrRiadController::class , 'Reservationaccepted']);
-Route::post('/reservation/rejected/{riad_id}' , [\App\Http\Controllers\DrRiadController::class , 'ReservationRejected']);
 Route::get('/confirmation/riad' , [\App\Http\Controllers\DrRiadController::class , 'index']);
 Route::get('/riads/search' , [\App\Http\Controllers\RiadController::class , 'search']);
 Route::get('/wishlists' , [\App\Http\Controllers\FavoriController::class , 'index']);
+Route::delete('/delete/wishlist/{id}' , [\App\Http\Controllers\FavoriController::class , 'destroy']);
+Route::get('/count' , [\App\Http\Controllers\ClientController::class , 'count']);
+Route::get('/comment/count/{id}', [\App\Http\Controllers\CommentsController::class , 'count']);
+
+Route::get('/notifications', [NotificationController::class, 'index']);
+Route::delete('/delete/notification/{id}', [NotificationController::class , 'destroy']);
+
+Route::get('/reservation' , [\App\Http\Controllers\ReservationController::class , 'index']);
+Route::get('/reservation/{reservationid}' , [\App\Http\Controllers\ReservationController::class , 'show']);
+Route::post('/reservation/booked/{reservations}', [\App\Http\Controllers\ClientController::class , 'BookedReservation']);
+Route::post('/reservation/rejected/{riad_id}' , [\App\Http\Controllers\DrRiadController::class , 'ReservationRejected']);
+Route::post('/reservation/accepted/{reservations}', [\App\Http\Controllers\DrRiadController::class , 'Reservationaccepted']);
+Route::post('/confiramtion/reservation/{riad_id}' , [\App\Http\Controllers\ReservationController::class , 'store']);

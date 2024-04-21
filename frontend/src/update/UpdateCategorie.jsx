@@ -3,7 +3,8 @@ import { toast, ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { IoClose } from "react-icons/io5";
 import { useDispatch } from "react-redux";
-import {fetchCategories, UpdateCategorie} from "../redux/Action.js";
+import { UpdateCategorie} from "../redux/Action.js";
+import {fetchCategories} from "../redux/actions/CategorieAction.jsx";
 
 const UpdateCategory = ({ setOpenModal, category }) => {
     const [name, setName] = useState(category.name);

@@ -3,20 +3,21 @@ import { GrUpdate } from "react-icons/gr";
 import { AiOutlineDelete } from "react-icons/ai";
 import DeleteCategorie from "../modal/DeleteCategorie.jsx";
 import CreateCategorie from "../modal/CreateCategorie.jsx";
-import {fetchCategories} from "../redux/Action.js";
-import {connect} from "react-redux";
+import {fetchCategories} from "../redux/actions/CategorieAction.jsx";
+import {connect, useDispatch, useSelector} from "react-redux";
 import {FiPlus} from "react-icons/fi";
 import UpdateCategorie from "../update/UpdateCategorie.jsx";
 
-const TableCategorie = (props) => {
+const TableCategorie = () => {
     const [showModal, setShowModal] = useState(false);
     const [Edit, setUpdateModal] = useState(false);
     const [Modal, setCreateModal] = useState(false);
     const [id , setId] = useState(null)
-
+    const dispatch = useDispatch()
+    const categorie = useSelector((state) => state.categorieData.datalist)
     useEffect(() =>{
-        props.loader()
-    }, [])
+        dispatch(fetchCategories())
+    }, [dispatch])
     return (
         <>
             <div className='flex  justify-between'>
@@ -57,7 +58,7 @@ const TableCategorie = (props) => {
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {props.data.datalist && props?.data?.datalist?.map(category =>(
+                                {categorie?.map(category =>(
                                     <tr key={category.id}
                                 className="bg-white text-white border-b border-dashed dark:bg-gray-800 dark:border-gray-700">
                                 <td className="p-3 text-sm font-medium whitespace-nowrap dark:text-white">
@@ -98,15 +99,5 @@ const TableCategorie = (props) => {
         </>
     )
 }
-const mapStateToProps = (state) => {
-    return {
-        data: state.data
-    }
-}
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        loader: () => dispatch(fetchCategories())
-    }
-}
-export default connect(mapStateToProps, mapDispatchToProps) (TableCategorie)
+export default TableCategorie

@@ -1,18 +1,22 @@
 import {Fragment, useState} from 'react';
-import {Link, Route, Routes, useNavigate} from 'react-router-dom';
+import {Link, Navigate, Route, Routes, useLocation, useNavigate} from 'react-router-dom';
 import Api from '../../api/Api.jsx';
 import {toast, ToastContainer} from 'react-toastify';
 import Register from './Register';
 import getCookie from "../../helpers/cookie.js";
 
-const Login = () => {
-    const navigate = useNavigate();
+const Login = ({setuser}) => {
+    const location = useLocation();
     const token = getCookie('ACCESS_TOKEN');
     const { http } = Api();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [userData, setUserData] = useState(null);
+
+    const isAdmin = setuser && setuser?.role === 'Admin';
+    const isDrRiad =  setuser?.role === 'DrRaid';
+
 
     const login = async (e) => {
         e.preventDefault();
@@ -28,9 +32,25 @@ const Login = () => {
                     const [user, token] = data;
                     const {original} = token;
                     document.cookie = `ACCESS_TOKEN=${original.access_token};`
-//                    console.log(token)
+               //     console.log(token)
                     setUserData(user);
                     toast.success(`Welcome ${token.original.user.name}`);
+                  //  const isClient = setuser?.role === 'Client';
+                  //  console.log('setuser:', setuser?.role);
+
+                    switch (user.role) {
+                        case 'Admin':
+                            location.pathname = '/dashboard';
+                            break;
+                        case 'DrRiad':
+                            location.pathname = '/directeur';
+                            break;
+                        case 'Client':
+                            location.pathname = '/home';
+                            break;
+                        default:
+                            location.pathname = '/';
+                    }
                 });
             } catch (error) {
                 setLoading(false)

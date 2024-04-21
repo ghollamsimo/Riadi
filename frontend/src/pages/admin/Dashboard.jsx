@@ -8,11 +8,11 @@ import TableCategorie from "../../data/TableCategorie.jsx";
 import ChartUser from "../../data/ChartUser.jsx";
 import TableRepas from'../../data/TableRepas.jsx'
 
-const Dashboard = () => {
+const Dashboard = ({user}) => {
     return (
         <>
 <div>
-            <Adminavbar/>
+            <Adminavbar user={user}/>
         <div className="flex max-h-full w-full">
             <SideBar/>
             <div className="flex-grow  ">

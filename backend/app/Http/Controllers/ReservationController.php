@@ -11,7 +11,26 @@ use Illuminate\Support\Facades\Auth;
 
 class ReservationController extends Controller
 {
+    public function index()
+    {
+        $client = Client::where('user_id', Auth::id())->first();
+        if ($client){
+        $reservation = Reservation::where('client_id', '=' , $client->id)->with('riad')->get();
+        return response()->json($reservation);
+        }else{
+            return response()->json(['message' => 'Unothorized']);
+        }
+    }
+    public function show($reservationid){
+        $client = Client::where('user_id', Auth::id())->first();
+        if ($client){
+        $reservation = Reservation::with('riad')->findOrFail($reservationid);
+        }else{
+            return response()->json(['message' => 'Unothorized']);
+        }
 
+        return response()->json($reservation);
+    }
     public function store(ReservationRequest $request, $riad_id)
     {
         $validatedData = $request->validated();
@@ -39,7 +58,8 @@ class ReservationController extends Controller
                     'client_id' => $client->id,
                     'riad_id' => $riad->id,
                     'guests' => $validatedData['guests'],
-                    'status' => 'Available'
+                    'night' => $validatedData['night'],
+                    'status' => 'Waiting'
                 ]);
                 $riad->guests -= $validatedData['guests'];
                 $riad->save();

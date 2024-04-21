@@ -1,19 +1,28 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import config from "../helpers/config.js";
 import {toast} from "react-toastify";
 import Api from "../api/Api.jsx";
 import getCookie from "../helpers/cookie.js";
 import Wishlist from "../modal/Wishlist.jsx";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchCount} from "../redux/actions/CountAction.jsx";
 
 const ProfileSettings = ({user }) => {
     const {http} = Api()
+    const dispatch = useDispatch()
     const [settings , setSettings] = useState(false)
     const navigate = useNavigate()
     const token = getCookie('ACCESS_TOKEN');
     const [wishlists , setWishlists] = useState(false)
+    const wishlistCount = useSelector((state) => state.count.datalist.wishlist)
+//    console.log('hd' , wishlistCount)
+    useEffect(() => {
+        dispatch(fetchCount())
+    }, [dispatch]);
     const handleOpen = () => {
         setSettings(!settings)
+        dispatch(fetchCount())
     }
 
     const logOut = async () => {
@@ -71,19 +80,29 @@ const ProfileSettings = ({user }) => {
                                 setWishlists(true);
                                 setSettings(false)
                             }}
-                                className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50">
-                                <div
-                                    className="flex items-center justify-center flex-shrink-0 text-neutral-500 dark:text-neutral-300">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                         stroke-width="1.5" stroke="currentColor" aria-hidden="true"
-                                         className="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                              d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"></path>
-                                    </svg>
-                                </div>
-                                <div className="ml-4"><p className="text-sm font-medium ">Wishlists</p></div>
-                            </button><a
-                                className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                                className="flex justify-between items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50">
+                                    <div
+                                        className="flex  items-center justify-center flex-shrink-0 text-neutral-500 dark:text-neutral-300">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                             stroke-width="1.5" stroke="currentColor" aria-hidden="true"
+                                             className="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                  d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"></path>
+                                        </svg>
+                                        <div className={' flex justify-between'}>
+                                            <div className="ml-4 flex "><p
+                                                className="text-sm font-medium ">Wishlists</p>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div className='flex justify-end'><span
+                                        className="w-3 text-center text-[10px] h-3 bg-blue-500  top-1  text-white rounded-full">{wishlistCount}</span>
+                                    </div>
+                                </button>
+                                <a
+                                    className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                                 href="/home-3##">
                                 <div
                                     className="flex items-center justify-center flex-shrink-0 text-neutral-500 dark:text-neutral-300">
@@ -97,18 +116,7 @@ const ProfileSettings = ({user }) => {
                                 <div className="ml-4"><p className="text-sm font-medium ">Booking</p></div>
                             </a></div>
                             <hr className="h-[1px] border-t border-neutral-300 dark:border-neutral-700"/>
-                            <div className="relative grid gap-6 bg-white dark:bg-[#1F2937] p-7"><a href="##" className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50">
-                                <div
-                                    className="flex items-center justify-center flex-shrink-0 text-neutral-500 dark:text-neutral-300">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                         stroke-width="1.5" stroke="currentColor" aria-hidden="true"
-                                         className="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                              d="M16.712 4.33a9.027 9.027 0 011.652 1.306c.51.51.944 1.064 1.306 1.652M16.712 4.33l-3.448 4.138m3.448-4.138a9.014 9.014 0 00-9.424 0M19.67 7.288l-4.138 3.448m4.138-3.448a9.014 9.014 0 010 9.424m-4.138-5.976a3.736 3.736 0 00-.88-1.388 3.737 3.737 0 00-1.388-.88m2.268 2.268a3.765 3.765 0 010 2.528m-2.268-4.796a3.765 3.765 0 00-2.528 0m4.796 4.796c-.181.506-.475.982-.88 1.388a3.736 3.736 0 01-1.388.88m2.268-2.268l4.138 3.448m0 0a9.027 9.027 0 01-1.306 1.652c-.51.51-1.064.944-1.652 1.306m0 0l-3.448-4.138m3.448 4.138a9.014 9.014 0 01-9.424 0m5.976-4.138a3.765 3.765 0 01-2.528 0m0 0a3.736 3.736 0 01-1.388-.88 3.737 3.737 0 01-.88-1.388m2.268 2.268L7.288 19.67m0 0a9.024 9.024 0 01-1.652-1.306 9.027 9.027 0 01-1.306-1.652m0 0l4.138-3.448M4.33 16.712a9.014 9.014 0 010-9.424m4.138 5.976a3.765 3.765 0 010-2.528m0 0c.181-.506.475-.982.88-1.388a3.736 3.736 0 011.388-.88m-2.268 2.268L4.33 7.288m6.406 1.18L7.288 4.33m0 0a9.024 9.024 0 00-1.652 1.306A9.025 9.025 0 004.33 7.288"></path>
-                                    </svg>
-                                </div>
-                                <div className="ml-4"><p className="text-sm font-medium ">Help</p></div>
-                            </a><div
+                            <div className="relative grid gap-6 bg-white dark:bg-[#1F2937] p-7"><div
                                    className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50">
                                 <div
                                     className="flex items-center justify-center flex-shrink-0 text-neutral-500 dark:text-neutral-300">

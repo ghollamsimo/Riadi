@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Notification extends Model
 {
     use HasFactory;
-    protected $fillable = ['client_id' , 'message' , 'riad_id'];
+    protected $fillable = ['client_id' , 'message' , 'riad_id' , 'reservation_id'];
 
     public function client()
     {
@@ -17,6 +17,10 @@ class Notification extends Model
 
     public function riad()
     {
-        return $this->belongsTo(Riad::class);
+        return $this->belongsTo(Riad::class, 'riad_id');
+    }
+
+    public function reservation(){
+        return $this->belongsTo(Reservation::class);
     }
 }

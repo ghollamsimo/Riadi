@@ -16,7 +16,7 @@ import {
     ADD_COMMENT_LIST,
     GET_COMMENT_LIST,
     GET_FAVORITE_LIST,
-    ADD_RESERVATION_LIST, GET_RESERVATION_LIST
+    ADD_RESERVATION_LIST, GET_RESERVATION_LIST, GET_COUNT_LIST
 } from "./ActionType.js";
 import Api from '../api/Api.jsx';
 import {toast} from "react-toastify";
@@ -79,6 +79,10 @@ export const getListOfReservation= (data) => ({
     type: GET_RESERVATION_LIST,
     payload : data
 })
+export const getListOfCount = (data) => ({
+    type: GET_COUNT_LIST,
+    payload : data
+})
 export const deleteDataList = () => {
     return {
         type: DELETE_DATA_LIST
@@ -137,19 +141,6 @@ export const fetchStats = () => {
             });
     };
 };
-export const fetchRepas = () => {
-    return (dispatch) => {
-        dispatch(makeRequest());
-        http.get('/repas')
-            .then(response => {
-                const repas = response.data;
-                dispatch(getDataList(repas));
-            })
-            .catch(error => {
-                dispatch(failRequest(error.message));
-            });
-    };
-};
 
 export const DeleteRepa = (id) => {
     return (dispatch) => {
@@ -188,7 +179,7 @@ export const UpdateRepas = (id , data) => {
     };
 }
 
-export const fetchCategories = () => {
+export const fetchCategorie = () => {
     return (dispatch) => {
         dispatch(makeRequest());
         http.get('/categories')
@@ -353,7 +344,7 @@ export const AddFavori = (id , data) => {
         })
             .then(response => {
                 dispatch(addDataList(response.data));
-                toast.success('Service Added successfully');
+                toast.success('Riad Added In Wishlist');
             })
             .catch(error => {
                 dispatch(failRequest(error.message));

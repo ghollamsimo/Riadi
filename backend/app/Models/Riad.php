@@ -60,7 +60,7 @@ class Riad extends Model
 
     public function notifications()
     {
-        return $this->hasMany(Notification::class);
+        return $this->hasMany(Notification::class,"riad_id");
     }
 
     public function favori()

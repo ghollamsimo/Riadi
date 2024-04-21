@@ -3,7 +3,8 @@ import {IoClose} from "react-icons/io5";
 import {toast, ToastContainer} from "react-toastify";
 import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import {AddRepa, fetchRepas} from "../redux/Action.js";
+import {AddRepa} from "../redux/Action.js";
+import { fetchRepas } from "../redux/actions/RepaAction.jsx";
 
 const CreateRepa = ({ setOpenModal }) => {
     const [name, setName] = useState('');

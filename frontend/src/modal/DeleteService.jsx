@@ -1,6 +1,6 @@
 import {useEffect} from "react";
 import Aos from "aos";
-import { DeleteServices, fetchRepas, fetchService} from "../redux/Action.js";
+import { DeleteServices,  fetchService} from "../redux/Action.js";
 import {connect} from "react-redux";
 import {IoClose} from "react-icons/io5";
 

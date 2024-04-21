@@ -82,7 +82,13 @@ class FavoriController extends Controller
      */
     public function destroy($id)
     {
+        $client = Client::where('user_id', Auth::id())->first();
         $favori = Favori::findOrFail($id);
-
+        if ($favori->client_id == $client->id) {
+            $favori->delete();
+            return response()->json(['message' => 'WishList Deleted Successfully']);
+        } else {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
     }
 }

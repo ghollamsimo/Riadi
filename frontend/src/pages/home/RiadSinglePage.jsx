@@ -5,26 +5,24 @@ import {fetchRiad} from "../../redux/actions/RiadAction.jsx";
 import moment from "moment/moment.js";
 import Navbar from '../../components/nav/Navbar.jsx'
 import {toast} from "react-toastify";
-import {AddComment, DeleteComment} from "../../redux/actions/CommentAction.jsx";
+import {AddComment, DeleteComment, fetchCommentsCount} from "../../redux/actions/CommentAction.jsx";
 import Footer from '../../components/Footer.jsx'
 import { IoClose } from "react-icons/io5";
-import {AddReservation} from "../../redux/actions/ReservationAction.jsx";
-import {Link} from "react-router-dom";
 import PayPage from "./PayPage.jsx";
+import {AddFavori} from "../../redux/Action.js";
 
 const RiadSinglePage = () =>{
     const dispatch = useDispatch()
+    const [favori , setFavori] = useState(false)
     const [comment , setComment] = useState('')
     const [dropdown , setDropdown] = useState(false)
     const [Pay , setPay] = useState(false)
     const [guests , setGuests] = useState(1)
-    const [Booked] = useState('Booked')
-    const [Manual] = useState('Manual')
-    const [numberofGuests , setNumberOfGuuests] = useState(1)
     const {id} = useParams();
-    const riad = useSelector((state) => state.riadsData.datalist.riad);
-    const comments = useSelector((state) => state.riadsData.datalist.comment)
-    const images = useSelector((state) => state.riadsData.datalist.riad);
+    const riad = useSelector((state) => state.riadsData.datalist?.riad);
+    const comments = useSelector((state) => state.riadsData.datalist?.comment)
+    const images = useSelector((state) => state.riadsData.datalist?.riad);
+
     const handleChangeGuests = () => {
         if (guests < 15){
             setGuests(guests + 1)
@@ -47,17 +45,20 @@ const RiadSinglePage = () =>{
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (validate()) {
-            await dispatch(AddComment(riad.id, form ) )
+            await dispatch(AddComment(riad?.id, form ) )
             dispatch(fetchRiad(id));
         }
     };
-    const handleDelete = async (e) => {
-        e.preventDefault();
-        await dispatch(DeleteComment(comments[0].id))
+    const handleDelete = async (commentid) => {
+        await dispatch(DeleteComment(commentid))
         dispatch(fetchRiad(id))
+    }
+    const handleFavorites = (riadId) => {
+        dispatch(AddFavori(riadId , {favori}))
     }
     useEffect(() => {
         dispatch(fetchRiad(id));
+        dispatch(fetchCommentsCount(riad?.id))
     }, [dispatch, id]);
 
     const dateComments = riad && moment(comments.created_at).format('MMM DD, YYYY');
@@ -68,19 +69,6 @@ const RiadSinglePage = () =>{
 
     const handleOpen = () => {
         setDropdown(!dropdown)
-    }
-
-    const handleReservations = async (e) => {
-        e.preventDefault()
-        if (guests){
-            if (riad.etat === 'Automatic'){
-                await dispatch(AddReservation(riad.id , {guests , Booked}))
-            }else if (riad.etat === 'Manual'){
-                await dispatch(AddReservation(riad.id , {guests , Manual}))
-            }
-        }else {
-            toast.error('Please enter The Number Of Guests')
-        }
     }
 
     return(
@@ -119,7 +107,7 @@ const RiadSinglePage = () =>{
                         </svg>
                         <span className="hidden sm:block ml-2.5">Share</span>
                     </span>
-                                    <span
+                                    <span  onClick={() => handleFavorites(riad && riad.id)}
                                         className="py-1.5 px-3 flex rounded-lg hover:bg-gray-600 dark:hover:bg-gray-800 cursor-pointer">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24"
                              stroke="currentColor">
@@ -247,8 +235,7 @@ const RiadSinglePage = () =>{
                     </div>
 
                     <div className="listingSection__wrap px-12 py-6 border-gray-600 rounded-xl border">
-                        <h2 className="text-2xl font-semibold">Reviews (23
-                            reviews)</h2>
+                        <h2 className="text-2xl font-semibold">Reviews ()</h2>
                         <div className="w-14 mt-5 border-b border-neutral-200 dark:border-neutral-700">
 
                         </div>
@@ -293,9 +280,9 @@ const RiadSinglePage = () =>{
                                                 <span
                                                     className="text-sm text-neutral-500 dark:text-neutral-400 mt-0.5">{dateComments}</span>
                                             </div>
-                                            <form onSubmit={handleDelete}>
-                                            <button  type='submit'  className=''><IoClose/></button>
-                                            </form>
+
+                                            <button  onClick={() => handleDelete(item.id)}  className=''><IoClose/></button>
+
                                         </div>
                                         <span
                                             className="block mt-3 text-neutral-6000 dark:text-neutral-300">{item.comments}</span>

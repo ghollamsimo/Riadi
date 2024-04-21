@@ -1,7 +1,8 @@
 import { IoClose } from "react-icons/io5";
 import { toast, ToastContainer } from "react-toastify";
 import {useEffect, useState} from "react";
-import { UpdateRepas, fetchRepas } from "../redux/Action.js"; // Assuming you have an updateRepa action
+import { UpdateRepas } from "../redux/Action.js";
+import { fetchRepas } from "../redux/actions/RepaAction.jsx";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Aos from "aos";

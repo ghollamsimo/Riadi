@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
 import Aos from "aos";
-import { fetchRepas, DeleteRepa } from "../redux/Action.js";
+import {  DeleteRepa } from "../redux/Action.js";
 import { connect } from "react-redux";
+import { fetchRepas } from "../redux/actions/RepaAction.jsx";
 
 const DeleteRepaModal = ({ setOpenModal, item, deleteRepa , repas}) => {
     const [showModal, setShowModal] = useState(false);

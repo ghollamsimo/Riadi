@@ -1,7 +1,8 @@
 import {useEffect, useState} from 'react';
 import {toast, ToastContainer} from 'react-toastify';
 import {useDispatch} from "react-redux";
-import {AddCategorie, fetchCategories} from "../redux/Action.js";
+import {AddCategorie} from "../redux/Action.js";
+import {fetchCategories} from "../redux/actions/CategorieAction.jsx";
 import {useNavigate} from "react-router-dom";
 import Aos from "aos";
 import { IoClose } from "react-icons/io5";

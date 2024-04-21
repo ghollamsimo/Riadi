@@ -8,8 +8,7 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     */
-    public function up(): void
+     */  public function up(): void
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
@@ -18,9 +17,11 @@ return new class extends Migration
             $table->string('message');
             $table->timestamps();
             $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
+            $table->foreignId('reservation_id')->nullable()->constrained('reservations');
             $table->foreign('riad_id')->references('id')->on('riads')->onDelete('cascade');
         });
     }
+
 
     /**
      * Reverse the migrations.

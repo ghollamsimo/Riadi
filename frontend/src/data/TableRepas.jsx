@@ -1,5 +1,5 @@
-import { fetchRepas } from "../redux/Action.js";
-import { connect } from "react-redux";
+import { fetchRepas } from "../redux/actions/RepaAction.jsx";
+import {connect, useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import { GrUpdate } from "react-icons/gr";
 import {AiOutlineDelete} from "react-icons/ai";
@@ -8,17 +8,17 @@ import {FiPlus} from "react-icons/fi";
 import CreateRepa from "../modal/CreateRepa.jsx";
 import UpdateRepa from "../update/UpdateRepa.jsx";
 
-const TableRepas = (props) => {
+const TableRepas = () => {
+    const dispatch = useDispatch()
     const [showModal, setShowModal] = useState(false);
     const [id , setId] = useState(null)
     const [Modal, setCreateModal] = useState(false);
     const [Edit, setUpdateModal] = useState(false);
-
+    const repas = useSelector((state) => state.repaData.datalist)
     useEffect(() => {
-        props.loader();
-    }, []);
+        dispatch(fetchRepas())
+    }, [dispatch]);
 
-    let repas = props.datalist || [];
 
     const repasList = repas.map(item => (
         <tr key={item.id}

@@ -28,19 +28,13 @@ const Home = ({id}) => {
         dispatch(fetchRaids(pageNum));
     };
 
- //   console.log("ddd", id)
     const riads = useSelector((state) => state.approvedRiads.datalist);
-    useEffect(() => {
+     useEffect(() => {
         dispatch(fetchApprovedRaids());
     }, [dispatch]);
-    const toggleFavori = () => {
-        setFavori(!favori);
-        if (!favori) {
-            handleFavorites();
-        }
-    };
-    const handleFavorites = () => {
-        dispatch(AddFavori(riads.data[0].id , {favori}))
+
+    const handleFavorites = (riadId) => {
+        dispatch(AddFavori(riadId , {favori}))
     }
     return (
 
@@ -82,19 +76,19 @@ const Home = ({id}) => {
                                     <div className="absolute gap-2 flex justify-between right-3 top-3">
 
                                         <button
-                                            onClick={toggleFavori}
+                                            onClick={() => handleFavorites(item.id)}
                                             className="sm:py-1 px-1 py-1 text-[8px] sm:text-lg font-bold flex tracking-wide text-white bg-[#111827] rounded-full gap-2"
                                         >
-      <span style={{color: favori ? 'red' : 'inherit'}}>
-        <GrFavorite/>
-      </span>
+                <span style={{color: favori ? 'red' : 'inherit'}}>
+                    <GrFavorite/>
+                </span>
                                         </button>
                                     </div>
                                     <div className="flex items-start justify-between mt-4 space-x-4">
                                         <div>
                                             <h3 className="text-xs font-bold text-white sm:text-sm md:text-base">
-                                            <Link to={`/riad/${item.id}`} title="">
-                                                <span className='border-b border-gray-600'> {item.name}</span>
+                                                <Link to={`/riad/${item.id}`} title="">
+                                                    <span className='border-b border-gray-600'> {item.name}</span>
                                                     <span className=" inset-0" aria-hidden="true"></span>
                                                 </Link>
                                             </h3>

@@ -7,12 +7,65 @@ export const fetchReservation = () => {
     return async (dispatch) => {
         dispatch(makeRequest())
         const token = getCookie('ACCESS_TOKEN');
-        http.get('confirmation/riad', {
+        http.get('/confirmation/riad', {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         }).then(response => {
             dispatch(getListOfReservation(response.data))
+        })
+    }
+}
+export const fetchReservationIfconfirmed = () => {
+    return async (dispatch) => {
+        dispatch(makeRequest())
+        const token = getCookie('ACCESS_TOKEN');
+        http.get('/reservation', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then(response => {
+            dispatch(getListOfReservation(response.data))
+        })
+    }
+}
+export const fetchRiadwhoReserved = (id) => {
+    return async (dispatch) => {
+        dispatch(makeRequest())
+        const token = getCookie('ACCESS_TOKEN');
+        http.get(`/reservation/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then(response => {
+            dispatch(getListOfReservation(response.data))
+        })
+    }
+}
+export const ReservationAccepted = (id) => {
+    return async (dispatch) => {
+        dispatch(makeRequest())
+        const token = getCookie('ACCESS_TOKEN');
+        http.post(`/reservation/accepted/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then(response => {
+            dispatch(getListOfReservation(response.data))
+        })
+    }
+}
+export const ReservationRejected = (id) => {
+    return async (dispatch) => {
+        dispatch(makeRequest())
+        const token = getCookie('ACCESS_TOKEN');
+        http.post(`/reservation/rejected/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then(response => {
+            dispatch(getListOfReservation(response.data))
+            toast.success('Reservation rejected successfully');
         })
     }
 }

@@ -9,7 +9,7 @@ class Reservation extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['client_id' , 'status' , 'riad_id'];
+    protected $fillable = ['client_id' , 'status' , 'riad_id' , 'guests' , 'night'];
 
     public function client()
     {
@@ -18,5 +18,10 @@ class Reservation extends Model
 
     public function riad(){
         return $this->belongsTo(Riad::class);
+    }
+
+    public function notification()
+    {
+        return $this->belongsTo(Notification::class);
     }
 }

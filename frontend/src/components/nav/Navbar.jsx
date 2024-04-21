@@ -13,6 +13,7 @@ import Notification from "../Notification.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchRaidSearch} from "../../redux/actions/SearchAction.jsx";
 import ProfileSettings from "../ProfileSettings.jsx";
+import {fetchCount} from "../../redux/actions/CountAction.jsx";
 
 function Navbar({id}) {
     const dispatch = useDispatch()
@@ -21,6 +22,8 @@ function Navbar({id}) {
     const [isSearchBarOpen, setIsSearchBarOpen] = useState(false);
     const [query, setQuery] = useState('');
     const search = useSelector((state) => state.searchRiad.datalist)
+    const countnotification = useSelector((state) => state.count.datalist?.notification)
+    console.log('heeeeey' ,countnotification )
     useEffect(() => {
         if (query.trim() !== '') {
             dispatch(fetchRaidSearch(query));
@@ -29,11 +32,8 @@ function Navbar({id}) {
                 console.log('No raid found');
             }
         }
+        dispatch(fetchCount())
     }, [dispatch, query, search]);
-
-
-
-
     const toggleSearchBar = () => {
         setIsSearchBarOpen(!isSearchBarOpen);}
     return (
@@ -46,7 +46,7 @@ function Navbar({id}) {
                     <div className="flex items-center">
                         <ul className={`${`z-50 flex items-center`}`}>
                             <li>
-                                <Link to="/" className={`${`bg-gray-800`}`}>Home</Link>
+                                <Link to="/home" >Home</Link>
                             </li>
                             <li>
                                 <Link to="/profile">Riads</Link>
@@ -58,9 +58,11 @@ function Navbar({id}) {
                                 <Link to="/help">Help</Link>
                             </li>
                             <div className='relative'>
-                                <button className='text-2xl md:text-[28px] w-12 h-12 rounded-full text-neutral-700 dark:text-neutral-300   transition-all focus:outline-none flex items-center justify-center'>
+                                <span
+                                    className=' w-12 h-12 rounded-full text-neutral-700 dark:text-neutral-300   transition-all focus:outline-none flex items-center justify-center'>
+                                    <span className="w-3 text-center text-[10px] h-3 bg-blue-500 absolute top-2 right-1 text-white rounded-full">{countnotification}</span>
                                 <Notification/>
-                                </button>
+                                </span>
                             </div>
                             <div className="relative z-20">
                                 <button onClick={toggleSearchBar}
