@@ -1,33 +1,25 @@
 import {PayPalButtons, PayPalScriptProvider} from "@paypal/react-paypal-js";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
-import {fetchRiadwhoReserved} from "../redux/actions/ReservationAction.jsx";
+import {fetchRiadwhoReserved, UpdateStatusToBooked} from "../redux/actions/ReservationAction.jsx";
 
 const Pay = ({setOpenModal , id}) => {
     const distpatch = useDispatch()
     const riad = useSelector((state) => state.reservations?.datalist?.riad)
     const reservation = useSelector((state) => state.reservations?.datalist)
-//    console.log('tete' , reservation)
+    const [totalAmount] = useState(riad?.prix * reservation?.night);
+    const [paymentCompleted, setPaymentCompleted] = useState(false);
+    const [paymentError, setPaymentError] = useState(null);
+    const [booked ] = useState('Booked');
+    console.log('jsususus' , id)
+
     useEffect(() => {
         distpatch(fetchRiadwhoReserved(id))
     }, [distpatch]);
-
-
-    const [totalAmount, setTotalAmount] = useState(0);
-    const [paymentCompleted, setPaymentCompleted] = useState(false);
-    const [paymentError, setPaymentError] = useState(null);
-
-    useEffect(() => {
-        if (riad?.prix && reservation?.night) {
-            const calculatedTotal = calculateTotalAmount();
-            setTotalAmount(calculatedTotal);
-        }
-    }, [riad?.prix, reservation?.night]);
-
-    const calculateTotalAmount = () => {
-        return riad.prix * reservation.night;
-    };
-
+    const handleStatusBooked = () => {
+        distpatch(UpdateStatusToBooked(id , {booked}))
+        setOpenModal(false)
+    }
     const handlePaymentSuccess = (data) => {
         setPaymentCompleted(true);
         console.log("Payment successful:", data);
@@ -80,7 +72,8 @@ const Pay = ({setOpenModal , id}) => {
                                                 {paymentCompleted ? (
                                                     <div>
                                                         <h2>Payment Successful!</h2>
-                                                        <button className="nc-Button relative h-auto inline-flex items-center justify-center rounded-full transition-colors text-sm sm:text-base font-medium px-4 py-3 sm:px-6  ttnc-ButtonPrimary disabled:bg-opacity-70 bg-[#4F46E5] hover:bg-primary-700 text-neutral-50  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-6000 dark:focus:ring-offset-0">
+                                                        <p>Goo Check Your Booked List</p>
+                                                        <button onClick={handleStatusBooked} className="nc-Button mt-5 relative h-auto inline-flex items-center justify-center rounded-full transition-colors text-sm sm:text-base font-medium px-4 py-3 sm:px-6  ttnc-ButtonPrimary disabled:bg-opacity-70 bg-[#4F46E5] hover:bg-primary-700 text-neutral-50  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-6000 dark:focus:ring-offset-0">
                                                             Finish
                                                         </button>
                                                     </div>
@@ -96,10 +89,10 @@ const Pay = ({setOpenModal , id}) => {
                                                             return actions.order.create({
                                                                 purchase_units: [
                                                                     {
-                                                                        description: riad?.description,
+                                                                        order: riad?.id,
                                                                         amount: {
                                                                             currency_code: "USD",
-                                                                            value: totalAmount
+                                                                            value: totalAmount,
                                                                         },
                                                                     },
                                                                 ],
@@ -123,8 +116,7 @@ const Pay = ({setOpenModal , id}) => {
                                                         className="  aspect-w-4 aspect-h-3 sm:aspect-h-4 rounded-2xl overflow-hidden">
                                                         <img alt=""
                                                              className=" bg-cover bg-center  inset-0 object-cover"
-                                                             sizes="200px"
-                                                             src={`http://localhost:8000/storage/images/${riad?.cover}`}/>
+                                                             sizes="200px" src={`http://localhost:8000/storage/images/${riad?.cover}`}/>
                                                     </div>
                                                 </div>
                                                 <div className="py-5 sm:px-5 space-y-3">

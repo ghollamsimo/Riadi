@@ -69,6 +69,19 @@ export const ReservationRejected = (id) => {
         })
     }
 }
+export const UpdateStatusToBooked = (id , data) => {
+    return async (dispatch) => {
+        dispatch(makeRequest())
+        const token = getCookie('ACCESS_TOKEN');
+        http.post(`/reservation/booked/${id}` , data, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then(response => {
+            dispatch(getListOfReservation(response.data))
+        })
+    }
+}
 export const AddReservation = (id ,data) => {
     return async (dispatch) => {
         const token = getCookie('ACCESS_TOKEN');

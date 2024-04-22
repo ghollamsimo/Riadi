@@ -16,8 +16,7 @@ const Notification = () => {
     const notification = useSelector((state) => state.notification);
     const notifid = useSelector((state) => state.notification.datalist[0]?.id);
     const reservationId = useSelector((state) => state.notification.datalist[0]?.reservation_id);
-
- //  console.log('tetete',reservationId)
+   console.log('tetete',reservationId)
     //  console.log('nooot', notification)
     useEffect(() => {
         dispatch(fetchNotification());
