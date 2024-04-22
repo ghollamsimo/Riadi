@@ -3,7 +3,7 @@ import { GrUpdate } from "react-icons/gr";
 import { AiOutlineDelete } from "react-icons/ai";
 import DeleteCategorie from "../modal/DeleteCategorie.jsx";
 import CreateCategorie from "../modal/CreateCategorie.jsx";
-import {fetchCategories} from "../redux/actions/CategorieAction.jsx";
+import {fetchCategories} from  '../redux/actions/CategorieAction.jsx'
 import {connect, useDispatch, useSelector} from "react-redux";
 import {FiPlus} from "react-icons/fi";
 import UpdateCategorie from "../update/UpdateCategorie.jsx";

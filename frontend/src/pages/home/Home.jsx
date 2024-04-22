@@ -1,13 +1,8 @@
 import React, {useState, Fragment, useEffect} from "react";
 import Hero from "../../components/hero/Hero.jsx";
-import HeadingPlace from "./HeadingPlace.jsx";
-import Riadimage from '../../assets/img/image-header.jpg'
 import {CiLocationOn} from "react-icons/ci";
-import Filterdistination from "../../components/Filterdistination.jsx";
 import HowitworksSection from "../../components/HowitworksSection.jsx";
-import Loadingdata from "../../components/Loadingdata.jsx";
 import {connect, useDispatch, useSelector} from "react-redux";
-import {useParams} from "react-router";
 import {fetchApprovedRaids} from "../../redux/actions/ApprovedRiadAction.jsx";
 import {fetchRaids} from "../../redux/actions/RiadAction.jsx";
 import Pagination from "react-js-pagination";
@@ -19,6 +14,7 @@ import {FiTrash2} from "react-icons/fi";
 import { GrFavorite } from "react-icons/gr";
 import ContactSection from "../../components/ContactSection.jsx";
 import Footer from "../../components/Footer.jsx";
+import Bennefits from "../../components/Bennefits.jsx";
 
 const Home = ({id}) => {
     const dispatch = useDispatch();
@@ -41,7 +37,7 @@ const Home = ({id}) => {
         <Fragment>
             <Navbar id={id}/>
             <Hero/>
-            <HeadingPlace/>
+            <Bennefits/>
             <section className="py-3 bg-[#0E131F] rounded-t-3xl text-white sm:py-16 lg:py-2">
                 <div className='px-4 sm:pt-14 pt-5 '>
                     <h1 className={`${`text-3xl sm:px-24 text-white md:text-4xl font-semibold`}`}>Featured places

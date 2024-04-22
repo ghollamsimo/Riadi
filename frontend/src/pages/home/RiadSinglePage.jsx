@@ -301,7 +301,7 @@ const RiadSinglePage = () =>{
                         <div><h4 className="text-lg mt-5 font-semibold">Check-in time</h4>
                             <div className="mt-3 text-neutral-500 dark:text-neutral-400 max-w-md text-sm sm:text-base">
                                 <div
-                                    className="flex space-x-10 justify-between p-3 bg-neutral-100 dark:bg-gray-800 rounded-lg">
+                                    className="flex w-full space-x-10 justify-between p-3 bg-neutral-100 dark:bg-gray-800 rounded-lg">
                                     <span>Check-in</span><span>{checkin}</span></div>
                                 <div className="flex space-x-10 justify-between p-3"><span>Check-out</span><span>{checkout}</span>
                                 </div>

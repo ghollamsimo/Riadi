@@ -106,13 +106,15 @@ class ServicesController extends Controller
     public function destroy($id)
     {
         $service = Services::findOrFail($id);
+        $drriad = DrRiad::where('user_id' , Auth::id() )->first();
         if (!$service){
             return response()->json(['message' => 'Service Not Found'] , 404);
         }
-        if (Auth::user()->id !== $service->drriad_id){
+        if ($service->drriad_id === $drriad->id){
+            $service->delete();
+        }else{
             return response()->json(['message' => 'Unauthorized'], 403);
         }
-        $service->delete();
 
         return response()->json(['message' => 'Service Deleted SuccessFully']);
     }

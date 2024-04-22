@@ -14,8 +14,6 @@ const Login = ({setuser}) => {
     const [loading, setLoading] = useState(false);
     const [userData, setUserData] = useState(null);
 
-    const isAdmin = setuser && setuser?.role === 'Admin';
-    const isDrRiad =  setuser?.role === 'DrRaid';
 
 
     const login = async (e) => {
@@ -37,20 +35,21 @@ const Login = ({setuser}) => {
                     toast.success(`Welcome ${token.original.user.name}`);
                   //  const isClient = setuser?.role === 'Client';
                   //  console.log('setuser:', setuser?.role);
-
+                    console.log('usssss', user.role)
                     switch (user.role) {
                         case 'Admin':
-                            location.pathname = '/dashboard';
+                            window.location.href = '/dashboard';
                             break;
-                        case 'DrRiad':
-                            location.pathname = '/directeur';
+                        case 'DrRaid':
+                            window.location.href = '/directeur';
                             break;
                         case 'Client':
-                            location.pathname = '/home';
+                            window.location.href = '/home';
                             break;
                         default:
-                            location.pathname = '/';
+                            window.location.href = '/';
                     }
+
                 });
             } catch (error) {
                 setLoading(false)

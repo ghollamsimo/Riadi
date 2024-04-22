@@ -8,9 +8,9 @@ const DeleteService = ({setOpenModal , item, deleteService , service}) => {
     useEffect(() => {
         Aos.init({ duration: 500 });
     }, []);
-
     const handleDelete = () => {
         deleteService(item);
+    console.log('id' , item)
         setOpenModal(false);
         service()
     };
@@ -67,7 +67,7 @@ const DeleteService = ({setOpenModal , item, deleteService , service}) => {
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        loader: () => dispatch(fetchRepas()),
+        loader: () => dispatch(fetchService()),
         deleteService: (id) => dispatch(DeleteServices(id)),
         service: () => dispatch(fetchService())
     };

@@ -26,14 +26,7 @@ const Hero = () =>{
                                 Best, Real Estate</h1>
                             <p className="mt-4 text-lg font-normal text-gray-400 sm:mt-8">Accompanying us, you have a trip full of experiences. With Riadi, booking accommodation, resort villas, hotels..</p>
 
-                            <div className="absolute w-full h-full mt-3  pr-16 sm:mt-12">
-                                <section className="rounded-2xl search-sec relative  search w-full bg-[#1F2937] py-4">
-                                    <div className="m-5 container mx-auto">
 
-                                    </div>
-                                </section>
-
-                            </div>
                         </div>
 
                         <div className="relative  grid grid-cols-2  px-24">

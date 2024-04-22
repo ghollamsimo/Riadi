@@ -23,8 +23,9 @@ const Dashboard = ({ user}) => {
     const [Delete , setDelete] = useState(false)
     const [id , setId] = useState(null)
     const riads = useSelector((state) => state.riadsData.datalist);
-    const reservation = useSelector((state) => state.reservations.datalist[0]?.riad)
-    const reservationStatus = useSelector((state) => state.reservations.datalist[0])
+    const reservation = useSelector((state) => state.reservations.datalist);
+    const reservationStatus = useSelector((state) => state.reservations.datalist[0]);
+
     console.log('whati whati yalala', reservation)
     useEffect(() => {
         dispatch(fetchRaids());
@@ -107,22 +108,23 @@ const Dashboard = ({ user}) => {
                             <p className="text-neutral-500 dark:text-neutral-400">Providing lake views, The Symphony 9
                                 Tam Coc in Ninh Binh provides accommodation, an outdoor.</p>
                             <div className="border-b border-neutral-200 dark:border-neutral-700 w-14"></div>
-                            {reservation ? (
-                                <>
-                                    <div className=''>
+                            {reservation && reservation.length > 0 ? (
+                                reservation.map((item, index) => (
+                                    <div key={index?.id} className=''>
                                         <div className="border border-gray-700 p-4 rounded-xl">
                                             <div className="relative group">
                                                 <div className="overflow-hidden rounded aspect-w-1 aspect-h-1">
                                                     <img
                                                         className="object-cover w-full h-full transition-all duration-300 group-hover:scale-125"
-                                                        src={`http://localhost:8000/storage/images/${reservation?.cover}`}
+                                                        src={`http://localhost:8000/storage/images/${item?.riad?.cover}`}
                                                         alt=""
                                                     />
                                                 </div>
                                                 <div className="absolute left-3 top-3">
                                                     <p className="sm:px-3 sm:py-1 px-1.5 py-1 text-[8px] sm:text-xs font-bold flex tracking-wide text-white bg-[#111827] rounded-full gap-2">
                                                         <span><CiLocationOn
-                                                            className="mt-0.5"/></span> {reservation?.localisation}
+                                                            className="mt-0.5"/></span> {item?.
+                                                        riad?.localisation}
                                                     </p>
                                                 </div>
 
@@ -137,22 +139,26 @@ const Dashboard = ({ user}) => {
                                                     </button>
 
                                                 </div>
-                                                <div className="flex items-start justify-between mt-4 space-x-4">
+                                                <div className="flex items-start justify-between mt-4 space-x-8">
                                                     <div>
                                                         <h3 className="text-xs font-bold text-white sm:text-sm md:text-base">
-                                                            <Link to={`/riaddetails/${reservation?.id}`} title="">
-                                                                {reservation?.name}
+                                                            <Link to={`/riaddetails/${item?.
+                                                                riad?.id}`} title="">
+                                                                Client Name:
+                                                                 {item?.client?.user?.name}
                                                                 <span className="inset-0" aria-hidden="true"></span>
                                                             </Link>
                                                         </h3>
                                                         <div
                                                             className="text-xs text-white sm:text-sm md:text-base line-clamp-1">
-                                                            <p>{reservation?.description}</p>
+                                                            <p>{item?.riad?.description}</p>
                                                         </div>
                                                     </div>
 
                                                     <div className="text-right">
-                                                        <p className="text-xs text-white sm:text-sm md:text-base">{reservation?.currency} {reservation?.prix}<span
+                                                        <p className="text-xs text-white sm:text-sm md:text-base">{item?.
+                                                            riad?.currency} {item?.
+                                                            riad?.prix}<span
                                                             className="text-gray-400">/night</span></p>
                                                     </div>
                                                 </div>
@@ -161,12 +167,11 @@ const Dashboard = ({ user}) => {
 
                                     </div>
 
-                                </>
+                                ))
                             ) : (
-                                <>
-                                    <div className='text-gray-400'>No Reservation Found</div>
-                                </>
+                                <div className='text-gray-400'>No Reservations Found</div>
                             )}
+
 
                         </div>
 

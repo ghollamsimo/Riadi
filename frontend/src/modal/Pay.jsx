@@ -1,18 +1,49 @@
 import {PayPalButtons, PayPalScriptProvider} from "@paypal/react-paypal-js";
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {fetchRiadwhoReserved} from "../redux/actions/ReservationAction.jsx";
 
 const Pay = ({setOpenModal , id}) => {
     const distpatch = useDispatch()
     const riad = useSelector((state) => state.reservations?.datalist?.riad)
-  //  console.log('tete' , riad)
+    const reservation = useSelector((state) => state.reservations?.datalist)
+//    console.log('tete' , reservation)
     useEffect(() => {
         distpatch(fetchRiadwhoReserved(id))
     }, [distpatch]);
 
+
+    const [totalAmount, setTotalAmount] = useState(0);
+    const [paymentCompleted, setPaymentCompleted] = useState(false);
+    const [paymentError, setPaymentError] = useState(null);
+
+    useEffect(() => {
+        if (riad?.prix && reservation?.night) {
+            const calculatedTotal = calculateTotalAmount();
+            setTotalAmount(calculatedTotal);
+        }
+    }, [riad?.prix, reservation?.night]);
+
+    const calculateTotalAmount = () => {
+        return riad.prix * reservation.night;
+    };
+
+    const handlePaymentSuccess = (data) => {
+        setPaymentCompleted(true);
+        console.log("Payment successful:", data);
+    };
+
+    const handlePaymentError = (err) => {
+        setPaymentError(err);
+        console.error("Payment error:", err);
+    };
+
+
+
     return(
         <>
+
+
             <div className='fixed inset-0 z-50 '>
                 <div className="min-h-screen  px-4 text-center">
                     <div className="fixed inset-0  " id="headlessui-dialog-overlay-:ra:"
@@ -43,19 +74,49 @@ const Pay = ({setOpenModal , id}) => {
 
                                             <PayPalScriptProvider
                                                 options={{
-                                                    clientId: "AQiUlaS-IPytAhKdhksQcXrweAepRONMt3huN8X5_dPxOfShTSzTM0D3OlwI7n2tJbmN4ewH3C69uR-d"
+                                                    clientId: "AQiUlaS-IPytAhKdhksQcXrweAepRONMt3huN8X5_dPxOfShTSzTM0D3OlwI7n2tJbmN4ewH3C69uR-d",
                                                 }}
                                             >
-                                                <PayPalButtons  />
+                                                {paymentCompleted ? (
+                                                    <div>
+                                                        <h2>Payment Successful!</h2>
+                                                        <button className="nc-Button relative h-auto inline-flex items-center justify-center rounded-full transition-colors text-sm sm:text-base font-medium px-4 py-3 sm:px-6  ttnc-ButtonPrimary disabled:bg-opacity-70 bg-[#4F46E5] hover:bg-primary-700 text-neutral-50  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-6000 dark:focus:ring-offset-0">
+                                                            Finish
+                                                        </button>
+                                                    </div>
+                                                ) : paymentError ? (
+                                                    <div>
+                                                        <h2>Error Processing Payment</h2>
+                                                        <p>{paymentError.message}</p>
+                                                    </div>
+                                                ) : (
+                                                    <PayPalButtons
+                                                        style={{ layout: "horizontal" }}
+                                                        createOrder={(data, actions) => {
+                                                            return actions.order.create({
+                                                                purchase_units: [
+                                                                    {
+                                                                        description: riad?.description,
+                                                                        amount: {
+                                                                            currency_code: "USD",
+                                                                            value: totalAmount
+                                                                        },
+                                                                    },
+                                                                ],
+                                                            });
+                                                        }}
+                                                        onApprove={handlePaymentSuccess}
+                                                        onError={handlePaymentError}
+                                                    />
+                                                )}
                                             </PayPalScriptProvider>
-
                                         </div>
                                     </div>
 
 
                                     <div className="hidden lg:block flex-grow">
                                         <div
-                                            className="w-fit sticky flex flex-col sm:rounded-2xl lg:border border-neutral-200 dark:border-gray-700 space-y-6 sm:space-y-8 px-0 sm:p-6 xl:p-8">
+                                            className="w-fit sticky flex flex-col sm:rounded-2xl lg:border border-neutral-200 dark:border-gray-700 space-y-6 sm:space-y-8 px-0 sm:p-6 ">
                                             <div className="flex flex-col sm:flex-row sm:items-center">
                                                 <div className="flex-shrink-0 w-full sm:w-40">
                                                     <div
@@ -72,7 +133,9 @@ const Pay = ({setOpenModal , id}) => {
                                                         className="text-base w-full font-medium mt-1 block">{riad?.name}</span>
                                                     </div>
                                                     <span
-                                                        className="block  text-sm text-neutral-500 dark:text-neutral-400">2 beds · 2 baths</span>
+                                                        className="block  text-sm text-neutral-500 dark:text-neutral-400">Rooms {riad?.rooms}</span>
+                                                    <span
+                                                        className="block  text-sm text-neutral-500 dark:text-neutral-400">Guests {reservation?.guests}</span>
                                                     <div
                                                         className="w-10 border-b border-neutral-200  dark:border-neutral-700"></div>
 
@@ -82,14 +145,14 @@ const Pay = ({setOpenModal , id}) => {
                                                 className="text-2xl font-semibold">Price detail</h3>
                                                 <div
                                                     className="flex justify-between text-neutral-6000 dark:text-neutral-300">
-                                                    <span>$19 x 3 day</span><span>$57</span></div>
+                                                    <span>{riad?.currency} {riad?.prix} x {reservation?.night} day</span><span>{riad?.currency} {riad?.prix * reservation?.night}</span></div>
                                                 <div
                                                     className="flex justify-between text-neutral-6000 dark:text-neutral-300">
-                                                    <span>Service charge</span><span>$0</span></div>
+                                                    <span>Repas charge</span><span>$0</span></div>
                                                 <div
                                                     className="border-b border-neutral-200 dark:border-neutral-700"></div>
                                                 <div className="flex justify-between font-semibold">
-                                                    <span>Total</span><span>$57</span></div>
+                                                    <span>Total</span><span>{riad?.currency} {riad?.prix * reservation?.night}</span></div>
                                             </div>
                                         </div>
                                     </div>

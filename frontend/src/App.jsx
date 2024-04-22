@@ -21,6 +21,7 @@ import SingleRiadPage from "./pages/drriad/SingleRiadPage.jsx";
 import NotFounde from "./pages/home/NotFounde.jsx";
 import MultipleUpdateSteps from "./update/RiadUpdate/MultipleUpdateSteps.jsx";
 import RiadSinglePage from "./pages/home/RiadSinglePage.jsx";
+import {ClipLoader} from "react-spinners";
 function App() {
     const location = useLocation();
     const [user, setUser] = useState(null);
@@ -30,32 +31,33 @@ function App() {
     const shouldDisplayNavbar = !excludedRoutes.some(route => location.pathname.includes(route));
   //  const navigate = useNavigate();
     const token = getCookie('ACCESS_TOKEN');
-
+    const [loading, setLoading] = useState(true); // Set loading to true initially
 
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-//                console.log('Token:', token);
                 if (!token) {
                     console.error('Access token is missing');
-                    return ;
+                    return;
                 }
                 const decodedToken = decodeToken(token);
-//                console.log('jjjjjjjjjjjj:', decodedToken);
                 const response = await http.get(`/user/${decodedToken}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
-//                console.log('userrole:', response.data[0].role);
                 setUser(response.data[0]);
-
             } catch (error) {
                 console.error('Error fetching user data:', error);
+            } finally {
+                setLoading(false);
             }
         };
+
+
         fetchUserData();
     }, []);
+
     const decodeToken = (token) => {
         try {
             const decoded = jwtDecode(token);
@@ -84,38 +86,47 @@ function App() {
                     <MobileNavbar />
                 </Fragment>
             )}
-            <Routes>
-                <Route path='' element={<Login setuser={user} />} />
-                <Route path='/register' element={<Register />} />
-                <Route path='/profile/:id' element={<Profile />} />
-                <Route path='*' element={<NotFounde/>}/>
-                {isAdmin && (
-                    <>
-                        <Route path='/dashboard' element={<Dashboard user={user}/>} />
-                        <Route path='/gestionriads' element={<Griads />} />
-                        <Route path='/categories' element={<GCategorie />} />
-                        <Route path='/repas' element={<GRepas />} />
-                    </>
-                )}
+            {loading ? (
+                <div className='flex justify-center  items-center h-screen'>
+                    <ClipLoader color="#ffffff" />
+                </div>
+            ) : (
+                <>
+                    <Routes>
+                        <Route path='' element={<Login setUser={setUser} />} />
+                        <Route path='/register' element={<Register />} />
+                        <Route path='/profile/:id' element={<Profile />} />
+                        <Route path='*' element={<NotFounde/>}/>
+                        {isAdmin && (
+                            <>
+                                <Route path='/dashboard' element={<Dashboard user={user}/>} />
+                                <Route path='/gestionriads' element={<Griads />} />
+                                <Route path='/categories' element={<GCategorie />} />
+                                <Route path='/repas' element={<GRepas />} />
+                            </>
+                        )}
 
-                {isDrRiad && (
-                    <>
-                        <Route path='/directeur'  element={<Drriad user={user}/>} />
-                        <Route path='/createriad' element={<MultiStepForm />} />
-                        <Route path='/riaddetails/:id' element={<SingleRiadPage/>}/>
-                        <Route path='/update/:id' element={<MultipleUpdateSteps/> }/>
-                        </>
-                )}
+                        {isDrRiad && (
+                            <>
+                                <Route path='/directeur'  element={<Drriad user={user}/>} />
+                                <Route path='/createriad' element={<MultiStepForm />} />
+                                <Route path='/riaddetails/:id' element={<SingleRiadPage/>}/>
+                                <Route path='/update/:id' element={<MultipleUpdateSteps/> }/>
+                            </>
+                        )}
 
-                {isClient && (
-                    <>
-                        <Route path='/riad/:id' element={<RiadSinglePage/>} />
-                        <Route path='/home' element={<Home id={user}/>} />
-                    </>
-                )}
+                        {isClient && (
+                            <>
+                                <Route path='/riad/:id' element={<RiadSinglePage/>} />
+                                <Route path='/home' element={<Home id={user}/>} />
+                            </>
+                        )}
 
-            </Routes>
-<ToastContainer/>
+                    </Routes>
+                </>
+            )}
+
+            <ToastContainer/>
         </>
     )
 }
