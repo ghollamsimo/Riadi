@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import { IoNotificationsOutline } from "react-icons/io5";
 import {useDispatch, useSelector} from "react-redux";
 import {DeleteNotification, fetchNotification} from "../redux/actions/NotificationAction.jsx";
@@ -7,30 +7,46 @@ import {fetchReservationIfconfirmed} from "../redux/actions/ReservationAction.js
 import Pay from "../modal/Pay.jsx";
 import { IoClose } from "react-icons/io5";
 import {fetchCount} from "../redux/actions/CountAction.jsx";
+import {ClipLoader} from "react-spinners";
+import {Link} from "react-router-dom";
 
 const Notification = () => {
     const [Reservation , setReservation] = useState(false)
     const [id ,setId] = useState(null)
-
+    const [loading , setLoading] = useState(true)
     const dispatch = useDispatch();
     const notification = useSelector((state) => state.notification);
     const notifid = useSelector((state) => state.notification.datalist[0]?.id);
     const reservationId = useSelector((state) => state.notification.datalist[0]?.reservation_id);
-   console.log('tetete',reservationId)
-    //  console.log('nooot', notification)
+//  console.log('tetete',reservationId)
+//   console.log('nooot', notification)
     useEffect(() => {
         dispatch(fetchNotification());
         if (reservationId) {
             dispatch(fetchReservationIfconfirmed(reservationId));
         }
+        setTimeout(() => {
+        setLoading(false)
+        }, 700)
     }, [dispatch, reservationId]);
     const displayTimeDifference = (createdAt) => {
         if (!createdAt || !moment(createdAt).isValid()) {
             return 'Invalid date';
         }
 
-        const differenceInMinutes = moment().diff(moment(createdAt), 'minutes');
-        return `${differenceInMinutes} minutes ago`;
+        const duration = moment.duration(moment().diff(moment(createdAt)));
+
+        const days = duration.days();
+        const hours = duration.hours();
+        const minutes = duration.minutes();
+
+        if (days > 0) {
+            return `${days} day${days > 1 ? 's' : ''} ago`;
+        } else if (hours > 0) {
+            return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+        } else {
+            return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+        }
     };
 
     const [isNotificationOpen, setIsNotificationOpen] = useState(false);
@@ -58,22 +74,34 @@ const Notification = () => {
                     <div className='absolute z-10 text-left w-screen max-w-xs sm:max-w-sm px-4 mt-3 sm:right-0 sm:px-0 opacity-100 translate-y-0'>
                         <div className="overflow-hidden rounded-2xl w-fit shadow-lg ring-1 ring-black ring-opacity-5">
                             <div className="relative grid gap-8 bg-white dark:bg-[#1F2937] p-7">
+                                {loading ? (
+                                    <div className='flex justify-center  items-center '>
+                                        <ClipLoader color="#ffffff"/>
+                                    </div>
+                                ) : (
+                                    <>
                                 <h3 className="text-xl font-semibold">Notifications</h3>
 
+                                        {notification.length > 0 ? (
+                                            <>
+                                                <div className='mx-auto justify-center flex '>No notification found
+                                                </div>
 
-
-                                {notification?.datalist?.map(item => (
-                                    <span
-                                        onClick={() => {
-                                            if (item.message === `Continue The Process of Payment for ${item.riad.name}`) {
-                                                setReservation(true);
-                                                setId(item.reservation_id);
-                                                setIsNotificationOpen(false);
-                                            }
-                                        }}
-                                        key={item.id}
-                                        className="flex cursor-pointer p-2 pr-8 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50 relative"
-                                    >
+                                            </>
+                                        ) : (
+                                            <>
+                                            {notification?.datalist.map(item => (
+                                                    <span
+                                                        onClick={() => {
+                                                            if (item.message === `Continue The Process of Payment for ${item.riad.name}`) {
+                                                                setReservation(true);
+                                                                setId(item.reservation_id);
+                                                                setIsNotificationOpen(false);
+                                                            }
+                                                        }}
+                                                        key={item.id}
+                                                        className="flex cursor-pointer p-2 pr-8 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50 relative"
+                                                    >
         <div
             className="wil-avatar relative flex-shrink-0 inline-flex items-center justify-center text-neutral-100 uppercase font-semibold shadow-inner rounded-full w-8 h-8 sm:w-12 sm:h-12">
             <img className="absolute inset-0 w-full h-full object-cover rounded-full"
@@ -82,7 +110,7 @@ const Notification = () => {
         </div>
         <div className="ml-3 sm:ml-4 space-y-1">
             <p className="text-sm font-medium text-gray-900 dark:text-gray-200">{item.riad.drriad.user.name}</p>
-            <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">{item.message}</p>
+            <Link to={`/riad/${item?.id}`} className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">{item.message}</Link>
             <p className="text-xs text-gray-400 dark:text-gray-400">{displayTimeDifference(item.created_at)}</p>
         </div>
 
@@ -90,7 +118,15 @@ const Notification = () => {
             className="absolute right-1 top-1/2 transform -translate-y-1/2 w-2 h-2 rounded-full bg-blue-500"></button>
          <span onClick={() => handleDelete(item.id)} className='text-gray-400'><IoClose/></span>
     </span>
-                                ))}
+                                                ))}
+
+                                            </>
+                                        )}
+
+                                    </>
+                                )}
+
+
 
 
                             </div>

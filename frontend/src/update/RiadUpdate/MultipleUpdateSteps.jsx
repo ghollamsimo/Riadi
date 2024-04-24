@@ -27,7 +27,7 @@ const MultipleUpdateSteps = () => {
     const [formData, setFormData] = useState({
         name: '',
         localisation: '',
-        cover: '',
+        cover: null,
         categorie_id: null,
         description: '',
         image: [],
@@ -54,9 +54,13 @@ const MultipleUpdateSteps = () => {
         }));
 
     };
-    const handleCover = () => {
+    const handleCover = (file) => {
+
+        console.log(file);
+
         setFormData(prevFormData => ({
-            ...prevFormData
+            ...prevFormData,
+            cover: file
         }));
     };
     const handleImage=( value)=>{
@@ -94,11 +98,28 @@ const MultipleUpdateSteps = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const formDataToSend = new FormData();
         console.log(formData)
+        // Append each key-value pair from formData to formDataToSend
+        Object.entries(formData).forEach(([key, value]) => {
+            // If the value is an array (like image or service_id), append each item separately
+            if (key !== "cover" && Array.isArray(value) ) {
+                console.log(key)
+                value.forEach((item) => {
+                    formDataToSend.append(key, item);
+                });
+            } else {
+                formDataToSend.append(key, value);
+            }
+        });
+
+        console.log(formDataToSend);
+
         try {
-            await dispatch(UpdateRiad({ id, data: formData }));
+            await dispatch(UpdateRiad({ id, data: formDataToSend }));
             dispatch(fetchRaids());
-        //    navigate('/directeur')
+            // navigate('/directeur');
         } catch (error) {
             toast.error("Failed to Update Riad");
             console.log(error);
@@ -107,6 +128,7 @@ const MultipleUpdateSteps = () => {
 
     return(
         <>
+            <NavbarDirecteur/>
             <form onSubmit={handleSubmit} className='mt-16' encType="multipart/form-data">
                 {step === 1 && (
                     <UpdateStepOne

@@ -31,8 +31,8 @@ const CreateService = ({ setOpenModal }) => {
 
     return (
         <>
-            <div className="fixed z-50 inset-0 overflow-y-auto flex justify-center items-center" data-aos="fade-up">
-                <div className="bg-white w-full max-w-md p-8 rounded-lg shadow-lg">
+            <div className="fixed  z-50 inset-0 overflow-y-auto flex justify-center items-center" data-aos="fade-up">
+                <div className="bg-[#0E131F] border-gray-700 border w-full max-w-md p-8 rounded-lg shadow-lg">
                     <div className='flex justify-end'>
                         <button onClick={() => setOpenModal(false)} className="text-xl">
                             <IoClose/>
@@ -45,7 +45,7 @@ const CreateService = ({ setOpenModal }) => {
                                 type="text"
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
-                                className="w-full border outline-0 p-2 rounded"
+                                className="w-full border outline-0 bg-transparent border-gray-700  p-2 px-4 rounded-2xl"
                                 placeholder="Category name"
                             />
                         </div>

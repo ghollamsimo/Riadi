@@ -3,6 +3,7 @@ import {TbPoint} from "react-icons/tb";
 import {CiSearch} from "react-icons/ci";
 import Api from "../api/Api.jsx";
 import getCookie from "../helpers/cookie.js";
+import SettingsDirecteur from "./SettingsDirecteur.jsx";
 
 const NavbarDirecteur = ({ user}) => {
 
@@ -28,20 +29,10 @@ const NavbarDirecteur = ({ user}) => {
                     Riadi <span><TbPoint/></span>
                 </Link>
                 <div className="flex items-center">
-                    <ul className={`${`z-50 flex items-center`}`}>
-                        <li>
-                            <Link to="/createriad" className={`${`bg-gray-800`}`}>Add Riad</Link>
-                        </li>
 
-                        {user && (
-                            <li>
-                                <button onClick={logOut} className="btn btn__login">Logout</button>
-                            </li>
-                        )}
-
-
-
-                    </ul>
+                        <div className='relative'>
+                            <SettingsDirecteur user={user} logout={logOut}/>
+                        </div>
 
                 </div>
             </nav>

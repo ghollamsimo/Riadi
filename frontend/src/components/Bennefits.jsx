@@ -1,4 +1,4 @@
-import React,{Fragment} from 'react';
+import {Fragment} from 'react';
 import Bennefitsimage from '../assets/img/bennefits_seaction.png'
 const Bennefits = () =>{
     return (
@@ -21,7 +21,7 @@ const Bennefits = () =>{
                         </li>
                         <li className="space-y-4"><span
                             className="nc-Badge inline-flex px-2.5 py-1 rounded-full font-medium text-xs relative text-green-800 bg-green-100  ">Exposure </span><span
-                            className="block text-xl font-semibold">Reach millions with Chisfis</span>
+                            className="block text-xl font-semibold">Reach millions with Riadi</span>
 
                             <span
                             className="block mt-5 text-neutral-500 dark:text-neutral-400">Millions of people are searching for unique places to stay around the world</span>

@@ -7,16 +7,20 @@ import { useState, useEffect } from "react";
 import CreateService from "../modal/CreateService.jsx";
 import UpdateService from "../update/UpdateService.jsx";
 import DeleteService from "../modal/DeleteService.jsx";
+import {ClipLoader} from "react-spinners";
 
 const TableServices = (props) => {
     const [showModal, setShowModal] = useState(false);
     const [Edit, setUpdateModal] = useState(false);
     const [id , setId] = useState(null)
     const [Delete , setDeleteModal] = useState(false)
-
+    const [loader , setLoader] = useState(true)
 
     useEffect(() => {
         props.loader();
+        setTimeout(() => {
+        setLoader(false)
+        } , 700)
     }, []);
 
     let service = props.data.datalist || [];
@@ -52,51 +56,62 @@ const TableServices = (props) => {
 
     return (
         <>
-            <div className='flex mt-10 justify-between'>
-                <div className='text-white'>
-                    Add New Service
-                </div>
+            {loader ? (
+                <>
+                    <div className='flex justify-center h-[35rem] items-center '>
+                        <ClipLoader color="#ffffff"/>
+                    </div>
+                </>
+            ) : (
+                <>
+                    <div className='flex mt-10 justify-between'>
+                        <div className='text-white'>
+                            Add New Service
+                        </div>
 
-                <div>
-                    <button className='text-white text-xl px-7' onClick={() => {
-                        setShowModal(true);
-                    }}><FiPlus/>
-                    </button>
-                </div>
-            </div>
-            <div className="grid  w-full mx-auto overflow-x-hidden  grid-cols-1 p-4">
-                <div className="sm:-mx-6 lg:-mx-8">
-                    <div className="relative overflow-x-auto block w-full sm:px-6 lg:px-8">
-                        <div className=" ">
-                            <table className="w-full">
-                                <thead className="bg-gray-50 dark:bg-[#4F46E5]">
-                                <tr className="text-white">
-                                    <th scope="col"
-                                        className="p-3 text-xs font-medium tracking-wider text-left text-white uppercase">
-                                        Id
-                                    </th>
-                                    <th scope="col"
-                                        className="p-3 text-xs font-medium tracking-wider text-left text-white uppercase">
-                                        Name
-                                    </th>
-                                    <th scope="col"
-                                        className="p-3 text-xs font-medium tracking-wider text-left text-white uppercase">
-                                        created_at
-                                    </th>
-                                    <th scope="col"
-                                        className="p-3 text-xs font-medium tracking-wider text-left uppercase">
-                                        Action
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {serviceList}
-                                </tbody>
-                            </table>
+                        <div>
+                            <button className='text-white text-xl px-7' onClick={() => {
+                                setShowModal(true);
+                            }}><FiPlus/>
+                            </button>
                         </div>
                     </div>
-                </div>
-            </div>
+                    <div className="grid  w-full mx-auto overflow-x-hidden  grid-cols-1 p-4">
+                        <div className="sm:-mx-6 lg:-mx-8">
+                            <div className="relative overflow-x-auto block w-full sm:px-6 lg:px-8">
+                                <div className=" ">
+                                    <table className="w-full">
+                                        <thead className="bg-gray-50 dark:bg-[#4F46E5]">
+                                        <tr className="text-white">
+                                            <th scope="col"
+                                                className="p-3 text-xs font-medium tracking-wider text-left text-white uppercase">
+                                                Id
+                                            </th>
+                                            <th scope="col"
+                                                className="p-3 text-xs font-medium tracking-wider text-left text-white uppercase">
+                                                Name
+                                            </th>
+                                            <th scope="col"
+                                                className="p-3 text-xs font-medium tracking-wider text-left text-white uppercase">
+                                                created_at
+                                            </th>
+                                            <th scope="col"
+                                                className="p-3 text-xs font-medium tracking-wider text-left uppercase">
+                                                Action
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {serviceList}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </>
+            )}
+
             {showModal && <CreateService setOpenModal={setShowModal}/>}
             {Edit && <UpdateService setOpenModal={setUpdateModal} item={id}/>}
             {Delete && <DeleteService setOpenModal={setDeleteModal} item={id}/>}

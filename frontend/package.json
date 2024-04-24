@@ -23,6 +23,7 @@
     "@material-tailwind/react": "^2.1.8",
     "@mui/material": "^5.15.6",
     "@paypal/react-paypal-js": "^8.2.0",
+    "@react-pdf/renderer": "^3.4.2",
     "@react-three/drei": "^9.99.0",
     "@react-three/fiber": "^8.15.16",
     "@reduxjs/toolkit": "^2.2.2",

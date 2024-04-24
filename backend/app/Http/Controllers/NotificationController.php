@@ -22,7 +22,6 @@ class NotificationController extends Controller
             })
             ->where('client_id', $client->id)
             ->latest('created_at')
-            ->take(5)
             ->get();
 
         return response()->json($notifications, 200);

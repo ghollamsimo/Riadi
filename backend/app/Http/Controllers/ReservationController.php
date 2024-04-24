@@ -69,6 +69,14 @@ class ReservationController extends Controller
             return response()->json(['message' => 'This Riad Is Already Fully Booked']);
         }
     }
+    public function BookedRiad($id){
+        $client = Client::where('user_id' , '=' , Auth::id())->first();
+        $reservation = Reservation::with('riad')->where('status' ,'=' , 'Booked')->orWhere('client_id' , '=' , $client->id)->findOrFail($id);
+        if($client->id !== $reservation->client_id){
+            return response()->json(['message' => 'Unothorized']);
+        }
+        return response()->json(['reservation' => $reservation]);
+    }
 
 
 }

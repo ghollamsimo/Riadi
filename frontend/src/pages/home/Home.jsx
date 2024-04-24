@@ -18,7 +18,7 @@ import Bennefits from "../../components/Bennefits.jsx";
 
 const Home = ({id}) => {
     const dispatch = useDispatch();
-    const [favori , setFavori] = useState(false)
+    const [favori] = useState(false)
 
     const handlePageChange = (pageNum) => {
         dispatch(fetchRaids(pageNum));
@@ -40,11 +40,11 @@ const Home = ({id}) => {
             <Bennefits/>
             <section className="py-3 bg-[#0E131F] rounded-t-3xl text-white sm:py-16 lg:py-2">
                 <div className='px-4 sm:pt-14 pt-5 '>
-                    <h1 className={`${`text-3xl sm:px-24 text-white md:text-4xl font-semibold`}`}>Featured places
+                    <h1 className={`${`text-3xl sm:px-24 text-white md:text-4xl font-semibold`}`}>Featured Riad
                         to stay
                     </h1>
-                    <p className={`${`text-gray-300 lg:text-xl text-lg sm:px-24 sm:text-2xl pt-3 pb-7`}`}>Popular places
-                        to stay that Chisfis recommends for you
+                    <p className={`${`text-gray-300 lg:text-xl text-lg sm:px-24 sm:text-2xl pt-3 pb-7`}`}>Popular Riad
+                        to stay that Riadi recommends for you
                     </p>
                     <div className={`${`px-0 sm:px-24 sm:pb-2`}`}>
 

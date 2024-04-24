@@ -89,3 +89,4 @@ Route::post('/reservation/booked/{reservations}', [\App\Http\Controllers\ClientC
 Route::post('/reservation/rejected/{riad_id}' , [\App\Http\Controllers\DrRiadController::class , 'ReservationRejected']);
 Route::post('/reservation/accepted/{reservations}', [\App\Http\Controllers\DrRiadController::class , 'Reservationaccepted']);
 Route::post('/confiramtion/reservation/{riad_id}' , [\App\Http\Controllers\ReservationController::class , 'store']);
+Route::get('/booked/reservation/{id}' , [\App\Http\Controllers\ReservationController::class , 'BookedRiad']);

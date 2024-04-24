@@ -82,6 +82,19 @@ export const UpdateStatusToBooked = (id , data) => {
         })
     }
 }
+export const BookedRiad = (id) => {
+    return async (dispatch) => {
+        dispatch(makeRequest())
+        const token = getCookie('ACCESS_TOKEN')
+        http.get(`/booked/reservation/${id}` , {
+            headers:{
+                Authorization: `Bearer ${token}`
+            }
+        }).then(response => {
+            dispatch(getListOfReservation(response.data))
+        })
+    }
+}
 export const AddReservation = (id ,data) => {
     return async (dispatch) => {
         const token = getCookie('ACCESS_TOKEN');

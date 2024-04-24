@@ -1,4 +1,4 @@
-import {addCommentList, deleteDataList, failRequest, getListOfCount, makeRequest} from "../Action.js";
+import  {addCommentList, deleteDataList, failRequest, getListOfCount, makeRequest} from "../Action.js";
 import {toast} from "react-toastify";
 import Api from "../../api/Api.jsx";
 import getCookie from "../../helpers/cookie.js";

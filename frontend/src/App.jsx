@@ -31,7 +31,7 @@ function App() {
     const shouldDisplayNavbar = !excludedRoutes.some(route => location.pathname.includes(route));
   //  const navigate = useNavigate();
     const token = getCookie('ACCESS_TOKEN');
-    const [loading, setLoading] = useState(true); // Set loading to true initially
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -50,7 +50,9 @@ function App() {
             } catch (error) {
                 console.error('Error fetching user data:', error);
             } finally {
+                setTimeout(() => {
                 setLoading(false);
+                }, 1500)
             }
         };
 

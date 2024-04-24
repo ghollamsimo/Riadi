@@ -114,7 +114,6 @@ class RiadController extends Controller
                     ]);
                 }
 
-
             if ($images) {
                 foreach ($images as $file) {
                     $filename = time() . '_' . $file->getClientOriginalName();
@@ -131,13 +130,21 @@ class RiadController extends Controller
         return response()->json(['error' => 'Unauthorized'], 401);
     }
 
-    public function show($id)
-    {
-        $riad = Riad::with('drriad.user' , 'categorie' , 'images' , 'serviceid'  )->findOrFail($id);
-        $comments = Comments::with('riad' , 'client.user')->where('riad_id' , $riad->id)->get();
-        return response()->json(['riad' => $riad , 'comment' => $comments] , 200);
-    }
+   public function show($id)
+   {
+       $riad = Riad::with('repas', 'drriad.user', 'categorie', 'images', 'services')->findOrFail($id);
 
+       $comments = Comments::with('riad', 'client.user')->where('riad_id', $riad->id)->get();
+
+       $repas_names = $riad->repas->pluck('name');
+       $services_names = $riad->services->pluck('name');
+
+       $riad_data = $riad->toArray();
+       $riad_data['repas_names'] = $repas_names;
+       $riad_data['services_names'] = $services_names;
+
+       return response()->json(['riad' => $riad_data, 'comment' => $comments], 200);
+   }
     public function update(RiadRequest $request, $id)
     {
         $user_id = Auth::id();

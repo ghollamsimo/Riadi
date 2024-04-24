@@ -19,14 +19,11 @@ import AcceptedReservationModal from "../../modal/AcceptedReservation.jsx";
 
 const Dashboard = ({ user}) => {
     const dispatch = useDispatch();
-    const [Accepted , setAccepted] = useState(false)
-    const [Delete , setDelete] = useState(false)
-    const [id , setId] = useState(null)
-    const riads = useSelector((state) => state.riadsData.datalist);
-    const reservation = useSelector((state) => state.reservations.datalist);
-    const reservationStatus = useSelector((state) => state.reservations.datalist[0]);
 
-    console.log('whati whati yalala', reservation)
+    const riads = useSelector((state) => state.riadsData.datalist);
+    const [id , setId] = useState(null)
+    const [Delete , setDelete] = useState(false)
+
     useEffect(() => {
         dispatch(fetchRaids());
         dispatch(fetchReservation())
@@ -45,8 +42,7 @@ const Dashboard = ({ user}) => {
                         <div className="relative group">
                             <div className="overflow-hidden rounded aspect-w-1 aspect-h-1">
                                 <img
-                                    className="object-cover w-full h-full transition-all duration-300 group-hover:scale-125"
-                                    src={`http://localhost:8000/storage/images/${riad.cover}`}
+                                    className="object-cover w-full h-full transition-all duration-300 group-hover:scale-125 aspect-video 	"                                    src={`http://localhost:8000/storage/images/${riad.cover}`}
                                     alt=""
                                 />
                             </div>
@@ -108,69 +104,6 @@ const Dashboard = ({ user}) => {
                             <p className="text-neutral-500 dark:text-neutral-400">Providing lake views, The Symphony 9
                                 Tam Coc in Ninh Binh provides accommodation, an outdoor.</p>
                             <div className="border-b border-neutral-200 dark:border-neutral-700 w-14"></div>
-                            {reservation && reservation.length > 0 ? (
-                                reservation.map((item, index) => (
-                                    <div key={index?.id} className=''>
-                                        <div className="border border-gray-700 p-4 rounded-xl">
-                                            <div className="relative group">
-                                                <div className="overflow-hidden rounded aspect-w-1 aspect-h-1">
-                                                    <img
-                                                        className="object-cover w-full h-full transition-all duration-300 group-hover:scale-125"
-                                                        src={`http://localhost:8000/storage/images/${item?.riad?.cover}`}
-                                                        alt=""
-                                                    />
-                                                </div>
-                                                <div className="absolute left-3 top-3">
-                                                    <p className="sm:px-3 sm:py-1 px-1.5 py-1 text-[8px] sm:text-xs font-bold flex tracking-wide text-white bg-[#111827] rounded-full gap-2">
-                                                        <span><CiLocationOn
-                                                            className="mt-0.5"/></span> {item?.
-                                                        riad?.localisation}
-                                                    </p>
-                                                </div>
-
-                                                <div className="absolute gap-2 flex justify-between right-3 top-3">
-                                                    <button
-                                                        onClick={() => {
-                                                            setAccepted(true);
-                                                            setId(reservationStatus?.id)
-                                                        }}
-                                                        className="sm:py-1 px-1 py-1 text-[20px] sm:text-lg font-bold flex tracking-wide text-white bg-[#111827] rounded-full gap-2">
-                                                        <span><GrValidate/></span>
-                                                    </button>
-
-                                                </div>
-                                                <div className="flex items-start justify-between mt-4 space-x-8">
-                                                    <div>
-                                                        <h3 className="text-xs font-bold text-white sm:text-sm md:text-base">
-                                                            <Link to={`/riaddetails/${item?.
-                                                                riad?.id}`} title="">
-                                                                Client Name:
-                                                                 {item?.client?.user?.name}
-                                                                <span className="inset-0" aria-hidden="true"></span>
-                                                            </Link>
-                                                        </h3>
-                                                        <div
-                                                            className="text-xs text-white sm:text-sm md:text-base line-clamp-1">
-                                                            <p>{item?.riad?.description}</p>
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="text-right">
-                                                        <p className="text-xs text-white sm:text-sm md:text-base">{item?.
-                                                            riad?.currency} {item?.
-                                                            riad?.prix}<span
-                                                            className="text-gray-400">/night</span></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                ))
-                            ) : (
-                                <div className='text-gray-400'>No Reservations Found</div>
-                            )}
 
 
                         </div>
@@ -181,11 +114,18 @@ const Dashboard = ({ user}) => {
                 <div className='w-full  lg:w-3/5 xl:w-2/3 space-y-8 lg:space-y-10 lg:pl-10 flex-shrink-0'>
                     <div className='border border-gray-700 p-4 rounded-xl'>
                         <div><h2 className="text-2xl text-white font-semibold">{user.email} listings</h2><span
-                            className="block mt-2 text-neutral-500 dark:text-neutral-400">Kevin Francis's listings is very rich, 5 star reviews help him to be more branded.</span>
+                            className="block mt-5 text-neutral-500 dark:text-neutral-400">{user.name} listings is very rich, 5 star reviews help him to be more branded.</span>
                         </div>
-                        <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
-                        <TableServices/>
+                        <div className="w-14 mt-5 mb-5 border-b border-neutral-200 dark:border-neutral-700"></div>
+                        {riads ? (
+                            <>
                         {renderRiads()}
+                            </>
+                        ) : (
+                            <>
+                                <div className='text-gray-600 mt-5 flex justify-center mx-auto'>No Riads found</div>
+                            </>
+                        )}
                         <div className='text-white flex mt-16 justify-center items-center'>
                             <Pagination
                                 totalItemsCount={riads.total}
@@ -213,7 +153,7 @@ const Dashboard = ({ user}) => {
                 </div>
             </main>
             {Delete && <DeleteRiad Modal={setDelete} item={id}/>}
-            {Accepted && <AcceptedReservationModal setOpenModal={setAccepted} item={id}/>}
+
         </>
     );
 };

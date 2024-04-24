@@ -40,6 +40,7 @@ const MultiStepForm = () => {
         etat : '',
     });
 
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prevFormData => ({
@@ -99,7 +100,7 @@ const MultiStepForm = () => {
         try {
             await dispatch(AddRiad(formData , token));
             dispatch(fetchRaids());
-        //    navigate('/directeur')
+            navigate('/directeur')
         } catch (error) {
             toast.error("Failed to add Riad");
             console.log(error);

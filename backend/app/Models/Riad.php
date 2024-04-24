@@ -50,13 +50,14 @@ class Riad extends Model
     public function categorie(){
         return $this->belongsTo(Categorie::class);
     }
-    public function services(){
-        return $this->belongsToMany(Services::class, 'riad__services')->withPivot('name');
-    }
 
-    public function serviceid(){
-        return $this->hasMany(Riad_Service::class);
-    }
+  public function services()
+  {
+      return $this->belongsToMany(Services::class, 'riad__services', 'riad_id', 'service_id');
+  }
+
+
+
 
     public function notifications()
     {

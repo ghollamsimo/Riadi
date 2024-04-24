@@ -17,8 +17,9 @@ class Services extends Model
         return $this->belongsTo(DrRiad::class);
     }
 
-    public function riads()
-    {
-        return $this->hasMany(Riad::class);
-    }
+   public function riads()
+   {
+       return $this->belongsToMany(Riad::class, 'riad__services', 'service_id', 'riad_id');
+   }
+
 }

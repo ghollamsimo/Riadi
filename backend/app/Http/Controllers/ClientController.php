@@ -33,10 +33,16 @@ class ClientController extends Controller
     public function BookedReservation($reservations ){
         $reservation = Reservation::findOrFail($reservations);
         $clientId = $reservation->client_id;
+        $notification = Notification::where('reservation_id' , '=' , $reservation->id);
         Client::findOrFail($clientId);
         $reservation->update([
             'status' => 'Booked',
         ]);
+        if ($reservation->status === 'Booked'){
+            $notification->delete();
+        }else{
+            return response()->json(['message' => 'Status In Not Booked To delete Notification'] , 200);
+        }
         return response()->json(['message' => 'Reservation Booked Successfully']);
     }
 

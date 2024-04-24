@@ -6,9 +6,11 @@ const UpdateStepFive = ({ handleChange, handleNext, handlePrev , handleCover}) =
     };
 
     const handleCoverChange = (e) => {
-        const fileList = e.target.files;
-        handleCover( fileList[0] );
-    }
+        const file = Array.from(e.target.files[0]);
+
+        console.log(file)
+        handleCover(file);
+    };
 
     return(
         <>
@@ -34,8 +36,12 @@ const UpdateStepFive = ({ handleChange, handleNext, handlePrev , handleCover}) =
                                     <div className="flex text-sm text-neutral-6000 dark:text-neutral-300"><label
                                         htmlFor="file-upload"
                                         className="relative cursor-pointer  rounded-md font-medium text-primary-6000 hover:text-primary-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-primary-500"><span>Upload a file</span><input
-                                        id="file-upload" name='cover' type="file" onChange={handleCoverChange}
-                                        className="sr-only"/></label><p
+                                        id="file-upload"
+                                        name='cover'
+                                        type="file"
+                                        onChange={handleCoverChange}
+                                        className="sr-only"
+                                    /></label><p
                                         className="pl-1">or drag and drop</p></div>
                                     <p className="text-xs text-neutral-500 dark:text-neutral-400">PNG, JPG, GIF up to
                                         10MB</p></div>
