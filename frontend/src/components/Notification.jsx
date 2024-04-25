@@ -16,7 +16,6 @@ const Notification = () => {
     const [loading , setLoading] = useState(true)
     const dispatch = useDispatch();
     const notification = useSelector((state) => state.notification);
-    const notifid = useSelector((state) => state.notification.datalist[0]?.id);
     const reservationId = useSelector((state) => state.notification.datalist[0]?.reservation_id);
 //  console.log('tetete',reservationId)
 //   console.log('nooot', notification)
@@ -72,7 +71,7 @@ const Notification = () => {
                 </span>
                 {isNotificationOpen && (
                     <div className='absolute z-10 text-left w-screen max-w-xs sm:max-w-sm px-4 mt-3 sm:right-0 sm:px-0 opacity-100 translate-y-0'>
-                        <div className="overflow-hidden rounded-2xl w-fit shadow-lg ring-1 ring-black ring-opacity-5">
+                        <div className="overflow-hidden  rounded-2xl w-fit shadow-lg ring-1 ring-black ring-opacity-5">
                             <div className="relative grid gap-8 bg-white dark:bg-[#1F2937] p-7">
                                 {loading ? (
                                     <div className='flex justify-center  items-center '>
@@ -82,7 +81,7 @@ const Notification = () => {
                                     <>
                                 <h3 className="text-xl font-semibold">Notifications</h3>
 
-                                        {notification.length > 0 ? (
+                                        {notification.length < 0 ? (
                                             <>
                                                 <div className='mx-auto justify-center flex '>No notification found
                                                 </div>
@@ -110,7 +109,7 @@ const Notification = () => {
         </div>
         <div className="ml-3 sm:ml-4 space-y-1">
             <p className="text-sm font-medium text-gray-900 dark:text-gray-200">{item.riad.drriad.user.name}</p>
-            <Link to={`/riad/${item?.id}`} className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">{item.message}</Link>
+            <p  className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">{item.message}</p>
             <p className="text-xs text-gray-400 dark:text-gray-400">{displayTimeDifference(item.created_at)}</p>
         </div>
 

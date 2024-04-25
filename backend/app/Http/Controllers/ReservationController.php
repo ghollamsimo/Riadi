@@ -41,7 +41,7 @@ class ReservationController extends Controller
             return response()->json(['message' => 'Client not found.'], 404);
         }
 
-        if ($riad->guests > $validatedData['guests']) {
+        if ($riad->guests >= $validatedData['guests']) {
             if ($riad->etat === 'Automatic') {
                 Reservation::create([
                     'client_id' => $client->id,
@@ -61,8 +61,8 @@ class ReservationController extends Controller
                     'night' => $validatedData['night'],
                     'status' => 'Waiting'
                 ]);
-                $riad->guests -= $validatedData['guests'];
                 $riad->save();
+
                 return response()->json(['message' => 'Your Reservation Is Pending Approval']);
             }
         } else {

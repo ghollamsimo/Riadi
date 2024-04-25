@@ -21,6 +21,7 @@ const Profile = () => {
         form.append('password' , password)
 
         const response = await http.post(`/profile/${id}`, form)
+        console.log('eee' , response)
         return response.data
     }
     const validateForm = () => {
@@ -35,7 +36,7 @@ const Profile = () => {
         if (validateForm()){
             setLoading(true)
             await updateProfile(id)
-            navigate('/home')
+          //  navigate('/home')
             //toast.success('Profile updated successfully')
         }
     }

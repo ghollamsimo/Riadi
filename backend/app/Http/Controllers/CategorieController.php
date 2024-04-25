@@ -4,12 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Categorie;
 use Illuminate\Http\Request;
+use App\Services\Interfaces\CategorieServiceInterface;
+
 
 class CategorieController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    public function __construct(protected CategorieServiceInterface $service)
+    {
+
+    }
     public function index()
     {
         $categories = Categorie::all();
@@ -18,13 +24,7 @@ class CategorieController extends Controller
     }
     public function store(Request $request)
     {
-        $validate = $request->validate([
-            'name' => 'required'
-        ]);
-        Categorie::create([
-            'name' => $validate['name']
-        ]);
-        return response()->json(['message' => 'Categorie Created SuccessFully']);
+        return $this->service->store($request);
     }
     public function update(Request $request, Categorie $id)
     {

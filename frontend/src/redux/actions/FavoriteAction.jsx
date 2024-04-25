@@ -1,4 +1,4 @@
-import {deleteDataList, failRequest, getListOfFavorites, makeRequest} from "../Action.js";
+import {deleteDataList, failRequest, getListOfFavorites, loading, makeRequest} from "../Action.js";
 import getCookie from "../../helpers/cookie.js";
 import Api from "../../api/Api.jsx";
 import {toast} from "react-toastify";
@@ -15,6 +15,8 @@ export const fetchFavorite = () => {
         })
             .then(response => {
                 dispatch(getListOfFavorites( response.data));
+                dispatch(loading(false));
+
             })
             .catch(error => {
                 dispatch(failRequest(error.message));

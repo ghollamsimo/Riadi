@@ -3,7 +3,6 @@ import {GrFavorite} from "react-icons/gr";
 import {Link} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import Aos from "aos";
-import {PayPalButtons, PayPalScriptProvider} from "@paypal/react-paypal-js";
 import {AddReservation} from "../../redux/actions/ReservationAction.jsx";
 import {toast} from "react-toastify";
 import {useDispatch} from "react-redux";
@@ -17,6 +16,7 @@ const PayPage = ({setOpenModal , id}) => {
     const [Waiting] = useState('Waiting')
     const [Manual] = useState('Manual')
  //   const [Manual] = useState('Manual')
+  //  console.log('guests' , guests)
     const handleChangeGuests = () => {
         if (guests < 15){
             setGuests(guests + 1)
@@ -255,6 +255,7 @@ const PayPage = ({setOpenModal , id}) => {
                                                         </div>
                                                     </div>
                                                     <button
+
                                                         type='submit'
                                                         className="nc-Button mt-5 mx-auto w-full relative h-auto inline-flex items-center justify-center rounded-full transition-colors text-sm sm:text-base font-medium px-4 py-3 sm:px-6 ttnc-ButtonPrimary disabled:bg-opacity-70 bg-[#4F46E5] hover:bg-primary-700 text-neutral-50 "> Reservation
                                                     </button>

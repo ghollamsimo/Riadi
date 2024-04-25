@@ -107,7 +107,7 @@ export const AddReservation = (id ,data) => {
                 }
             });
             dispatch(addReservationList(response.data));
-            toast.success('Reservation Has Been Pendding To Confirmed ');
+          //  toast.success('Reservation Has Been Pendding To Confirmed ');
         } catch (error) {
             dispatch(failRequest(error.message));
             toast.error('Failed to add Riad');

@@ -22,6 +22,7 @@ import NotFounde from "./pages/home/NotFounde.jsx";
 import MultipleUpdateSteps from "./update/RiadUpdate/MultipleUpdateSteps.jsx";
 import RiadSinglePage from "./pages/home/RiadSinglePage.jsx";
 import {ClipLoader} from "react-spinners";
+import ContactUs from "./pages/home/ContactUs.jsx";
 function App() {
     const location = useLocation();
     const [user, setUser] = useState(null);
@@ -50,9 +51,7 @@ function App() {
             } catch (error) {
                 console.error('Error fetching user data:', error);
             } finally {
-                setTimeout(() => {
                 setLoading(false);
-                }, 1500)
             }
         };
 
@@ -119,8 +118,9 @@ function App() {
 
                         {isClient && (
                             <>
-                                <Route path='/riad/:id' element={<RiadSinglePage/>} />
+                                <Route path='/riad/:id' element={<RiadSinglePage />} />
                                 <Route path='/home' element={<Home id={user}/>} />
+                                <Route path='/contact' element={<ContactUs/>}/>
                             </>
                         )}
 

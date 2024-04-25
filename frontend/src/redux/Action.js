@@ -16,7 +16,7 @@ import {
     ADD_COMMENT_LIST,
     GET_COMMENT_LIST,
     GET_FAVORITE_LIST,
-    ADD_RESERVATION_LIST, GET_RESERVATION_LIST, GET_COUNT_LIST
+    ADD_RESERVATION_LIST, GET_RESERVATION_LIST, GET_COUNT_LIST, LOADING
 } from "./ActionType.js";
 import Api from '../api/Api.jsx';
 import {toast} from "react-toastify";
@@ -32,7 +32,9 @@ export const failRequest = (error) => ({
     type: FAIL_REQUEST,
     payload: error
 });
-
+export const loading = () => ({
+    type: LOADING
+})
 export const getDataList = (data) => ({
     type: GET_DATA_LIST,
     payload: data

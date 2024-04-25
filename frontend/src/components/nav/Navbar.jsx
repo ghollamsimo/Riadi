@@ -48,15 +48,11 @@ function Navbar({id}) {
                             <li>
                                 <Link to="/home" >Home</Link>
                             </li>
+
                             <li>
-                                <Link to="/profile">Riads</Link>
+                                <Link to="/contact">Contact</Link>
                             </li>
-                            <li>
-                                <Link to="/Works">Distination</Link>
-                            </li>
-                            <li>
-                                <Link to="/help">Help</Link>
-                            </li>
+
                             <div className='relative'>
                                 <span
                                     className=' w-12 h-12 rounded-full text-neutral-700 dark:text-neutral-300   transition-all focus:outline-none flex items-center justify-center'>

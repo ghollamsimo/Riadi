@@ -1,7 +1,8 @@
-import  {addCommentList, deleteDataList, failRequest, getListOfCount, makeRequest} from "../Action.js";
+import {addCommentList, deleteDataList, failRequest, getListOfCount, loading, makeRequest} from "../Action.js";
 import {toast} from "react-toastify";
 import Api from "../../api/Api.jsx";
 import getCookie from "../../helpers/cookie.js";
+import loadingdata from "../../components/Loadingdata.jsx";
 
 const {http} = Api()
 
@@ -17,6 +18,8 @@ export const AddComment = (id , data) => {
                 }
             });
             dispatch(addCommentList(response.data));
+            dispatch(loading(false));
+
             toast.success('Comments Added successfully');
         } catch (error) {
             dispatch(failRequest(error.message));
@@ -45,14 +48,15 @@ export const DeleteComment = (id) => {
 }
 export const fetchCommentsCount = (id) => {
     return (dispatch) => {
-        dispatch(makeRequest())
+        dispatch(makeRequest());
         const token = getCookie('ACCESS_TOKEN')
         http.get(`/comment/count/${id}` , {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         }).then(response => {
-            dispatch(getListOfCount(response.data))
+            dispatch(getListOfCount(response.data));
+            dispatch(loading(false));
         }) .catch(error => {
             dispatch(failRequest(error.message));
         });

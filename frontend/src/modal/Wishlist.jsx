@@ -11,13 +11,10 @@ const Wishlist = ({setOpenModal}) => {
     const dispatch = useDispatch()
     const wishlist = useSelector((state) => state.favorite.datalist);
     const wishliststatus = useSelector((state) => state.favorite.datalist[0]?.status === 1)
-   const [loading , setLoading] = useState(true)
+   const loading  = useSelector((state) => state.favorite.loading)
 
     useEffect(() => {
         dispatch(fetchFavorite())
-        setTimeout(() => {
-        setLoading(false)
-        }, 500)
     }, [dispatch]);
 
     const handledelete = (id) => {

@@ -133,9 +133,8 @@ class RiadController extends Controller
    public function show($id)
    {
        $riad = Riad::with('repas', 'drriad.user', 'categorie', 'images', 'services')->findOrFail($id);
-
        $comments = Comments::with('riad', 'client.user')->where('riad_id', $riad->id)->get();
-
+       $commentsCount = Comments::where('riad_id' , '=' , $riad->id)->count();
        $repas_names = $riad->repas->pluck('name');
        $services_names = $riad->services->pluck('name');
 
@@ -143,7 +142,7 @@ class RiadController extends Controller
        $riad_data['repas_names'] = $repas_names;
        $riad_data['services_names'] = $services_names;
 
-       return response()->json(['riad' => $riad_data, 'comment' => $comments], 200);
+       return response()->json(['riad' => $riad_data, 'comment' => $comments , 'commentsCount'  => $commentsCount], 200);
    }
     public function update(RiadRequest $request, $id)
     {

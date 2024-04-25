@@ -18,13 +18,15 @@ const RiadSinglePage = () =>{
     const [comment , setComment] = useState('')
     const [dropdown , setDropdown] = useState(false)
     const [Pay , setPay] = useState(false)
-    const [guests , setGuests] = useState(1)
+    const [guests , setGuests] = useState(0)
     const {id} = useParams();
-    const [loading , setLoading] = useState(true)
+    const loading  = useSelector((state) => state.riadsData.loading);
     const riad = useSelector((state) => state.riadsData.datalist?.riad);
     const repas = useSelector((state) => state.riadsData.datalist?.riad?.repas_names);
     const services = useSelector((state) => state.riadsData.datalist?.riad?.services_names);
     const comments = useSelector((state) => state.riadsData.datalist?.comment)
+  //  console.log('client' , comments[0].client_id)
+    const countComments = useSelector((state) => state.riadsData.datalist?.commentsCount)
     const images = useSelector((state) => state.riadsData.datalist?.riad);
    // console.log('l9ees' , repas)
     const handleChangeGuests = () => {
@@ -62,8 +64,7 @@ const RiadSinglePage = () =>{
     }
     useEffect(() => {
         dispatch(fetchRiad(id));
-        dispatch(fetchCommentsCount(riad?.id))
-        setLoading(false)
+        dispatch(fetchCommentsCount(riad?.id));
     }, [dispatch, id]);
 
     const dateComments = riad && moment(comments.created_at).format('MMM DD, YYYY');
@@ -79,6 +80,7 @@ const RiadSinglePage = () =>{
     return(
         <>
             <Navbar/>
+
             {loading ? (
                 <div className='flex justify-center  items-center h-screen'>
                     <ClipLoader color="#ffffff"/>
@@ -209,7 +211,7 @@ const RiadSinglePage = () =>{
                             </div>
 
                             <div className="listingSection__wrap px-12 py-6 border-gray-600 rounded-xl border">
-                                <h2 className="text-2xl font-semibold">Reviews ()</h2>
+                                <h2 className="text-2xl font-semibold">Reviews ({countComments})</h2>
                                 <div className="w-14 mt-5 border-b border-neutral-200 dark:border-neutral-700">
 
                                 </div>
@@ -422,12 +424,22 @@ const RiadSinglePage = () =>{
                                             <span>{riad && riad.prix * riad.maxnight} {riad && riad.currency}</span>
                                         </div>
                                     </div>
-                                    <button onClick={() => {
-                                        setPay(true)
-                                    }}
-                                            className="nc-Button mt-5 mx-auto w-full relative h-auto inline-flex items-center justify-center rounded-full transition-colors text-sm sm:text-base font-medium px-4 py-3 sm:px-6 ttnc-ButtonPrimary disabled:bg-opacity-70 bg-[#4F46E5] hover:bg-primary-700 text-neutral-50 "
-                                            rel="noopener noreferrer">Reserve
-                                    </button>
+                                    {riad && riad.guests === 0 ? (
+                                        <>
+                                            <button disabled
+                                                    className="nc-Button cursor-not-allowed mt-5 mx-auto w-full relative h-auto inline-flex items-center justify-center rounded-full transition-colors text-sm sm:text-base font-medium px-4 py-3 sm:px-6 ttnc-ButtonPrimary disabled:bg-opacity-70 bg-[#4F46E5] hover:bg-primary-700 text-neutral-50 "
+                                                    rel="noopener noreferrer">Reserve
+                                            </button>
+                                        </>
+                                    ) : (
+                                        <button onClick={() => {
+                                            setPay(true)
+                                        }}
+                                                className="nc-Button mt-5 mx-auto w-full relative h-auto inline-flex items-center justify-center rounded-full transition-colors text-sm sm:text-base font-medium px-4 py-3 sm:px-6 ttnc-ButtonPrimary disabled:bg-opacity-70 bg-[#4F46E5] hover:bg-primary-700 text-neutral-50 "
+                                                rel="noopener noreferrer">Reserve
+                                        </button>
+                                    )}
+
                                 </div>
                             </div>
                         </div>

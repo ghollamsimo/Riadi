@@ -4,13 +4,15 @@ import {
     deleteDataList,
     failRequest,
     getDataList,
-    getListsOfRiads,
+    getListsOfRiads, loading,
     makeRequest,
     updateDataList
 } from "../Action.js";
 import Api from '../../api/Api.jsx'
 import {toast} from "react-toastify";
-const { http } = Api();
+import loadingdata from "../../components/Loadingdata.jsx";
+
+const {http} = Api();
 export const fetchRaids = (pageNum = 1) => {
     return (dispatch) => {
         dispatch(makeRequest());
@@ -45,23 +47,23 @@ export const fetchAdminRaids = (pageNum = 1) => {
 };
 
 export const fetchRiad = (id) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(makeRequest());
-        http.get('/riad/' +id)
-            .then(response => {
-                const riad = response.data;
-                dispatch(getListsOfRiads(riad));
-            })
-            .catch(error => {
-                dispatch(failRequest(error.message));
-            });
+        try {
+            const response = await http.get('/riad/' + id);
+            const riad = response.data;
+            dispatch(getListsOfRiads(riad));
+            dispatch(loading(false));
+        } catch (error) {
+            dispatch(failRequest(error.message));
+        }
     };
 };
 
-export const UpdateStatusOfRiad = (id , data) => {
+export const UpdateStatusOfRiad = (id, data) => {
     return (dispatch) => {
         dispatch(makeRequest());
-        http.post('/approvedriad/' + id , data)
+        http.post('/approvedriad/' + id, data)
             .then(response => {
                 dispatch(updateDataList(response.data));
             })
@@ -71,11 +73,11 @@ export const UpdateStatusOfRiad = (id , data) => {
     };
 }
 export const UpdateRiad = (payload) => {
-    const { id, data } = payload;
+    const {id, data} = payload;
     return (dispatch) => {
         dispatch(makeRequest());
         const token = getCookie('ACCESS_TOKEN');
-        http.post('/updateraid/'+ id , data , {
+        http.post('/updateraid/' + id, data, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -94,7 +96,7 @@ export const DeleteRiads = (id) => {
     return (dispatch) => {
         dispatch(makeRequest());
         const token = getCookie('ACCESS_TOKEN');
-        http.delete('/deleteriad/' + id , {
+        http.delete('/deleteriad/' + id, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
